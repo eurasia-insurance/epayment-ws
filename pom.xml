@@ -78,7 +78,7 @@
 			<dependency>
 				<groupId>tech.lapsa.epayment</groupId>
 				<artifactId>epayment-facade</artifactId>
-				<type>ejb</type>
+				<type>ejb-client</type>
 				<version>${epayment-facade.version}</version>
 			</dependency>
 			<!-- oldies -->
@@ -131,7 +131,7 @@
 		<dependency>
 			<groupId>tech.lapsa.epayment</groupId>
 			<artifactId>epayment-facade</artifactId>
-			<type>ejb</type>
+			<type>ejb-client</type>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>

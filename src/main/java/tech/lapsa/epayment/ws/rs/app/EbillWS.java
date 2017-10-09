@@ -17,8 +17,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import com.lapsa.epayment.facade.Ebill;
 import com.lapsa.epayment.facade.EpaymentFacade;
-import com.lapsa.epayment.facade.EpaymentFacade.Ebill;
 import com.lapsa.validation.NotNullValue;
 
 import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
