@@ -70,11 +70,11 @@
 				<artifactId>payara-jersey-extensions</artifactId>
 				<version>${payara-jersey-extensions.version}</version>
 			</dependency>
-			<!-- <dependency> -->
-			<!-- <groupId>tech.lapsa.payara</groupId> -->
-			<!-- <artifactId>payara-hibernate-validation</artifactId> -->
-			<!-- <version>${payara-hibernate-validation.version}</version> -->
-			<!-- </dependency> -->
+			<dependency>
+				<groupId>tech.lapsa.payara</groupId>
+				<artifactId>payara-hibernate-validation</artifactId>
+				<version>${payara-hibernate-validation.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>tech.lapsa.epayment</groupId>
 				<artifactId>epayment-facade</artifactId>
@@ -122,12 +122,12 @@
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>tech.lapsa.payara</groupId> -->
-		<!-- <artifactId>payara-hibernate-validation</artifactId> -->
-		<!-- <scope>runtime</scope> -->
-		<!-- <optional>false</optional> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>tech.lapsa.payara</groupId>
+			<artifactId>payara-hibernate-validation</artifactId>
+			<scope>runtime</scope>
+			<optional>false</optional>
+		</dependency>
 		<dependency>
 			<groupId>tech.lapsa.epayment</groupId>
 			<artifactId>epayment-facade</artifactId>
