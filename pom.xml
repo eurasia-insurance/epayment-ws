@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>tech.lapsa.maven</groupId>
+		<artifactId>maven-general</artifactId>
+		<version>3.0-SNAPSHOT</version>
+	</parent>
+
+	<groupId>tech.lapsa.epayment</groupId>
+	<artifactId>epayment-ws</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>Epayment Lib : Web-servics</name>
+
+	<properties>
+		<!-- BOMS -->
+		<javax-javaee-bom.version>7.0-SNAPSHOT</javax-javaee-bom.version>
+		<payara-bom.version>4.1.2-1-SNAPSHOT</payara-bom.version>
+		<javax-mail-root.version>2.0-SNAPSHOT</javax-mail-root.version>
+		<!-- tech -->
+		<java-jaxb-commons.version>1.0-SNAPSHOT</java-jaxb-commons.version>
+		<javax-rs-commons.version>1.0-SNAPSHOT</javax-rs-commons.version>
+		<payara-jersey-extensions.version>1.0-SNAPSHOT</payara-jersey-extensions.version>
+		<payara-hibernate-validation.version>1.0-SNAPSHOT</payara-hibernate-validation.version>
+		<epayment-facade.version>1.0-SNAPSHOT</epayment-facade.version>
+		<!-- oldies -->
+		<lapsa-lib.version>2.2-SNAPSHOT</lapsa-lib.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- BOMS -->
+			<dependency>
+				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-javaee-bom</artifactId>
+				<version>${javax-javaee-bom.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.payara</groupId>
+				<artifactId>payara-bom</artifactId>
+				<version>${payara-bom.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-mail-root</artifactId>
+				<version>${javax-mail-root.version}</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+			<!-- tech -->
+			<dependency>
+				<groupId>tech.lapsa.java</groupId>
+				<artifactId>java-jaxb-commons</artifactId>
+				<version>${java-jaxb-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-rs-commons</artifactId>
+				<version>${javax-rs-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.payara</groupId>
+				<artifactId>payara-jersey-extensions</artifactId>
+				<version>${payara-jersey-extensions.version}</version>
+			</dependency>
+			<!-- <dependency> -->
+			<!-- <groupId>tech.lapsa.payara</groupId> -->
+			<!-- <artifactId>payara-hibernate-validation</artifactId> -->
+			<!-- <version>${payara-hibernate-validation.version}</version> -->
+			<!-- </dependency> -->
+			<dependency>
+				<groupId>tech.lapsa.epayment</groupId>
+				<artifactId>epayment-facade</artifactId>
+				<type>ejb</type>
+				<version>${epayment-facade.version}</version>
+			</dependency>
+			<!-- oldies -->
+			<dependency>
+				<groupId>com.lapsa.lapsa-lib</groupId>
+				<artifactId>lapsa-validation</artifactId>
+				<version>${lapsa-lib.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<!-- tech -->
+		<dependency>
+			<groupId>tech.lapsa.java</groupId>
+			<artifactId>java-jaxb-commons</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>tech.lapsa.javax</groupId>
+			<artifactId>javax-mail-api</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>tech.lapsa.javax</groupId>
+			<artifactId>javax-mail-impl</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>tech.lapsa.javax</groupId>
+			<artifactId>javax-rs-commons</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>tech.lapsa.payara</groupId>
+			<artifactId>payara-jersey-extensions</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>tech.lapsa.payara</groupId> -->
+		<!-- <artifactId>payara-hibernate-validation</artifactId> -->
+		<!-- <scope>runtime</scope> -->
+		<!-- <optional>false</optional> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>tech.lapsa.epayment</groupId>
+			<artifactId>epayment-facade</artifactId>
+			<type>ejb</type>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.lapsa.lapsa-lib</groupId>
+			<artifactId>lapsa-validation</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<!-- JavaEE -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.ejb</groupId>
+			<artifactId>javax.ejb-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- Glassfish -->
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-server</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- test -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-all</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/version.properties</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/version.properties</exclude>
+				</excludes>
+			</resource>
+		</resources>
+	</build>
+
+	<scm>
+		<connection>scm:git:https://gitlab.lapsa.tech/lapsa/epayment/ws.git</connection>
+		<developerConnection>scm:git:https://gitlab.lapsa.tech/lapsa/epayment/ws.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<system>gitlab</system>
+		<url>https://gitlab.lapsa.tech/lapsa/epayment/ws/issues</url>
+	</issueManagement>
+
+
+</project>
