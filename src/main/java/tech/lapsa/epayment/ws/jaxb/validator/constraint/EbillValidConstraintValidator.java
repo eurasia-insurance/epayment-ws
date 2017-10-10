@@ -2,6 +2,7 @@ package tech.lapsa.epayment.ws.jaxb.validator.constraint;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+import javax.validation.ValidationException;
 
 import com.lapsa.epayment.facade.EpaymentFacade;
 import com.lapsa.utils.BeanUtils;
@@ -20,14 +21,16 @@ public class EbillValidConstraintValidator implements ConstraintValidator<EbillV
 	if (value == null)
 	    return true;
 	try {
-	    EpaymentFacade facade = BeanUtils.getBean(EpaymentFacade.class);
-	    facade.newEbillBuilder().withFetched(value.getId()).build();
+	    BeanUtils.lookup(EpaymentFacade.class) //
+		    .orElseThrow(() -> new ValidationException("Cannot find an instance of EpaymentFacade")) //
+		    .newEbillBuilder() //
+		    .withFetched(value.getId()); // it should throws
+						 // IllegalArgumentException on
+						 // invalid id or nonexistent
+						 // entity
 	    return true;
 	} catch (IllegalArgumentException e) {
 	    return false;
-	} catch (NullPointerException e) {
-	    return false;
 	}
     }
-
 }
