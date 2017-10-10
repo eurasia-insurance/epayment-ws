@@ -5,7 +5,7 @@ import static com.lapsa.utils.RESTUtils.*;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
-import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -59,7 +59,7 @@ public class EbillWS extends ALanguageDetectorWS {
 	}
     }
 
-    @EJB
+    @Inject
     private EpaymentFacade facade;
 
     private XmlEbillInfo _fetchEbill(XmlEbillShort request)
