@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.lapsa.international.localization.LocalizationLanguage;
 import com.lapsa.validation.NotNullValue;
 import com.lapsa.validation.NotZeroAmount;
 
@@ -33,10 +32,6 @@ public class XmlEbillInfo extends XmlEbillShort {
     @XmlAttribute
     @NotNullValue
     protected EbillStatus status;
-
-    @XmlAttribute
-    @NotNullValue
-    protected LocalizationLanguage userLanguage;
 
     @XmlAttribute
     @XmlJavaTypeAdapter(XmlInstantAdapter.class)
@@ -67,13 +62,12 @@ public class XmlEbillInfo extends XmlEbillShort {
 	super(id);
     }
 
-    public XmlEbillInfo(String id, Double amount, EbillStatus status, LocalizationLanguage userLanguage,
+    public XmlEbillInfo(String id, Double amount, EbillStatus status,
 	    Instant created, Instant paid, XmlEbillPurpose purpose, XmlEbillMethod[] availableMethods,
 	    XmlEbillResult result) {
 	super(id);
 	this.amount = amount;
 	this.status = status;
-	this.userLanguage = userLanguage;
 	this.created = created;
 	this.paid = paid;
 	this.purpose = purpose;
@@ -108,14 +102,6 @@ public class XmlEbillInfo extends XmlEbillShort {
 
     public void setAvailableMethods(XmlEbillMethod[] availableMethods) {
 	this.availableMethods = availableMethods;
-    }
-
-    public LocalizationLanguage getUserLanguage() {
-	return userLanguage;
-    }
-
-    public void setUserLanguage(LocalizationLanguage userLanguage) {
-	this.userLanguage = userLanguage;
     }
 
     public void setCreated(Instant created) {

@@ -20,6 +20,7 @@ import javax.ws.rs.core.UriInfo;
 import com.lapsa.epayment.facade.Ebill;
 import com.lapsa.epayment.facade.EpaymentFacade;
 import com.lapsa.epayment.facade.QazkomFacade;
+import com.lapsa.epayment.facade.QazkomFacade.PaymentMethodBuilder;
 import com.lapsa.epayment.facade.QazkomFacade.PaymentMethodBuilder.PaymentMethod.HttpMethod;
 import com.lapsa.validation.NotNullValue;
 
@@ -79,7 +80,6 @@ public class EbillWS extends ALanguageDetectorWS {
 	response.setId(m.getId());
 	response.setCreated(m.getCreated());
 	response.setAmount(m.getAmount());
-	response.setUserLanguage(m.getConsumerLanguage());
 
 	XmlEbillPurpose purpose = new XmlEbillPurpose(
 		m.getItems().stream()
@@ -94,12 +94,16 @@ public class EbillWS extends ALanguageDetectorWS {
 	    Builder<XmlEbillMethod> builder = Stream.builder(); //
 	{ // qazkom method
 
-	    HttpMethod paymentMethod = qazkom.newPaymentMethodBuilder() //
-		    .forEbill(m)
+	    PaymentMethodBuilder paymentMethodBuilder = qazkom.newPaymentMethodBuilder() //
 		    .withPostbackURI(uriInfo.getBaseUriBuilder() //
 			    .path(WSPathNames.WS_QAZKOM) //
 			    .path(WSPathNames.WS_QAZKOM_OK) //
 			    .build()) //
+		    .forEbill(m);
+
+	    getAcceptLanguage().ifPresent(paymentMethodBuilder::withConsumerLanguage);
+
+	    HttpMethod paymentMethod = paymentMethodBuilder
 		    .build() //
 		    .getHttp();
 
