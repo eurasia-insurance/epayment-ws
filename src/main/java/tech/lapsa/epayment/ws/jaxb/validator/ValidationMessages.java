@@ -1,10 +1,10 @@
 package tech.lapsa.epayment.ws.jaxb.validator;
 
 public class ValidationMessages {
-    public static final String EBILL_VALID = "{tech.lapsa.epayment.ws.jaxb.validator.EbillValid.message}";
+    public static final String VALID_EBILL_ID = "{tech.lapsa.epayment.ws.jaxb.validator.ValidEbillId.message}";
 
     public static final String[] ALL = new String[] {
-	    EBILL_VALID
+	    VALID_EBILL_ID
     };
 
 }

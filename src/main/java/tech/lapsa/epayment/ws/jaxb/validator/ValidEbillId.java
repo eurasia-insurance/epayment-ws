@@ -9,14 +9,14 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import tech.lapsa.epayment.ws.jaxb.validator.constraint.EbillValidConstraintValidator;
+import tech.lapsa.epayment.ws.jaxb.validator.constraint.ValidEbillIdConstraintValidator;
 
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = EbillValidConstraintValidator.class)
-public @interface EbillValid {
+@Constraint(validatedBy = ValidEbillIdConstraintValidator.class)
+public @interface ValidEbillId {
 
-    String message() default ValidationMessages.EBILL_VALID;
+    String message() default ValidationMessages.VALID_EBILL_ID;
 
     Class<?>[] groups() default {};
 

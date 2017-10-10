@@ -30,11 +30,10 @@ import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillMethod;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPurpose;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPurposeItem;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillRequest;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillResult;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillShort;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpForm;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpFormParam;
-import tech.lapsa.epayment.ws.jaxb.validator.EbillValid;
 
 @Path("/" + WSPathNames.WS_EBILL)
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -47,11 +46,11 @@ public class EbillWS extends ALanguageDetectorWS {
 
     @POST
     @Path("/" + WSPathNames.WS_EBILL_FETCH)
-    public Response fetchEbillPOST(@NotNullValue @EbillValid @Valid XmlEbillShort request) {
+    public Response fetchEbillPOST(@NotNullValue @Valid XmlEbillRequest request) {
 	return fetchEbill(request);
     }
 
-    private Response fetchEbill(XmlEbillShort request) {
+    private Response fetchEbill(XmlEbillRequest request) {
 	try {
 	    XmlEbillInfo reply = _fetchEbill(request);
 	    return responseOk(reply, getLocaleOrDefault());
@@ -68,7 +67,7 @@ public class EbillWS extends ALanguageDetectorWS {
     @Inject
     private QazkomFacade qazkom;
 
-    private XmlEbillInfo _fetchEbill(XmlEbillShort request)
+    private XmlEbillInfo _fetchEbill(XmlEbillRequest request)
 	    throws WrongArgumentException, ServerException {
 
 	Ebill m = facade.newEbillFetcherBuilder() //
@@ -99,6 +98,7 @@ public class EbillWS extends ALanguageDetectorWS {
 			    .path(WSPathNames.WS_QAZKOM) //
 			    .path(WSPathNames.WS_QAZKOM_OK) //
 			    .build()) //
+		    .withReturnURI(request.getReturnUri()) //
 		    .forEbill(m);
 
 	    getAcceptLanguage().ifPresent(paymentMethodBuilder::withConsumerLanguage);

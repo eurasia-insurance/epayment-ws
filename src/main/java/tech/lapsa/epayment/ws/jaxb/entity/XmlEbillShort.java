@@ -9,12 +9,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import com.lapsa.validation.NotEmptyString;
+import com.lapsa.validation.NotNullValue;
+
+import tech.lapsa.epayment.ws.jaxb.validator.ValidEbillId;
+
 @XmlRootElement(name = "ebillShort")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlEbillShort implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
+    @NotNullValue
+    @NotEmptyString
+    @ValidEbillId
     protected String id;
 
     public XmlEbillShort() {
