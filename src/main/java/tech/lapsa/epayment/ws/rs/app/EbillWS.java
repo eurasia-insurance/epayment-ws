@@ -82,7 +82,8 @@ public class EbillWS extends ALanguageDetectorWS {
 
 	XmlEbillPurpose purpose = new XmlEbillPurpose(
 		m.getItems().stream()
-			.map(item -> new XmlEbillPurposeItem(item.getName(), item.getAmount(), item.getQuantity()))
+			.map(item -> new XmlEbillPurposeItem(item.getName(), item.getPrice(), item.getQuantity(),
+				item.getTotalAmount()))
 			.toArray(XmlEbillPurposeItem[]::new));
 	response.setPurpose(purpose);
 
