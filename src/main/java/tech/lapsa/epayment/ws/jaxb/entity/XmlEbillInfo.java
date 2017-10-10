@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.lapsa.validation.NotNullValue;
-import com.lapsa.validation.NotZeroAmount;
 
 import tech.lapsa.java.jaxb.adapter.XmlInstantAdapter;
 
@@ -23,11 +22,6 @@ import tech.lapsa.java.jaxb.adapter.XmlInstantAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlEbillInfo extends XmlEbillShort {
     private static final long serialVersionUID = 1L;
-
-    @XmlAttribute
-    @NotNullValue
-    @NotZeroAmount
-    protected Double totalAmount;
 
     @XmlAttribute
     @NotNullValue
@@ -62,11 +56,10 @@ public class XmlEbillInfo extends XmlEbillShort {
 	super(id);
     }
 
-    public XmlEbillInfo(String id, Double totalAmount, EbillStatus status,
-	    Instant created, Instant paid, XmlEbillPayment payment, XmlEbillMethod[] availableMethods,
-	    XmlEbillResult result) {
+    public XmlEbillInfo(String id, EbillStatus status, Instant created, Instant paid,
+	    XmlEbillPayment payment,
+	    XmlEbillMethod[] availableMethods, XmlEbillResult result) {
 	super(id);
-	this.totalAmount = totalAmount;
 	this.status = status;
 	this.created = created;
 	this.paid = paid;
@@ -126,13 +119,5 @@ public class XmlEbillInfo extends XmlEbillShort {
 
     public void setPaid(Instant paid) {
 	this.paid = paid;
-    }
-
-    public Double getTotalAmount() {
-	return totalAmount;
-    }
-
-    public void setTotalAmount(Double totalAmount) {
-	this.totalAmount = totalAmount;
     }
 }

@@ -18,7 +18,6 @@ import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpFormParam;
 public class SamplesUtil {
     public static XmlEbillInfo ebillInfoSample() {
 	XmlEbillInfo sample = new XmlEbillInfo("833835829896744", //
-		13711.82d, //
 		EbillStatus.READY, //
 		Instant.parse("2016-08-01T19:24:11Z"), //
 		Instant.parse("2016-08-01T19:24:11Z"), //
@@ -59,8 +58,7 @@ public class SamplesUtil {
     }
 
     public static XmlEbillPayment ebillPaymentSample() {
-	XmlEbillPayment sample = new XmlEbillPayment(
-		new XmlEbillPurposeItem[] { ebillPurposeItemSample() });
+	XmlEbillPayment sample = new XmlEbillPayment(13711.82d, new XmlEbillPurposeItem[] { ebillPurposeItemSample() });
 	return sample;
     }
 
