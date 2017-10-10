@@ -78,7 +78,7 @@ public class EbillWS extends ALanguageDetectorWS {
 	XmlEbillInfo response = new XmlEbillInfo();
 	response.setId(m.getId());
 	response.setCreated(m.getCreated());
-	response.setAmount(m.getAmount());
+	response.setTotalAmount(m.getAmount());
 
 	XmlEbillPurpose purpose = new XmlEbillPurpose(
 		m.getItems().stream()

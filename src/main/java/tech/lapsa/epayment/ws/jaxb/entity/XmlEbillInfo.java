@@ -27,7 +27,7 @@ public class XmlEbillInfo extends XmlEbillShort {
     @XmlAttribute
     @NotNullValue
     @NotZeroAmount
-    protected Double amount;
+    protected Double totalAmount;
 
     @XmlAttribute
     @NotNullValue
@@ -62,11 +62,11 @@ public class XmlEbillInfo extends XmlEbillShort {
 	super(id);
     }
 
-    public XmlEbillInfo(String id, Double amount, EbillStatus status,
+    public XmlEbillInfo(String id, Double totalAmount, EbillStatus status,
 	    Instant created, Instant paid, XmlEbillPurpose purpose, XmlEbillMethod[] availableMethods,
 	    XmlEbillResult result) {
 	super(id);
-	this.amount = amount;
+	this.totalAmount = totalAmount;
 	this.status = status;
 	this.created = created;
 	this.paid = paid;
@@ -78,14 +78,6 @@ public class XmlEbillInfo extends XmlEbillShort {
     @Override
     public String toString() {
 	return ToStringBuilder.reflectionToString(this, Constants.DEFAULT_TO_STRING_STYLE);
-    }
-
-    public Double getAmount() {
-	return amount;
-    }
-
-    public void setAmount(Double amount) {
-	this.amount = amount;
     }
 
     public EbillStatus getStatus() {
@@ -134,5 +126,13 @@ public class XmlEbillInfo extends XmlEbillShort {
 
     public void setPaid(Instant paid) {
 	this.paid = paid;
+    }
+
+    public Double getTotalAmount() {
+	return totalAmount;
+    }
+
+    public void setTotalAmount(Double totalAmount) {
+	this.totalAmount = totalAmount;
     }
 }

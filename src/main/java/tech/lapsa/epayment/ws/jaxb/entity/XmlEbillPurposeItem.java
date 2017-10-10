@@ -36,16 +36,16 @@ public class XmlEbillPurposeItem implements Serializable {
     @XmlAttribute
     @NotNullValue
     @Min(0)
-    private Double totalAmount;
+    private Double amount;
 
     public XmlEbillPurposeItem() {
     }
 
-    public XmlEbillPurposeItem(String title, Double price, Integer quantity, Double totalAmount) {
+    public XmlEbillPurposeItem(String title, Double price, Integer quantity, Double amount) {
 	this.title = title;
 	this.price = price;
 	this.quantity = quantity;
-	this.totalAmount = totalAmount;
+	this.amount = amount;
     }
 
     public XmlEbillPurposeItem(String title, Double price, Integer quantity) {
@@ -81,11 +81,11 @@ public class XmlEbillPurposeItem implements Serializable {
 	this.price = price;
     }
 
-    public Double getTotalAmount() {
-	return totalAmount;
+    public Double getAmount() {
+        return amount;
     }
 
-    public void setTotalAmount(Double totalAmount) {
-	this.totalAmount = totalAmount;
+    public void setAmount(Double amount) {
+        this.amount = amount;
     }
 }
