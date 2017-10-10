@@ -1,7 +1,7 @@
 package tech.lapsa.epayment.ws.jaxb.entity;
 
 import java.io.Serializable;
-import java.net.URL;
+import java.net.URI;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
@@ -23,7 +23,7 @@ public class XmlHttpForm implements Serializable {
 
     @XmlAttribute
     @NotNullValue
-    protected URL url;
+    protected URI uri;
 
     @XmlAttribute
     @NotNullValue
@@ -44,18 +44,18 @@ public class XmlHttpForm implements Serializable {
     public XmlHttpForm() {
     }
 
-    public XmlHttpForm(URL url, String method, XmlHttpFormParam[] params) {
-	this.url = url;
+    public XmlHttpForm(URI url, String method, XmlHttpFormParam[] params) {
+	this.uri = url;
 	this.method = method;
 	this.params = params;
     }
 
-    public URL getUrl() {
-	return url;
+    public URI getUri() {
+	return uri;
     }
 
-    public void setUrl(URL url) {
-	this.url = url;
+    public void setUri(URI uri) {
+	this.uri = uri;
     }
 
     public String getMethod() {

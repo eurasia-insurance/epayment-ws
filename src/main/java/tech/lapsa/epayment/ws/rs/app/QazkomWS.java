@@ -53,7 +53,7 @@ public class QazkomWS {
 
     private Response postbackPayment(String rawResponse) {
 	try {
-	    facade.newResponseBuilder() //
+	    facade.newResponseHandlerBuilder() //
 		    .withXml(rawResponse) //
 		    .build() //
 		    .handle();
