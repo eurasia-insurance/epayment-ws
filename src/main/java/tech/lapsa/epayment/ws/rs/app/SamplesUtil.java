@@ -5,8 +5,6 @@ import java.net.URISyntaxException;
 import java.time.Instant;
 import java.util.Arrays;
 
-import com.lapsa.international.localization.LocalizationLanguage;
-
 import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
 import tech.lapsa.epayment.ws.jaxb.entity.EbillStatus;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
@@ -22,7 +20,6 @@ public class SamplesUtil {
 	XmlEbillInfo sample = new XmlEbillInfo("833835829896744", //
 		13711.82d, //
 		EbillStatus.READY, //
-		LocalizationLanguage.ENGLISH, //
 		Instant.parse("2016-08-01T19:24:11Z"), //
 		Instant.parse("2016-08-01T19:24:11Z"), //
 		ebillPurposeSample(), //
