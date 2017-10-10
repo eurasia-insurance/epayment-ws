@@ -44,7 +44,7 @@ public class XmlEbillInfo extends XmlEbillShort {
     protected Instant paid;
 
     @Valid
-    protected XmlEbillPurpose purpose;
+    protected XmlEbillPayment payment;
 
     @XmlElementWrapper
     @XmlElementRef
@@ -63,14 +63,14 @@ public class XmlEbillInfo extends XmlEbillShort {
     }
 
     public XmlEbillInfo(String id, Double totalAmount, EbillStatus status,
-	    Instant created, Instant paid, XmlEbillPurpose purpose, XmlEbillMethod[] availableMethods,
+	    Instant created, Instant paid, XmlEbillPayment payment, XmlEbillMethod[] availableMethods,
 	    XmlEbillResult result) {
 	super(id);
 	this.totalAmount = totalAmount;
 	this.status = status;
 	this.created = created;
 	this.paid = paid;
-	this.purpose = purpose;
+	this.payment = payment;
 	this.availableMethods = availableMethods;
 	this.result = result;
     }
@@ -112,12 +112,12 @@ public class XmlEbillInfo extends XmlEbillShort {
 	this.result = result;
     }
 
-    public XmlEbillPurpose getPurpose() {
-	return purpose;
+    public XmlEbillPayment getPayment() {
+	return payment;
     }
 
-    public void setPurpose(XmlEbillPurpose purpose) {
-	this.purpose = purpose;
+    public void setPayment(XmlEbillPayment purpose) {
+	this.payment = purpose;
     }
 
     public Instant getPaid() {

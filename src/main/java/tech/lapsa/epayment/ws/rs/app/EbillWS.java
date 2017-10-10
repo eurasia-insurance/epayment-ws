@@ -28,7 +28,7 @@ import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
 import tech.lapsa.epayment.ws.jaxb.entity.EbillStatus;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillMethod;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPurpose;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPayment;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPurposeItem;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillRequest;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillResult;
@@ -80,12 +80,12 @@ public class EbillWS extends ALanguageDetectorWS {
 	response.setCreated(m.getCreated());
 	response.setTotalAmount(m.getAmount());
 
-	XmlEbillPurpose purpose = new XmlEbillPurpose(
+	XmlEbillPayment purpose = new XmlEbillPayment(
 		m.getItems().stream()
 			.map(item -> new XmlEbillPurposeItem(item.getName(), item.getPrice(), item.getQuantity(),
 				item.getTotalAmount()))
 			.toArray(XmlEbillPurposeItem[]::new));
-	response.setPurpose(purpose);
+	response.setPayment(purpose);
 
 	switch (m.getStatus()) {
 	case READY:

@@ -9,7 +9,7 @@ import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
 import tech.lapsa.epayment.ws.jaxb.entity.EbillStatus;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillMethod;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPurpose;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPayment;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPurposeItem;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillResult;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpForm;
@@ -22,7 +22,7 @@ public class SamplesUtil {
 		EbillStatus.READY, //
 		Instant.parse("2016-08-01T19:24:11Z"), //
 		Instant.parse("2016-08-01T19:24:11Z"), //
-		ebillPurposeSample(), //
+		ebillPaymentSample(), //
 		new XmlEbillMethod[] { ebillMethodSample() }, ebillResultSample());
 	return sample;
     }
@@ -58,8 +58,8 @@ public class SamplesUtil {
 	}
     }
 
-    public static XmlEbillPurpose ebillPurposeSample() {
-	XmlEbillPurpose sample = new XmlEbillPurpose(
+    public static XmlEbillPayment ebillPaymentSample() {
+	XmlEbillPayment sample = new XmlEbillPayment(
 		new XmlEbillPurposeItem[] { ebillPurposeItemSample() });
 	return sample;
     }

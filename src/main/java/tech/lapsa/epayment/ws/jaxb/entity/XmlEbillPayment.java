@@ -14,9 +14,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.lapsa.validation.NotNullValue;
 
-@XmlRootElement(name = "ebillPurpose")
+@XmlRootElement(name = "ebillPayment")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillPurpose implements Serializable {
+public class XmlEbillPayment implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @XmlElementWrapper
@@ -26,10 +26,10 @@ public class XmlEbillPurpose implements Serializable {
     @Size(min = 1)
     protected XmlEbillPurposeItem[] items;
 
-    public XmlEbillPurpose() {
+    public XmlEbillPayment() {
     }
 
-    public XmlEbillPurpose(XmlEbillPurposeItem[] items) {
+    public XmlEbillPayment(XmlEbillPurposeItem[] items) {
 	this.items = items;
     }
 
