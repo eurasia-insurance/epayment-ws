@@ -10,8 +10,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.lapsa.commons.function.MyNumbers;
-import com.lapsa.commons.function.MyStrings;
 import com.lapsa.validation.NotEmptyString;
 import com.lapsa.validation.NotNullValue;
 
@@ -27,21 +25,31 @@ public class XmlEbillPurposeItem implements Serializable {
 
     @XmlAttribute
     @NotNullValue
-    @Min(1)
+    @Min(0)
     private Double price;
 
     @XmlAttribute
     @NotNullValue
-    @Min(1)
+    @Min(0)
     protected Integer quantity;
+
+    @XmlAttribute
+    @NotNullValue
+    @Min(0)
+    private Double amount;
 
     public XmlEbillPurposeItem() {
     }
 
-    public XmlEbillPurposeItem(String title, Double price, Integer quantity) {
+    public XmlEbillPurposeItem(String title, Double price, Integer quantity, Double amount) {
 	setTitle(title);
 	setPrice(price);
 	setQuantity(quantity);
+	setAmount(amount);
+    }
+
+    public XmlEbillPurposeItem(String title, Double price, Integer quantity) {
+	this(title, price, quantity, price * quantity);
     }
 
     @Override
@@ -61,7 +69,7 @@ public class XmlEbillPurposeItem implements Serializable {
     }
 
     public void setTitle(String title) {
-	this.title = MyStrings.requireNonEmpty(title, "title");
+	this.title = title;
     }
 
     public Integer getQuantity() {
@@ -69,7 +77,7 @@ public class XmlEbillPurposeItem implements Serializable {
     }
 
     public void setQuantity(Integer quantity) {
-	this.quantity = MyNumbers.requireNonZero(quantity, "quantity");
+	this.quantity = quantity;
     }
 
     public Double getPrice() {
@@ -77,7 +85,11 @@ public class XmlEbillPurposeItem implements Serializable {
     }
 
     public void setPrice(Double price) {
-	this.price = MyNumbers.requireNonZero(price, "price");
+	this.price = price;
+    }
+
+    public void setAmount(Double amount) {
+	this.amount = amount;
     }
 
 }
