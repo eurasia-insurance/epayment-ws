@@ -3,9 +3,7 @@ package tech.lapsa.epayment.ws.jaxb.validator.constraint;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-import com.lapsa.kkb.dao.KKBEntityNotFound;
-import com.lapsa.kkb.dao.KKBOrderDAO;
-import com.lapsa.kkb.dao.KKBPeristenceOperationFailed;
+import com.lapsa.epayment.facade.EpaymentFacade;
 import com.lapsa.utils.BeanUtils;
 
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillShort;
@@ -21,18 +19,15 @@ public class EbillValidConstraintValidator implements ConstraintValidator<EbillV
     public boolean isValid(XmlEbillShort value, ConstraintValidatorContext context) {
 	if (value == null)
 	    return true;
-
 	try {
-	    KKBOrderDAO orderDAO = BeanUtils.getBean(KKBOrderDAO.class);
-	    orderDAO.findByIdByPassCache(value.getId());
-	} catch (KKBPeristenceOperationFailed e) {
-	    // Проверка должна быть пройдена, т.к. до сути проверки
-	    // не дошло
-	} catch (KKBEntityNotFound e) {
+	    EpaymentFacade facade = BeanUtils.getBean(EpaymentFacade.class);
+	    facade.newEbillBuilder().withFetched(value.getId()).build();
+	    return true;
+	} catch (IllegalArgumentException e) {
+	    return false;
+	} catch (NullPointerException e) {
 	    return false;
 	}
-
-	return true;
     }
 
 }
