@@ -38,6 +38,9 @@ public class XmlEbillInfo extends XmlEbillShort {
     protected Instant paid;
 
     @Valid
+    protected XmlEbillPayer payer;
+
+    @Valid
     protected XmlEbillPayment payment;
 
     @XmlElementWrapper
@@ -56,13 +59,14 @@ public class XmlEbillInfo extends XmlEbillShort {
 	super(id);
     }
 
-    public XmlEbillInfo(String id, EbillStatus status, Instant created, Instant paid,
+    public XmlEbillInfo(String id, EbillStatus status, Instant created, Instant paid, XmlEbillPayer payer,
 	    XmlEbillPayment payment,
 	    XmlEbillMethod[] availableMethods, XmlEbillResult result) {
 	super(id);
 	this.status = status;
 	this.created = created;
 	this.paid = paid;
+	this.payer = payer;
 	this.payment = payment;
 	this.availableMethods = availableMethods;
 	this.result = result;
@@ -119,5 +123,13 @@ public class XmlEbillInfo extends XmlEbillShort {
 
     public void setPaid(Instant paid) {
 	this.paid = paid;
+    }
+
+    public XmlEbillPayer getPayer() {
+	return payer;
+    }
+
+    public void setPayer(XmlEbillPayer payer) {
+	this.payer = payer;
     }
 }

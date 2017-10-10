@@ -28,6 +28,7 @@ import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
 import tech.lapsa.epayment.ws.jaxb.entity.EbillStatus;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillMethod;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPayer;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPayment;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPurposeItem;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillRequest;
@@ -78,6 +79,9 @@ public class EbillWS extends ALanguageDetectorWS {
 	XmlEbillInfo response = new XmlEbillInfo();
 	response.setId(m.getId());
 	response.setCreated(m.getCreated());
+
+	XmlEbillPayer payer = new XmlEbillPayer(m.getConsumerName(), m.getConsumerEmail());
+	response.setPayer(payer);
 
 	XmlEbillPayment payment = new XmlEbillPayment( //
 		m.getAmount(), //
