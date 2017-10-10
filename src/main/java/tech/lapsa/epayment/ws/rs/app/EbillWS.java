@@ -28,7 +28,8 @@ import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
 import tech.lapsa.epayment.ws.jaxb.entity.EbillStatus;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillMethod;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPurpose;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPayer;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPayment;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPurposeItem;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillRequest;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillResult;
@@ -78,14 +79,17 @@ public class EbillWS extends ALanguageDetectorWS {
 	XmlEbillInfo response = new XmlEbillInfo();
 	response.setId(m.getId());
 	response.setCreated(m.getCreated());
-	response.setAmount(m.getAmount());
 
-	XmlEbillPurpose purpose = new XmlEbillPurpose(
+	XmlEbillPayer payer = new XmlEbillPayer(m.getConsumerName(), m.getConsumerEmail());
+	response.setPayer(payer);
+
+	XmlEbillPayment payment = new XmlEbillPayment( //
+		m.getAmount(), //
 		m.getItems().stream()
 			.map(item -> new XmlEbillPurposeItem(item.getName(), item.getPrice(), item.getQuantity(),
 				item.getTotalAmount()))
 			.toArray(XmlEbillPurposeItem[]::new));
-	response.setPurpose(purpose);
+	response.setPayment(payment);
 
 	switch (m.getStatus()) {
 	case READY:

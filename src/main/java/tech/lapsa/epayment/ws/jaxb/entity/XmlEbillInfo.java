@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.lapsa.validation.NotNullValue;
-import com.lapsa.validation.NotZeroAmount;
 
 import tech.lapsa.java.jaxb.adapter.XmlInstantAdapter;
 
@@ -23,11 +22,6 @@ import tech.lapsa.java.jaxb.adapter.XmlInstantAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class XmlEbillInfo extends XmlEbillShort {
     private static final long serialVersionUID = 1L;
-
-    @XmlAttribute
-    @NotNullValue
-    @NotZeroAmount
-    protected Double amount;
 
     @XmlAttribute
     @NotNullValue
@@ -44,7 +38,10 @@ public class XmlEbillInfo extends XmlEbillShort {
     protected Instant paid;
 
     @Valid
-    protected XmlEbillPurpose purpose;
+    protected XmlEbillPayer payer;
+
+    @Valid
+    protected XmlEbillPayment payment;
 
     @XmlElementWrapper
     @XmlElementRef
@@ -62,15 +59,15 @@ public class XmlEbillInfo extends XmlEbillShort {
 	super(id);
     }
 
-    public XmlEbillInfo(String id, Double amount, EbillStatus status,
-	    Instant created, Instant paid, XmlEbillPurpose purpose, XmlEbillMethod[] availableMethods,
-	    XmlEbillResult result) {
+    public XmlEbillInfo(String id, EbillStatus status, Instant created, Instant paid, XmlEbillPayer payer,
+	    XmlEbillPayment payment,
+	    XmlEbillMethod[] availableMethods, XmlEbillResult result) {
 	super(id);
-	this.amount = amount;
 	this.status = status;
 	this.created = created;
 	this.paid = paid;
-	this.purpose = purpose;
+	this.payer = payer;
+	this.payment = payment;
 	this.availableMethods = availableMethods;
 	this.result = result;
     }
@@ -78,14 +75,6 @@ public class XmlEbillInfo extends XmlEbillShort {
     @Override
     public String toString() {
 	return ToStringBuilder.reflectionToString(this, Constants.DEFAULT_TO_STRING_STYLE);
-    }
-
-    public Double getAmount() {
-	return amount;
-    }
-
-    public void setAmount(Double amount) {
-	this.amount = amount;
     }
 
     public EbillStatus getStatus() {
@@ -120,12 +109,12 @@ public class XmlEbillInfo extends XmlEbillShort {
 	this.result = result;
     }
 
-    public XmlEbillPurpose getPurpose() {
-	return purpose;
+    public XmlEbillPayment getPayment() {
+	return payment;
     }
 
-    public void setPurpose(XmlEbillPurpose purpose) {
-	this.purpose = purpose;
+    public void setPayment(XmlEbillPayment purpose) {
+	this.payment = purpose;
     }
 
     public Instant getPaid() {
@@ -134,5 +123,13 @@ public class XmlEbillInfo extends XmlEbillShort {
 
     public void setPaid(Instant paid) {
 	this.paid = paid;
+    }
+
+    public XmlEbillPayer getPayer() {
+	return payer;
+    }
+
+    public void setPayer(XmlEbillPayer payer) {
+	this.payer = payer;
     }
 }
