@@ -19,6 +19,8 @@ import javax.ws.rs.core.UriInfo;
 
 import com.lapsa.epayment.facade.Ebill;
 import com.lapsa.epayment.facade.EpaymentFacade;
+import com.lapsa.epayment.facade.QazkomFacade;
+import com.lapsa.epayment.facade.QazkomFacade.PaymentMethodBuilder.PaymentMethod.HttpMethod;
 import com.lapsa.validation.NotNullValue;
 
 import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
@@ -62,16 +64,16 @@ public class EbillWS extends ALanguageDetectorWS {
     @Inject
     private EpaymentFacade facade;
 
+    @Inject
+    private QazkomFacade qazkom;
+
     private XmlEbillInfo _fetchEbill(XmlEbillShort request)
 	    throws WrongArgumentException, ServerException {
 
-	Ebill m = facade.newEbillBuilder() //
-		.withFetched(request.getId()) //
-		.withPostbackURI(uriInfo.getBaseUriBuilder() //
-			.path(WSPathNames.WS_QAZKOM) //
-			.path(WSPathNames.WS_QAZKOM_OK) //
-			.build())
-		.build();
+	Ebill m = facade.newEbillFetcherBuilder() //
+		.usingId(request.getId()) //
+		.build() //
+		.fetch();
 
 	XmlEbillInfo response = new XmlEbillInfo();
 	response.setId(m.getId());
@@ -91,10 +93,20 @@ public class EbillWS extends ALanguageDetectorWS {
 
 	    Builder<XmlEbillMethod> builder = Stream.builder(); //
 	{ // qazkom method
+
+	    HttpMethod paymentMethod = qazkom.newPaymentMethodBuilder() //
+		    .forEbill(m)
+		    .withPostbackURI(uriInfo.getBaseUriBuilder() //
+			    .path(WSPathNames.WS_QAZKOM) //
+			    .path(WSPathNames.WS_QAZKOM_OK) //
+			    .build()) //
+		    .build() //
+		    .getHttp();
+
 	    XmlHttpForm form = new XmlHttpForm();
-	    form.setUrl(m.getForm().getURL());
-	    form.setMethod(m.getForm().getMethod());
-	    form.setParams(m.getForm().getParams() //
+	    form.setUri(paymentMethod.getHttpAddress());
+	    form.setMethod(paymentMethod.getHttpMethod());
+	    form.setParams(paymentMethod.getHttpParams() //
 		    .entrySet() //
 		    .stream() //
 		    .map(x -> new XmlHttpFormParam(x.getKey(), x.getValue())) //
