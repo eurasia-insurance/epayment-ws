@@ -1,1 +1,1 @@
-tech.lapsa.epayment.ws.jaxb.validator.EbillValid.message = Электронный счет не найден
+tech.lapsa.epayment.ws.jaxb.validator.ValidEbillId.message = Электронный счет не найден

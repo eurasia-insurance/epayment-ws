@@ -1,35 +1,39 @@
 package tech.lapsa.epayment.ws.jaxb.entity;
 
-import java.io.Serializable;
+import java.net.URI;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.lapsa.validation.NotEmptyString;
 import com.lapsa.validation.NotNullValue;
 
-import tech.lapsa.epayment.ws.jaxb.validator.ValidEbillId;
+import tech.lapsa.java.jaxb.adapter.XmlURIAdapter;
 
-@XmlRootElement(name = "ebillShort")
+@XmlRootElement(name = "ebillRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillShort implements Serializable {
+public class XmlEbillRequest extends XmlEbillShort {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
     @NotNullValue
-    @NotEmptyString
-    @ValidEbillId
-    protected String id;
+    @XmlJavaTypeAdapter(XmlURIAdapter.class)
+    protected URI returnUri;
 
-    public XmlEbillShort() {
+    public XmlEbillRequest() {
     }
 
-    public XmlEbillShort(String id) {
-	this.id = id;
+    public XmlEbillRequest(String id) {
+	super(id);
+    }
+
+    public XmlEbillRequest(String id, URI returnUri) {
+	super(id);
+	this.returnUri = returnUri;
     }
 
     @Override
@@ -37,12 +41,11 @@ public class XmlEbillShort implements Serializable {
 	return ToStringBuilder.reflectionToString(this, Constants.DEFAULT_TO_STRING_STYLE);
     }
 
-    public String getId() {
-	return id;
+    public URI getReturnUri() {
+	return returnUri;
     }
 
-    public void setId(String id) {
-	this.id = id;
+    public void setReturnUri(URI returnUri) {
+	this.returnUri = returnUri;
     }
-
 }
