@@ -5,7 +5,7 @@ import static com.lapsa.utils.RESTUtils.*;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.inject.Singleton;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -59,13 +59,13 @@ public class EbillWS extends ALanguageDetectorWS {
 	}
     }
 
-    @Inject
-    private EpaymentFacade qazkomFacade;
+    @EJB
+    private EpaymentFacade facade;
 
     private XmlEbillInfo _fetchEbill(XmlEbillShort request)
 	    throws WrongArgumentException, ServerException {
 
-	Ebill m = qazkomFacade.newEbillBuilder() //
+	Ebill m = facade.newEbillBuilder() //
 		.withFetched(request.getId()) //
 		.withPostbackURI(uriInfo.getBaseUriBuilder() //
 			.path(WSPathNames.WS_QAZKOM) //

@@ -5,6 +5,7 @@ import static com.lapsa.utils.RESTUtils.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -48,12 +49,12 @@ public class QazkomWS {
 
     // PRIVATE
 
-    @Inject
-    private QazkomFacade qazkomFacade;
+    @EJB
+    private QazkomFacade facade;
 
     private Response postbackPayment(String rawResponse) {
 	try {
-	    qazkomFacade.newResponseBuilder() //
+	    facade.newResponseBuilder() //
 		    .withXml(rawResponse) //
 		    .build() //
 		    .handle();
