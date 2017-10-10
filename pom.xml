@@ -54,6 +54,13 @@
 				<scope>import</scope>
 				<type>pom</type>
 			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.epayment</groupId>
+				<artifactId>epayment-facade-root</artifactId>
+				<type>pom</type>
+				<version>${epayment-facade.version}</version>
+				<scope>import</scope>
+			</dependency>
 			<!-- tech -->
 			<dependency>
 				<groupId>tech.lapsa.java</groupId>
@@ -74,12 +81,6 @@
 				<groupId>tech.lapsa.payara</groupId>
 				<artifactId>payara-hibernate-validation</artifactId>
 				<version>${payara-hibernate-validation.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>tech.lapsa.epayment</groupId>
-				<artifactId>epayment-facade</artifactId>
-				<type>ejb</type>
-				<version>${epayment-facade.version}</version>
 			</dependency>
 			<!-- oldies -->
 			<dependency>
@@ -130,8 +131,7 @@
 		</dependency>
 		<dependency>
 			<groupId>tech.lapsa.epayment</groupId>
-			<artifactId>epayment-facade</artifactId>
-			<type>ejb</type>
+			<artifactId>epayment-facade-client</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>

@@ -17,8 +17,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import com.lapsa.epayment.facade.Ebill;
 import com.lapsa.epayment.facade.EpaymentFacade;
-import com.lapsa.epayment.facade.EpaymentFacade.Ebill;
 import com.lapsa.validation.NotNullValue;
 
 import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
@@ -60,12 +60,12 @@ public class EbillWS extends ALanguageDetectorWS {
     }
 
     @Inject
-    private EpaymentFacade qazkomFacade;
+    private EpaymentFacade facade;
 
     private XmlEbillInfo _fetchEbill(XmlEbillShort request)
 	    throws WrongArgumentException, ServerException {
 
-	Ebill m = qazkomFacade.newEbillBuilder() //
+	Ebill m = facade.newEbillBuilder() //
 		.withFetched(request.getId()) //
 		.withPostbackURI(uriInfo.getBaseUriBuilder() //
 			.path(WSPathNames.WS_QAZKOM) //

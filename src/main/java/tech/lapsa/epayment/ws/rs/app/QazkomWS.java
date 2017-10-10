@@ -49,11 +49,11 @@ public class QazkomWS {
     // PRIVATE
 
     @Inject
-    private QazkomFacade qazkomFacade;
+    private QazkomFacade facade;
 
     private Response postbackPayment(String rawResponse) {
 	try {
-	    qazkomFacade.newResponseBuilder() //
+	    facade.newResponseBuilder() //
 		    .withXml(rawResponse) //
 		    .build() //
 		    .handle();
