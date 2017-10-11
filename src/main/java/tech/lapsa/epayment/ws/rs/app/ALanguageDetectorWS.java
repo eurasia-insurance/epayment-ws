@@ -7,8 +7,9 @@ import java.util.stream.Stream;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 
-import com.lapsa.commons.function.MyOptionals;
 import com.lapsa.international.localization.LocalizationLanguage;
+
+import tech.lapsa.java.commons.function.MyOptionals;
 
 public abstract class ALanguageDetectorWS {
 

@@ -17,13 +17,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import com.lapsa.epayment.facade.Ebill;
-import com.lapsa.epayment.facade.EpaymentFacade;
-import com.lapsa.epayment.facade.QazkomFacade;
-import com.lapsa.epayment.facade.QazkomFacade.PaymentMethodBuilder;
-import com.lapsa.epayment.facade.QazkomFacade.PaymentMethodBuilder.PaymentMethod.HttpMethod;
 import com.lapsa.validation.NotNullValue;
 
+import tech.lapsa.epayment.facade.Ebill;
+import tech.lapsa.epayment.facade.EpaymentFacade;
+import tech.lapsa.epayment.facade.QazkomFacade;
+import tech.lapsa.epayment.facade.QazkomFacade.PaymentMethodBuilder;
+import tech.lapsa.epayment.facade.QazkomFacade.PaymentMethodBuilder.PaymentMethod.HttpMethod;
 import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
 import tech.lapsa.epayment.ws.jaxb.entity.EbillStatus;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
