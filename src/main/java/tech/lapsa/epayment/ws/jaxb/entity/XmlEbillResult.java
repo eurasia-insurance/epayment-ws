@@ -7,10 +7,13 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.lapsa.validation.NotNullValue;
+
+import tech.lapsa.java.jaxb.adapter.XmlInstantAdapter;
 
 @XmlRootElement(name = "ebillResult")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -27,6 +30,7 @@ public class XmlEbillResult implements Serializable {
 
     @XmlAttribute
     @NotNullValue
+    @XmlJavaTypeAdapter(XmlInstantAdapter.class)
     protected Instant paymentTimestamp;
 
     public XmlEbillResult() {
