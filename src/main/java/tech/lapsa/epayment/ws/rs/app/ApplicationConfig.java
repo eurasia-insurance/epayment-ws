@@ -14,9 +14,8 @@ import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.TracingConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
-import com.lapsa.jerseyExtensions.localization.ValidationMessagesLocalizationProvider;
-
 import tech.lapsa.epayment.ws.rs.provider.JacksonObjectMapperProvider;
+import tech.lapsa.payara.jersey.localization.ValidationMessagesLocalizationProvider;
 
 @ApplicationPath("")
 public class ApplicationConfig extends Application {
