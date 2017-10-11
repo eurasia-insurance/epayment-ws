@@ -16,13 +16,13 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.lapsa.commons.function.MyStrings;
 import com.lapsa.epayment.facade.QazkomFacade;
 import com.lapsa.mail2.MailException;
 import com.lapsa.mail2.MailFactory;
 import com.lapsa.mail2.MailMessageBuilder;
 
 import tech.lapsa.epayment.ws.mail.QAdmin;
+import tech.lapsa.java.commons.function.MyStrings;
 
 @Path("/" + WSPathNames.WS_QAZKOM)
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
