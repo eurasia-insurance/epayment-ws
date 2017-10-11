@@ -88,7 +88,8 @@ public class EbillWS extends ALanguageDetectorWS {
 		m.getItems().stream()
 			.map(item -> new XmlEbillPurposeItem(item.getName(), item.getPrice(), item.getQuantity(),
 				item.getTotalAmount()))
-			.toArray(XmlEbillPurposeItem[]::new));
+			.toArray(XmlEbillPurposeItem[]::new),
+		m.getExternalId());
 	response.setPayment(payment);
 
 	switch (m.getStatus()) {

@@ -65,7 +65,8 @@ public class SamplesUtil {
     }
 
     public static XmlEbillPayment ebillPaymentSample() {
-	XmlEbillPayment sample = new XmlEbillPayment(13711.82d, new XmlEbillPurposeItem[] { ebillPurposeItemSample() });
+	XmlEbillPayment sample = new XmlEbillPayment(13711.82d, new XmlEbillPurposeItem[] { ebillPurposeItemSample() },
+		"1231");
 	return sample;
     }
 
