@@ -5,9 +5,9 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 import javax.mail.Session;
 
-import tech.lapsa.javx.mail.MailBuilderException;
-import tech.lapsa.javx.mail.MailFactory;
-import tech.lapsa.javx.mail.impl.SessionMailFactory;
+import tech.lapsa.javax.mail.MailBuilderException;
+import tech.lapsa.javax.mail.MailFactory;
+import tech.lapsa.javax.mail.impl.SessionMailFactory;
 
 @Singleton
 public class MailFactoryProducer {

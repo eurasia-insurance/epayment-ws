@@ -19,9 +19,9 @@ import javax.ws.rs.core.Response;
 import tech.lapsa.epayment.facade.QazkomFacade;
 import tech.lapsa.epayment.ws.mail.QAdmin;
 import tech.lapsa.java.commons.function.MyStrings;
-import tech.lapsa.javx.mail.MailException;
-import tech.lapsa.javx.mail.MailFactory;
-import tech.lapsa.javx.mail.MailMessageBuilder;
+import tech.lapsa.javax.mail.MailException;
+import tech.lapsa.javax.mail.MailFactory;
+import tech.lapsa.javax.mail.MailMessageBuilder;
 
 @Path("/" + WSPathNames.WS_QAZKOM)
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
