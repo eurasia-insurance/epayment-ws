@@ -29,7 +29,7 @@ public class SamplesUtil {
     }
 
     public static XmlEbillResult ebillResultSample() {
-	XmlEbillResult sample = new XmlEbillResult(EbillMethodType.QAZKOM, "4444444444");
+	XmlEbillResult sample = new XmlEbillResult(EbillMethodType.QAZKOM, "4444444444", Instant.now());
 	return sample;
     }
 
