@@ -15,7 +15,6 @@ import org.glassfish.jersey.server.TracingConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import com.lapsa.jerseyExtensions.localization.ValidationMessagesLocalizationProvider;
-import com.lapsa.rs.authorization.AutheniticationFilterProvider;
 
 import tech.lapsa.epayment.ws.rs.provider.JacksonObjectMapperProvider;
 
@@ -31,7 +30,6 @@ public class ApplicationConfig extends Application {
 	classes = Stream.<Class<?>> builder() //
 		.add(JacksonFeature.class) //
 		.add(JacksonObjectMapperProvider.class) //
-		.add(AutheniticationFilterProvider.class) //
 		.add(RolesAllowedDynamicFeature.class) //
 		.add(ValidationMessagesLocalizationProvider.class) //
 
