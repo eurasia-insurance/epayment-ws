@@ -21,7 +21,7 @@ public class ValidEbillIdConstraintValidator implements ConstraintValidator<Vali
 	    return true;
 	try {
 	    BeanUtils.lookup(EpaymentFacade.class) //
-		    .orElseThrow(() -> new ValidationException("Cannot find an instance of EpaymentFacade")) //
+		    .orElseThrow(() -> new ValidationException("Cannot find an instance of " + EpaymentFacade.class)) //
 		    .newEbillFetcherBuilder() //
 		    .usingId(value); // it should throws
 				     // IllegalArgumentException on
