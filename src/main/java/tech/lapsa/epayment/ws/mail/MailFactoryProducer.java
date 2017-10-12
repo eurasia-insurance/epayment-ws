@@ -12,7 +12,7 @@ import tech.lapsa.javax.mail.impl.SessionMailFactory;
 @Singleton
 public class MailFactoryProducer {
 
-    public static final String JNDI_PROPERTIES_ADMIN_MAIL_SESSION = "eurasia36/mail/AdminNotificationSession";
+    public static final String JNDI_PROPERTIES_ADMIN_MAIL_SESSION = "epayment/mail/AdminNotification";
 
     @Resource(mappedName = JNDI_PROPERTIES_ADMIN_MAIL_SESSION)
     private Session adminMailSession;

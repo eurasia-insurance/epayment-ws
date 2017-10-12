@@ -3,12 +3,6 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
 	version="3.1">
 
-	<!-- RESOURCE-REFs -->
-	<resource-ref>
-		<res-ref-name>jsf/ProjectStage</res-ref-name>
-		<res-type>java.lang.String</res-type>
-	</resource-ref>
-
 	<!-- SECURITYs -->
 	<security-constraint>
 		<web-resource-collection>
