@@ -88,7 +88,8 @@ public class EbillWS extends ALanguageDetectorWS {
 		m.getItems().stream()
 			.map(item -> new XmlEbillPurposeItem(item.getName(), item.getPrice(), item.getQuantity(),
 				item.getTotalAmount()))
-			.toArray(XmlEbillPurposeItem[]::new));
+			.toArray(XmlEbillPurposeItem[]::new),
+		m.getExternalId());
 	response.setPayment(payment);
 
 	switch (m.getStatus()) {
@@ -136,7 +137,7 @@ public class EbillWS extends ALanguageDetectorWS {
 	case PAID:
 	    response.setStatus(EbillStatus.PAID);
 	    response.setPaid(m.getPaid());
-	    response.setResult(new XmlEbillResult(EbillMethodType.QAZKOM, m.getReference()));
+	    response.setResult(new XmlEbillResult(EbillMethodType.QAZKOM, m.getReference(), m.getPaid()));
 	    break;
 	default:
 	    throw new ServerException(String.format("Invalid payment status '%1$s'", m.getStatus()));

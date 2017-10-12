@@ -29,7 +29,7 @@ public class SamplesUtil {
     }
 
     public static XmlEbillResult ebillResultSample() {
-	XmlEbillResult sample = new XmlEbillResult(EbillMethodType.QAZKOM, "4444444444");
+	XmlEbillResult sample = new XmlEbillResult(EbillMethodType.QAZKOM, "4444444444", Instant.now());
 	return sample;
     }
 
@@ -65,7 +65,8 @@ public class SamplesUtil {
     }
 
     public static XmlEbillPayment ebillPaymentSample() {
-	XmlEbillPayment sample = new XmlEbillPayment(13711.82d, new XmlEbillPurposeItem[] { ebillPurposeItemSample() });
+	XmlEbillPayment sample = new XmlEbillPayment(13711.82d, new XmlEbillPurposeItem[] { ebillPurposeItemSample() },
+		"1231");
 	return sample;
     }
 

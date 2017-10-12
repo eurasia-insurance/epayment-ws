@@ -1,15 +1,19 @@
 package tech.lapsa.epayment.ws.jaxb.entity;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.lapsa.validation.NotNullValue;
+
+import tech.lapsa.java.jaxb.adapter.XmlInstantAdapter;
 
 @XmlRootElement(name = "ebillResult")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -24,12 +28,18 @@ public class XmlEbillResult implements Serializable {
     @NotNullValue
     protected String paymentReference;
 
+    @XmlAttribute
+    @NotNullValue
+    @XmlJavaTypeAdapter(XmlInstantAdapter.class)
+    protected Instant paymentTimestamp;
+
     public XmlEbillResult() {
     }
 
-    public XmlEbillResult(EbillMethodType type, String paymentReference) {
+    public XmlEbillResult(EbillMethodType type, String paymentReference, Instant paymentTimestamp) {
 	this.type = type;
 	this.paymentReference = paymentReference;
+	this.paymentTimestamp = paymentTimestamp;
     }
 
     @Override
@@ -51,5 +61,13 @@ public class XmlEbillResult implements Serializable {
 
     public void setPaymentReference(String paymentReference) {
 	this.paymentReference = paymentReference;
+    }
+
+    public Instant getPaymentTimestamp() {
+	return paymentTimestamp;
+    }
+
+    public void setPaymentTimestamp(Instant paymentTimestamp) {
+	this.paymentTimestamp = paymentTimestamp;
     }
 }
