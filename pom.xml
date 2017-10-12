@@ -36,28 +36,28 @@
 				<groupId>tech.lapsa.javax</groupId>
 				<artifactId>javax-javaee-bom</artifactId>
 				<version>${javax-javaee-bom.version}</version>
-				<scope>import</scope>
 				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>tech.lapsa.payara</groupId>
 				<artifactId>payara-bom</artifactId>
 				<version>${payara-bom.version}</version>
-				<scope>import</scope>
 				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>tech.lapsa.javax</groupId>
 				<artifactId>javax-mail-root</artifactId>
 				<version>${javax-mail-root.version}</version>
-				<scope>import</scope>
 				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>tech.lapsa.epayment</groupId>
 				<artifactId>epayment-facade-root</artifactId>
-				<type>pom</type>
 				<version>${epayment-facade.version}</version>
+				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<!-- tech -->
@@ -79,8 +79,10 @@
 			<!-- oldies -->
 			<dependency>
 				<groupId>com.lapsa.lapsa-lib</groupId>
-				<artifactId>lapsa-validation</artifactId>
+				<artifactId>lapsa-root</artifactId>
 				<version>${lapsa-lib.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
