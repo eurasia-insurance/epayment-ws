@@ -11,9 +11,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.lapsa.validation.NotNullValue;
-
 import tech.lapsa.java.jaxb.adapter.XmlInstantAdapter;
+import tech.lapsa.javax.validation.NotNullValue;
 
 @XmlRootElement(name = "ebillResult")
 @XmlAccessorType(XmlAccessType.FIELD)

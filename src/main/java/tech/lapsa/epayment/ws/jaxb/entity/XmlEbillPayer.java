@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.lapsa.validation.NotEmptyString;
-import com.lapsa.validation.NotNullValue;
+import tech.lapsa.javax.validation.NotEmptyString;
+import tech.lapsa.javax.validation.NotNullValue;
 
 @XmlRootElement(name = "ebillPayer")
 @XmlAccessorType(XmlAccessType.FIELD)
