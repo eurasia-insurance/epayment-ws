@@ -22,6 +22,7 @@
 		<javax-mail-root.version>2.0-SNAPSHOT</javax-mail-root.version>
 		<!-- tech -->
 		<java-jaxb-commons.version>1.0-SNAPSHOT</java-jaxb-commons.version>
+		<javax-validation-commons.version>1.0-SNAPSHOT</javax-validation-commons.version>
 		<payara-jersey-extensions.version>1.0-SNAPSHOT</payara-jersey-extensions.version>
 		<payara-hibernate-validation.version>1.0-SNAPSHOT</payara-hibernate-validation.version>
 		<epayment-facade.version>1.0-SNAPSHOT</epayment-facade.version>
@@ -67,6 +68,11 @@
 				<version>${java-jaxb-commons.version}</version>
 			</dependency>
 			<dependency>
+				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-validation-commons</artifactId>
+				<version>${javax-validation-commons.version}</version>
+			</dependency>
+			<dependency>
 				<groupId>tech.lapsa.payara</groupId>
 				<artifactId>payara-jersey-extensions</artifactId>
 				<version>${payara-jersey-extensions.version}</version>
@@ -108,6 +114,12 @@
 			<optional>false</optional>
 		</dependency>
 		<dependency>
+			<groupId>tech.lapsa.javax</groupId>
+			<artifactId>javax-validation-commons</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
 			<groupId>tech.lapsa.payara</groupId>
 			<artifactId>payara-jersey-extensions</artifactId>
 			<scope>compile</scope>
@@ -128,7 +140,7 @@
 		<!-- oldies -->
 		<dependency>
 			<groupId>com.lapsa.lapsa-lib</groupId>
-			<artifactId>lapsa-validation</artifactId>
+			<artifactId>lapsa-utils</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>

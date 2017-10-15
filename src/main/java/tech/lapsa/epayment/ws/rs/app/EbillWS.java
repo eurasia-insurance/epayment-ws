@@ -17,8 +17,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import com.lapsa.validation.NotNullValue;
-
 import tech.lapsa.epayment.facade.Ebill;
 import tech.lapsa.epayment.facade.EpaymentFacade;
 import tech.lapsa.epayment.facade.QazkomFacade;
@@ -35,6 +33,7 @@ import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillRequest;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillResult;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpForm;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpFormParam;
+import tech.lapsa.javax.validation.NotNullValue;
 
 @Path("/" + WSPathNames.WS_EBILL)
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })

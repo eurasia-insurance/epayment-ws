@@ -14,8 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import com.lapsa.validation.NotNullValue;
-import com.lapsa.validation.NotZeroAmount;
+import tech.lapsa.javax.validation.NotNullValue;
+import tech.lapsa.javax.validation.NotZeroAmount;
 
 @XmlRootElement(name = "ebillPayment")
 @XmlAccessorType(XmlAccessType.FIELD)
