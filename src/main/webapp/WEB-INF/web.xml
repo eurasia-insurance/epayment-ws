@@ -7,7 +7,7 @@
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>ws-secured</web-resource-name>
-			<url-pattern>/ebill/*</url-pattern>
+			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>*</role-name>

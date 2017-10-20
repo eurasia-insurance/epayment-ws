@@ -5,6 +5,7 @@ import static tech.lapsa.javax.rs.utility.RESTUtils.*;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 import javax.validation.Valid;
@@ -22,6 +23,7 @@ import tech.lapsa.epayment.facade.EpaymentFacade;
 import tech.lapsa.epayment.facade.QazkomFacade;
 import tech.lapsa.epayment.facade.QazkomFacade.PaymentMethodBuilder;
 import tech.lapsa.epayment.facade.QazkomFacade.PaymentMethodBuilder.PaymentMethod.HttpMethod;
+import tech.lapsa.epayment.ws.auth.EpaymentSecurity;
 import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
 import tech.lapsa.epayment.ws.jaxb.entity.EbillStatus;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
@@ -38,6 +40,7 @@ import tech.lapsa.javax.validation.NotNullValue;
 @Path("/" + WSPathNames.WS_EBILL)
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+@RolesAllowed({ EpaymentSecurity.ROLE_ADMIN, EpaymentSecurity.ROLE_ROBOT })
 @Singleton
 public class EbillWS extends ALanguageDetectorWS {
 
