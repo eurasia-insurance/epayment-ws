@@ -5,17 +5,17 @@
 
 	<!-- ROLEs -->
 	<security-role>
-		<role-name>admin</role-name>
+		<role-name>role-admin</role-name>
 	</security-role>
 	<security-role>
-		<role-name>robot</role-name>
+		<role-name>role-robot</role-name>
 	</security-role>
 
 	<!-- SECURITYs -->
 	<security-constraint>
 		<web-resource-collection>
 			<web-resource-name>ws-secured</web-resource-name>
-			<url-pattern>/*</url-pattern>
+			<url-pattern>/ebill/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
 			<role-name>*</role-name>

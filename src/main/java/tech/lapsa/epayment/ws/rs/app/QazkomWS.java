@@ -5,7 +5,9 @@ import static tech.lapsa.javax.rs.utility.RESTUtils.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -26,6 +28,8 @@ import tech.lapsa.javax.mail.MailMessageBuilder;
 @Path("/" + WSPathNames.WS_QAZKOM)
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @Produces(MediaType.TEXT_PLAIN)
+@PermitAll
+@Singleton
 public class QazkomWS {
     private Logger logger = Logger.getLogger(this.getClass().getName());
 

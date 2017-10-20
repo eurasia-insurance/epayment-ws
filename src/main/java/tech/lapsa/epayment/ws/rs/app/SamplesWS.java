@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
 
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
 
-@Path("/sample")
+@Path("/" + WSPathNames.WS_SAMPLES)
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @PermitAll
 @Singleton

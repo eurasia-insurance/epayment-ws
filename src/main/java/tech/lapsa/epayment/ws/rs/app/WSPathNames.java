@@ -7,4 +7,6 @@ public class WSPathNames {
 
     public static final String WS_EBILL = "ebill";
     public static final String WS_EBILL_FETCH = "fetch";
+
+    public static final String WS_SAMPLES = "samples";
 }

@@ -10,8 +10,8 @@ public final class EpaymentSecurity {
     private EpaymentSecurity() {
     }
 
-    public static final String ROLE_ADMIN = "admin";
-    public static final String ROLE_ROBOT = "robot";
+    public static final String ROLE_ADMIN = "role-admin";
+    public static final String ROLE_ROBOT = "role-robot";
 
     public static final Set<String> ALL = MySets.of(ROLE_ADMIN, ROLE_ROBOT);
 
