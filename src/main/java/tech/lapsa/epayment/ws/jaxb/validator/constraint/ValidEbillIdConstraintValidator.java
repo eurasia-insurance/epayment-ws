@@ -4,10 +4,9 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import javax.validation.ValidationException;
 
-import com.lapsa.utils.BeanUtils;
-
 import tech.lapsa.epayment.facade.EpaymentFacade;
 import tech.lapsa.epayment.ws.jaxb.validator.ValidEbillId;
+import tech.lapsa.javax.cdi.utility.BeanUtils;
 
 public class ValidEbillIdConstraintValidator implements ConstraintValidator<ValidEbillId, String> {
 

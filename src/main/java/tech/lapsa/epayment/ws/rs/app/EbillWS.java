@@ -1,6 +1,6 @@
 package tech.lapsa.epayment.ws.rs.app;
 
-import static com.lapsa.utils.RESTUtils.*;
+import static tech.lapsa.javax.rs.utility.RESTUtils.*;
 
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;

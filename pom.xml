@@ -22,6 +22,8 @@
 		<javax-mail-root.version>2.0-SNAPSHOT</javax-mail-root.version>
 		<!-- tech -->
 		<java-jaxb-commons.version>1.0-SNAPSHOT</java-jaxb-commons.version>
+		<javax-rs-commons.version>1.0-SNAPSHOT</javax-rs-commons.version>
+		<javax-cdi-commons.version>1.0-SNAPSHOT</javax-cdi-commons.version>
 		<javax-validation-commons.version>1.0-SNAPSHOT</javax-validation-commons.version>
 		<payara-jersey-extensions.version>1.0-SNAPSHOT</payara-jersey-extensions.version>
 		<payara-hibernate-validation.version>1.0-SNAPSHOT</payara-hibernate-validation.version>
@@ -69,6 +71,16 @@
 			</dependency>
 			<dependency>
 				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-rs-commons</artifactId>
+				<version>${javax-rs-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.javax</groupId>
+				<artifactId>javax-cdi-commons</artifactId>
+				<version>${javax-cdi-commons.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>tech.lapsa.javax</groupId>
 				<artifactId>javax-validation-commons</artifactId>
 				<version>${javax-validation-commons.version}</version>
 			</dependency>
@@ -82,14 +94,6 @@
 				<artifactId>payara-hibernate-validation</artifactId>
 				<version>${payara-hibernate-validation.version}</version>
 			</dependency>
-			<!-- oldies -->
-			<dependency>
-				<groupId>com.lapsa.lapsa-lib</groupId>
-				<artifactId>lapsa-root</artifactId>
-				<version>${lapsa-lib.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -98,6 +102,18 @@
 		<dependency>
 			<groupId>tech.lapsa.java</groupId>
 			<artifactId>java-jaxb-commons</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>tech.lapsa.javax</groupId>
+			<artifactId>javax-rs-commons</artifactId>
+			<scope>compile</scope>
+			<optional>false</optional>
+		</dependency>
+		<dependency>
+			<groupId>tech.lapsa.javax</groupId>
+			<artifactId>javax-cdi-commons</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
@@ -134,13 +150,6 @@
 		<dependency>
 			<groupId>tech.lapsa.epayment</groupId>
 			<artifactId>epayment-facade-client</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
-		<!-- oldies -->
-		<dependency>
-			<groupId>com.lapsa.lapsa-lib</groupId>
-			<artifactId>lapsa-utils</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
