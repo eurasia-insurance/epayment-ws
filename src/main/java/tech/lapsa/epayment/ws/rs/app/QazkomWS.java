@@ -2,9 +2,6 @@ package tech.lapsa.epayment.ws.rs.app;
 
 import static tech.lapsa.javax.rs.utility.RESTUtils.*;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -21,6 +18,7 @@ import javax.ws.rs.core.Response;
 import tech.lapsa.epayment.facade.QazkomFacade;
 import tech.lapsa.epayment.ws.mail.QAdmin;
 import tech.lapsa.java.commons.function.MyStrings;
+import tech.lapsa.java.commons.logging.MyLogger;
 import tech.lapsa.javax.mail.MailException;
 import tech.lapsa.javax.mail.MailFactory;
 import tech.lapsa.javax.mail.MailMessageBuilder;
@@ -31,7 +29,10 @@ import tech.lapsa.javax.mail.MailMessageBuilder;
 @PermitAll
 @Singleton
 public class QazkomWS {
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+
+    private final MyLogger logger = MyLogger.newBuilder() //
+	    .withNameOf(QazkomWS.class) //
+	    .build();
 
     @Inject
     @QAdmin
@@ -82,15 +83,15 @@ public class QazkomWS {
     }
 
     private Response handleServerError(Exception e, String rawResponse) {
-	logger.log(Level.SEVERE, String.format("Server throws %1$s exception while handling response '%2$s'",
-		e.getClass().getSimpleName(), rawResponse), e);
+	logger.SEVERE.log(e, "Server throws %1$s exception while handling response '%2$s'",
+		e.getClass().getSimpleName(), rawResponse);
 	mailServerErrorAdmin(e, rawResponse);
 	return serverError(e, rawResponse);
     }
 
     private Response handleApplicationError(Exception e, String rawResponse) {
-	logger.log(Level.SEVERE, String.format("Server throws %1$s exception while handling response '%2$s'",
-		e.getClass().getSimpleName(), rawResponse), e);
+	logger.SEVERE.log(e, "Server throws %1$s exception while handling response '%2$s'",
+		e.getClass().getSimpleName(), rawResponse);
 	mailApplicationErrorAdmin(e, rawResponse);
 	return applicationError(e, rawResponse);
     }
@@ -118,7 +119,7 @@ public class QazkomWS {
 	    messageBuilder.build()
 		    .send();
 	} catch (MailException e1) {
-	    logger.log(Level.SEVERE, e1.getMessage(), e1);
+	    logger.SEVERE.log(e1);
 	}
 
     }
