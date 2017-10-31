@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>tech.lapsa.maven</groupId>
 		<artifactId>maven-general</artifactId>
-		<version>3.0-SNAPSHOT</version>
+		<version>3.0</version>
 	</parent>
 
 	<groupId>tech.lapsa.epayment</groupId>
@@ -17,19 +17,19 @@
 
 	<properties>
 		<!-- BOMS -->
-		<javax-javaee-bom.version>7.0-SNAPSHOT</javax-javaee-bom.version>
-		<payara-bom.version>4.1.2-1-SNAPSHOT</payara-bom.version>
-		<javax-mail-root.version>2.0-SNAPSHOT</javax-mail-root.version>
+		<javax-javaee-bom.version>7.0</javax-javaee-bom.version>
+		<payara-bom.version>4.1.2-1</payara-bom.version>
+		<javax-mail-root.version>2.0</javax-mail-root.version>
 		<!-- tech -->
-		<java-jaxb-commons.version>1.0-SNAPSHOT</java-jaxb-commons.version>
-		<javax-rs-commons.version>1.0-SNAPSHOT</javax-rs-commons.version>
-		<javax-cdi-commons.version>1.0-SNAPSHOT</javax-cdi-commons.version>
-		<javax-validation-commons.version>1.0-SNAPSHOT</javax-validation-commons.version>
-		<payara-jersey-extensions.version>1.0-SNAPSHOT</payara-jersey-extensions.version>
-		<payara-hibernate-validation.version>1.0-SNAPSHOT</payara-hibernate-validation.version>
-		<epayment-facade.version>1.0-SNAPSHOT</epayment-facade.version>
+		<java-jaxb-commons.version>1.0</java-jaxb-commons.version>
+		<javax-rs-commons.version>1.0</javax-rs-commons.version>
+		<javax-cdi-commons.version>1.0</javax-cdi-commons.version>
+		<javax-validation-commons.version>1.0</javax-validation-commons.version>
+		<payara-jersey-extensions.version>1.0</payara-jersey-extensions.version>
+		<payara-hibernate-validation.version>1.0</payara-hibernate-validation.version>
+		<epayment-facade.version>1.0</epayment-facade.version>
 		<!-- oldies -->
-		<lapsa-lib.version>2.2-SNAPSHOT</lapsa-lib.version>
+		<lapsa-lib.version>2.2</lapsa-lib.version>
 	</properties>
 
 	<dependencyManagement>
