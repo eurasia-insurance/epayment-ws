@@ -5,7 +5,7 @@ import java.net.URISyntaxException;
 import java.time.Instant;
 import java.util.Arrays;
 
-import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
+import tech.lapsa.epayment.domain.PaymentMethod;
 import tech.lapsa.epayment.ws.jaxb.entity.EbillStatus;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillMethod;
@@ -29,12 +29,12 @@ public class SamplesUtil {
     }
 
     public static XmlEbillResult ebillResultSample() {
-	XmlEbillResult sample = new XmlEbillResult(EbillMethodType.QAZKOM, "4444444444", Instant.now());
+	XmlEbillResult sample = new XmlEbillResult(PaymentMethod.QAZKOM, "4444444444", Instant.now());
 	return sample;
     }
 
     public static XmlEbillMethod ebillMethodSample() {
-	XmlEbillMethod sample = new XmlEbillMethod(EbillMethodType.QAZKOM, httpFormSample());
+	XmlEbillMethod sample = new XmlEbillMethod(PaymentMethod.QAZKOM, httpFormSample());
 	return sample;
     }
 
