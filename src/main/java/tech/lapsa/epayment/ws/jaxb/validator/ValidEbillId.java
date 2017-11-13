@@ -14,6 +14,7 @@ import tech.lapsa.epayment.ws.jaxb.validator.constraint.ValidEbillIdConstraintVa
 @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER, TYPE })
 @Retention(RUNTIME)
 @Constraint(validatedBy = ValidEbillIdConstraintValidator.class)
+//TODO have to rename to ValidInvoiceNumber
 public @interface ValidEbillId {
 
     String message() default ValidationMessages.VALID_EBILL_ID;

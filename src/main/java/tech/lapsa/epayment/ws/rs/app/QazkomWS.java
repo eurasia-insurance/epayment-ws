@@ -57,10 +57,7 @@ public class QazkomWS {
 
     private Response postbackPayment(String rawResponse) {
 	try {
-	    facade.newResponseHandlerBuilder() //
-		    .withXml(rawResponse) //
-		    .build() //
-		    .handle();
+	    facade.handleResponse(rawResponse);
 	    return ok();
 	} catch (IllegalArgumentException e) {
 	    return handleApplicationError(e, rawResponse);

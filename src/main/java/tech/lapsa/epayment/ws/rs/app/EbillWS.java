@@ -18,13 +18,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import tech.lapsa.epayment.facade.Ebill;
+import tech.lapsa.epayment.domain.Invoice;
+import tech.lapsa.epayment.domain.PaymentMethod;
+import tech.lapsa.epayment.domain.QazkomPayment;
 import tech.lapsa.epayment.facade.EpaymentFacade;
+import tech.lapsa.epayment.facade.PaymentMethod.Http;
 import tech.lapsa.epayment.facade.QazkomFacade;
-import tech.lapsa.epayment.facade.QazkomFacade.PaymentMethodBuilder;
-import tech.lapsa.epayment.facade.QazkomFacade.PaymentMethodBuilder.PaymentMethod.HttpMethod;
 import tech.lapsa.epayment.ws.auth.EpaymentSecurity;
-import tech.lapsa.epayment.ws.jaxb.entity.EbillMethodType;
 import tech.lapsa.epayment.ws.jaxb.entity.EbillStatus;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillMethod;
@@ -35,6 +35,7 @@ import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillRequest;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillResult;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpForm;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpFormParam;
+import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.javax.validation.NotNullValue;
 
 @Path("/" + WSPathNames.WS_EBILL)
@@ -73,13 +74,10 @@ public class EbillWS extends ALanguageDetectorWS {
     private XmlEbillInfo _fetchEbill(XmlEbillRequest request)
 	    throws WrongArgumentException, ServerException {
 
-	Ebill m = facade.newEbillFetcherBuilder() //
-		.usingId(request.getId()) //
-		.build() //
-		.fetch();
+	Invoice m = facade.forNumber(request.getId());
 
 	XmlEbillInfo response = new XmlEbillInfo();
-	response.setId(m.getId());
+	response.setId(m.getNumber());
 	response.setCreated(m.getCreated());
 
 	XmlEbillPayer payer = new XmlEbillPayer(m.getConsumerName(), m.getConsumerEmail());
@@ -89,7 +87,7 @@ public class EbillWS extends ALanguageDetectorWS {
 		m.getAmount(), //
 		m.getItems().stream()
 			.map(item -> new XmlEbillPurposeItem(item.getName(), item.getPrice(), item.getQuantity(),
-				item.getTotalAmount()))
+				item.getTotal()))
 			.toArray(XmlEbillPurposeItem[]::new),
 		m.getExternalId());
 	response.setPayment(payment);
@@ -99,47 +97,40 @@ public class EbillWS extends ALanguageDetectorWS {
 	    response.setStatus(EbillStatus.READY);
 
 	    Builder<XmlEbillMethod> builder = Stream.builder(); //
-	{ // qazkom method
-
-	    PaymentMethodBuilder paymentMethodBuilder = qazkom.newPaymentMethodBuilder() //
-		    .withPostbackURI(uriInfo.getBaseUriBuilder() //
-			    .path(WSPathNames.WS_QAZKOM) //
-			    .path(WSPathNames.WS_QAZKOM_OK) //
-			    .build()) //
-		    .withReturnURI(request.getReturnUri()) //
-		    .forEbill(m);
-
-	    getAcceptLanguage().ifPresent(paymentMethodBuilder::withConsumerLanguage);
-
-	    HttpMethod paymentMethod = paymentMethodBuilder
-		    .build() //
+	// TODO qazkom method
+	{
+	    Http http = qazkom.httpMethod(uriInfo.getBaseUriBuilder() //
+		    .path(WSPathNames.WS_QAZKOM) //
+		    .path(WSPathNames.WS_QAZKOM_OK) //
+		    .build(), request.getReturnUri(), m) //
 		    .getHttp();
 
 	    XmlHttpForm form = new XmlHttpForm();
-	    form.setUri(paymentMethod.getHttpAddress());
-	    form.setMethod(paymentMethod.getHttpMethod());
-	    form.setParams(paymentMethod.getHttpParams() //
+	    form.setUri(http.getHttpAddress());
+	    form.setMethod(http.getHttpMethod());
+	    form.setParams(http.getHttpParams() //
 		    .entrySet() //
 		    .stream() //
 		    .map(x -> new XmlHttpFormParam(x.getKey(), x.getValue())) //
 		    .toArray(XmlHttpFormParam[]::new));
-	    XmlEbillMethod qazkomMethod = new XmlEbillMethod(EbillMethodType.QAZKOM, form);
+	    XmlEbillMethod qazkomMethod = new XmlEbillMethod(PaymentMethod.QAZKOM, form);
 	    builder.accept(qazkomMethod);
 	}
 
 	    response.setAvailableMethods(builder.build().toArray(XmlEbillMethod[]::new));
 
 	    break;
-	case CANCELED:
+	case EXPIRED:
 	    response.setStatus(EbillStatus.CANCELED);
-	    break;
-	case FAILED:
-	    response.setStatus(EbillStatus.FAILED);
 	    break;
 	case PAID:
 	    response.setStatus(EbillStatus.PAID);
-	    response.setPaid(m.getPaid());
-	    response.setResult(new XmlEbillResult(EbillMethodType.QAZKOM, m.getReference(), m.getPaid()));
+	    response.setPaid(m.getPayment().getCreated());
+	    switch (m.getPayment().getMethod()) {
+	    case QAZKOM:
+		QazkomPayment qp = MyObjects.requireA(m.getPayment(), QazkomPayment.class);
+		response.setResult(new XmlEbillResult(PaymentMethod.QAZKOM, qp.getReference(), m.getCreated()));
+	    }
 	    break;
 	default:
 	    throw new ServerException(String.format("Invalid payment status '%1$s'", m.getStatus()));
