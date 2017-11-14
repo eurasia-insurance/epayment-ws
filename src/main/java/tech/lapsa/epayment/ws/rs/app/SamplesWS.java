@@ -17,7 +17,7 @@ import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @PermitAll
 @Singleton
-public class SamplesWS extends ALanguageDetectorWS {
+public class SamplesWS extends ABaseWS {
 
     @GET
     @Path("/ebill")
