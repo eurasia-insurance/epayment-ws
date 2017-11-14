@@ -5,6 +5,7 @@ import javax.validation.ConstraintValidatorContext;
 import javax.validation.ValidationException;
 
 import tech.lapsa.epayment.facade.EpaymentFacade;
+import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.ws.jaxb.validator.ValidEbillId;
 import tech.lapsa.javax.cdi.utility.BeanUtils;
 
@@ -22,12 +23,11 @@ public class ValidEbillIdConstraintValidator implements ConstraintValidator<Vali
 	try {
 	    BeanUtils.lookup(EpaymentFacade.class) //
 		    .orElseThrow(() -> new ValidationException("Cannot find an instance of " + EpaymentFacade.class)) //
-		    .forNumber(value) // it should throws
-				      // IllegalArgumentException on invalid id
-				      // or nonexistent entity
-	    ;
+		    .forNumber(value);
 	    return true;
 	} catch (IllegalArgumentException e) {
+	    return false;
+	} catch (InvoiceNotFound e) {
 	    return false;
 	}
     }
