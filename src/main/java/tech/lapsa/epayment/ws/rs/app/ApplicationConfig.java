@@ -84,7 +84,7 @@ public class ApplicationConfig extends Application {
 	    }
 
 	    @Override
-	    public V setValue(V value) {
+	    public V setValue(final V value) {
 		throw new UnsupportedOperationException();
 	    }
 	};

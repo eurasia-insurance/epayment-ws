@@ -36,7 +36,7 @@ public class XmlEbillResult implements Serializable {
     public XmlEbillResult() {
     }
 
-    public XmlEbillResult(PaymentMethod type, String paymentReference, Instant paymentTimestamp) {
+    public XmlEbillResult(final PaymentMethod type, final String paymentReference, final Instant paymentTimestamp) {
 	this.type = type;
 	this.paymentReference = paymentReference;
 	this.paymentTimestamp = paymentTimestamp;
@@ -51,7 +51,7 @@ public class XmlEbillResult implements Serializable {
 	return type;
     }
 
-    public void setType(PaymentMethod type) {
+    public void setType(final PaymentMethod type) {
 	this.type = type;
     }
 
@@ -59,7 +59,7 @@ public class XmlEbillResult implements Serializable {
 	return paymentReference;
     }
 
-    public void setPaymentReference(String paymentReference) {
+    public void setPaymentReference(final String paymentReference) {
 	this.paymentReference = paymentReference;
     }
 
@@ -67,7 +67,7 @@ public class XmlEbillResult implements Serializable {
 	return paymentTimestamp;
     }
 
-    public void setPaymentTimestamp(Instant paymentTimestamp) {
+    public void setPaymentTimestamp(final Instant paymentTimestamp) {
 	this.paymentTimestamp = paymentTimestamp;
     }
 }

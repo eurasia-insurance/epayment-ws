@@ -40,13 +40,13 @@ public class XmlEbillPayment implements Serializable {
     public XmlEbillPayment() {
     }
 
-    public XmlEbillPayment(Double totalAmount, XmlEbillPurposeItem[] items, String externalId) {
+    public XmlEbillPayment(final Double totalAmount, final XmlEbillPurposeItem[] items, final String externalId) {
 	this.totalAmount = totalAmount;
 	this.items = items;
 	this.externalId = externalId;
     }
 
-    public XmlEbillPayment(XmlEbillPurposeItem[] items, String externalId) {
+    public XmlEbillPayment(final XmlEbillPurposeItem[] items, final String externalId) {
 	this(Arrays.stream(items).mapToDouble(x -> x.getAmount()).sum(), items, externalId);
     }
 
@@ -59,7 +59,7 @@ public class XmlEbillPayment implements Serializable {
 	return totalAmount;
     }
 
-    public void setTotalAmount(Double totalAmount) {
+    public void setTotalAmount(final Double totalAmount) {
 	this.totalAmount = totalAmount;
     }
 
@@ -67,7 +67,7 @@ public class XmlEbillPayment implements Serializable {
 	return items;
     }
 
-    public void setItems(XmlEbillPurposeItem[] items) {
+    public void setItems(final XmlEbillPurposeItem[] items) {
 	this.items = items;
     }
 
@@ -75,7 +75,7 @@ public class XmlEbillPayment implements Serializable {
 	return externalId;
     }
 
-    public void setExternalId(String externalId) {
+    public void setExternalId(final String externalId) {
 	this.externalId = externalId;
     }
 }

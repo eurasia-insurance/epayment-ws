@@ -54,13 +54,14 @@ public class XmlEbillInfo extends XmlEbillShort {
     public XmlEbillInfo() {
     }
 
-    public XmlEbillInfo(String id) {
+    public XmlEbillInfo(final String id) {
 	super(id);
     }
 
-    public XmlEbillInfo(String id, EbillStatus status, Instant created, Instant paid, XmlEbillPayer payer,
-	    XmlEbillPayment payment,
-	    XmlEbillMethod[] availableMethods, XmlEbillResult result) {
+    public XmlEbillInfo(final String id, final EbillStatus status, final Instant created, final Instant paid,
+	    final XmlEbillPayer payer,
+	    final XmlEbillPayment payment,
+	    final XmlEbillMethod[] availableMethods, final XmlEbillResult result) {
 	super(id);
 	this.status = status;
 	this.created = created;
@@ -80,7 +81,7 @@ public class XmlEbillInfo extends XmlEbillShort {
 	return status;
     }
 
-    public void setStatus(EbillStatus status) {
+    public void setStatus(final EbillStatus status) {
 	this.status = status;
     }
 
@@ -88,11 +89,11 @@ public class XmlEbillInfo extends XmlEbillShort {
 	return availableMethods;
     }
 
-    public void setAvailableMethods(XmlEbillMethod[] availableMethods) {
+    public void setAvailableMethods(final XmlEbillMethod[] availableMethods) {
 	this.availableMethods = availableMethods;
     }
 
-    public void setCreated(Instant created) {
+    public void setCreated(final Instant created) {
 	this.created = created;
     }
 
@@ -104,7 +105,7 @@ public class XmlEbillInfo extends XmlEbillShort {
 	return result;
     }
 
-    public void setResult(XmlEbillResult result) {
+    public void setResult(final XmlEbillResult result) {
 	this.result = result;
     }
 
@@ -112,15 +113,15 @@ public class XmlEbillInfo extends XmlEbillShort {
 	return payment;
     }
 
-    public void setPayment(XmlEbillPayment purpose) {
-	this.payment = purpose;
+    public void setPayment(final XmlEbillPayment purpose) {
+	payment = purpose;
     }
 
     public Instant getPaid() {
 	return paid;
     }
 
-    public void setPaid(Instant paid) {
+    public void setPaid(final Instant paid) {
 	this.paid = paid;
     }
 
@@ -128,7 +129,7 @@ public class XmlEbillInfo extends XmlEbillShort {
 	return payer;
     }
 
-    public void setPayer(XmlEbillPayer payer) {
+    public void setPayer(final XmlEbillPayer payer) {
 	this.payer = payer;
     }
 }

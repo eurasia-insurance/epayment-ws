@@ -28,11 +28,11 @@ public class XmlEbillRequest extends XmlEbillShort {
     public XmlEbillRequest() {
     }
 
-    public XmlEbillRequest(String id) {
+    public XmlEbillRequest(final String id) {
 	super(id);
     }
 
-    public XmlEbillRequest(String id, URI returnUri) {
+    public XmlEbillRequest(final String id, final URI returnUri) {
 	super(id);
 	this.returnUri = returnUri;
     }
@@ -46,7 +46,7 @@ public class XmlEbillRequest extends XmlEbillShort {
 	return returnUri;
     }
 
-    public void setReturnUri(URI returnUri) {
+    public void setReturnUri(final URI returnUri) {
 	this.returnUri = returnUri;
     }
 }

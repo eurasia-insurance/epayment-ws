@@ -27,7 +27,7 @@ public class XmlEbillShort implements Serializable {
     public XmlEbillShort() {
     }
 
-    public XmlEbillShort(String id) {
+    public XmlEbillShort(final String id) {
 	this.id = id;
     }
 
@@ -40,7 +40,7 @@ public class XmlEbillShort implements Serializable {
 	return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
 	this.id = id;
     }
 
