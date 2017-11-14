@@ -7,6 +7,7 @@ import javax.validation.ValidationException;
 import tech.lapsa.epayment.facade.EpaymentFacade;
 import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.ws.jaxb.validator.ValidInvoiceNumber;
+import tech.lapsa.java.commons.function.MyExceptions.IllegalArgument;
 import tech.lapsa.javax.cdi.utility.BeanUtils;
 
 public class ValidInvoiceNumberConstraintValidator implements ConstraintValidator<ValidInvoiceNumber, String> {
@@ -24,7 +25,7 @@ public class ValidInvoiceNumberConstraintValidator implements ConstraintValidato
 		    .orElseThrow(() -> new ValidationException("Cannot find an instance of " + EpaymentFacade.class)) //
 		    .forNumber(value);
 	    return true;
-	} catch (IllegalArgumentException e) {
+	} catch (IllegalArgument e) {
 	    return false;
 	} catch (InvoiceNotFound e) {
 	    return false;
