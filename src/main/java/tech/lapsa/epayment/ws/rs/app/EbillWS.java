@@ -22,6 +22,7 @@ import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.PaymentMethod;
 import tech.lapsa.epayment.domain.QazkomPayment;
 import tech.lapsa.epayment.facade.EpaymentFacade;
+import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.facade.PaymentMethod.Http;
 import tech.lapsa.epayment.facade.QazkomFacade;
 import tech.lapsa.epayment.ws.auth.EpaymentSecurity;
@@ -58,9 +59,9 @@ public class EbillWS extends ALanguageDetectorWS {
 	try {
 	    XmlEbillInfo reply = _fetchEbill(request);
 	    return responseOk(reply, getLocaleOrDefault());
-	} catch (WrongArgumentException e) {
+	} catch (WrongArgumentException | IllegalArgumentException | IllegalStateException e) {
 	    return responseBadRequest(e.getMessage(), getLocaleOrDefault());
-	} catch (ServerException e) {
+	} catch (ServerException | RuntimeException e) {
 	    return responseServerError(e.getMessage(), getLocaleOrDefault());
 	}
     }
@@ -74,7 +75,12 @@ public class EbillWS extends ALanguageDetectorWS {
     private XmlEbillInfo _fetchEbill(XmlEbillRequest request)
 	    throws WrongArgumentException, ServerException {
 
-	Invoice m = facade.forNumber(request.getId());
+	Invoice m;
+	try {
+	    m = facade.forNumber(request.getId());
+	} catch (IllegalArgumentException | InvoiceNotFound e) {
+	    throw new WrongArgumentException(e);
+	}
 
 	XmlEbillInfo response = new XmlEbillInfo();
 	response.setId(m.getNumber());

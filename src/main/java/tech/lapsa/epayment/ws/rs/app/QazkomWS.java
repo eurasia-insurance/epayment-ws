@@ -59,7 +59,7 @@ public class QazkomWS {
 	try {
 	    facade.handleResponse(rawResponse);
 	    return ok();
-	} catch (IllegalArgumentException e) {
+	} catch (IllegalArgumentException | IllegalStateException e) {
 	    return handleApplicationError(e, rawResponse);
 	} catch (RuntimeException e) {
 	    return handleServerError(e, rawResponse);
