@@ -17,8 +17,8 @@ import tech.lapsa.java.commons.logging.MyLogger;
 import tech.lapsa.javax.mail.MailException;
 import tech.lapsa.javax.mail.MailFactory;
 import tech.lapsa.javax.mail.MailMessageBuilder;
-import tech.lapsa.javax.rs.utility.WrongArgumentException;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
+import tech.lapsa.javax.rs.utility.WrongArgumentException;
 
 public abstract class ABaseWS {
 
@@ -50,23 +50,23 @@ public abstract class ABaseWS {
 	    .withNameOf(QazkomWS.class) //
 	    .build();
 
-    void mailServerErrorAdmin(InternalServerErrorException e, String textAttachement) {
+    void mailServerErrorAdmin(final InternalServerErrorException e, final String textAttachement) {
 	mailAdmin(String.format("CRITICAL ERROR : %1$s : %2$s", e.getClass().getSimpleName(),
-		(e.getMessage() != null ? e.getMessage() : "NONE")), e, textAttachement);
+		e.getMessage() != null ? e.getMessage() : "NONE"), e, textAttachement);
     }
 
-    void mailApplicationErrorAdmin(WrongArgumentException e, String textAttachement) {
+    void mailApplicationErrorAdmin(final WrongArgumentException e, final String textAttachement) {
 	mailAdmin(String.format("Error : %1$s : %2$s", e.getClass().getSimpleName(),
-		(e.getMessage() != null ? e.getMessage() : "NONE")), e, textAttachement);
+		e.getMessage() != null ? e.getMessage() : "NONE"), e, textAttachement);
     }
 
     @Inject
     @QAdmin
     private MailFactory mailFactory;
 
-    private void mailAdmin(String subject, Exception e, String textAttachement) {
+    private void mailAdmin(final String subject, final Exception e, final String textAttachement) {
 	try {
-	    MailMessageBuilder messageBuilder = mailFactory.newMailBuilder()
+	    final MailMessageBuilder messageBuilder = mailFactory.newMailBuilder()
 		    .withDefaultSender()
 		    .withDefaultRecipient()
 		    .withSubject(subject);
@@ -76,7 +76,7 @@ public abstract class ABaseWS {
 		messageBuilder.withTextAttached(textAttachement, "attachement.txt");
 	    messageBuilder.build()
 		    .send();
-	} catch (MailException e1) {
+	} catch (final MailException e1) {
 	    logger.SEVERE.log(e1);
 	}
 

@@ -28,7 +28,7 @@ public class XmlEbillMethod implements Serializable {
     public XmlEbillMethod() {
     }
 
-    public XmlEbillMethod(PaymentMethod type, XmlHttpForm httpForm) {
+    public XmlEbillMethod(final PaymentMethod type, final XmlHttpForm httpForm) {
 	this.type = type;
 	this.httpForm = httpForm;
     }
@@ -42,7 +42,7 @@ public class XmlEbillMethod implements Serializable {
 	return type;
     }
 
-    public void setType(PaymentMethod type) {
+    public void setType(final PaymentMethod type) {
 	this.type = type;
     }
 
@@ -50,7 +50,7 @@ public class XmlEbillMethod implements Serializable {
 	return httpForm;
     }
 
-    public void setHttpForm(XmlHttpForm httpForm) {
+    public void setHttpForm(final XmlHttpForm httpForm) {
 	this.httpForm = httpForm;
     }
 }

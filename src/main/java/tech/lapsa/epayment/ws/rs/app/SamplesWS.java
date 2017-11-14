@@ -22,7 +22,7 @@ public class SamplesWS extends ABaseWS {
     @GET
     @Path("/ebill")
     public Response ebillSampleGET() {
-	XmlEbillInfo sample = ebillInfoSample();
+	final XmlEbillInfo sample = ebillInfoSample();
 	return responseOk(sample, getLocaleOrDefault());
     }
 

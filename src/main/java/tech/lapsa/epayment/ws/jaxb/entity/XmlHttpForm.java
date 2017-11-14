@@ -44,8 +44,8 @@ public class XmlHttpForm implements Serializable {
     public XmlHttpForm() {
     }
 
-    public XmlHttpForm(URI url, String method, XmlHttpFormParam[] params) {
-	this.uri = url;
+    public XmlHttpForm(final URI url, final String method, final XmlHttpFormParam[] params) {
+	uri = url;
 	this.method = method;
 	this.params = params;
     }
@@ -54,7 +54,7 @@ public class XmlHttpForm implements Serializable {
 	return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(final URI uri) {
 	this.uri = uri;
     }
 
@@ -62,7 +62,7 @@ public class XmlHttpForm implements Serializable {
 	return method;
     }
 
-    public void setMethod(String method) {
+    public void setMethod(final String method) {
 	this.method = method;
     }
 
@@ -70,7 +70,7 @@ public class XmlHttpForm implements Serializable {
 	return params;
     }
 
-    public void setParams(XmlHttpFormParam[] params) {
+    public void setParams(final XmlHttpFormParam[] params) {
 	this.params = params;
     }
 

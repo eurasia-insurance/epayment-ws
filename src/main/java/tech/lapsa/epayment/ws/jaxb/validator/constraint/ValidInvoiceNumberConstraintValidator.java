@@ -14,11 +14,11 @@ import tech.lapsa.javax.cdi.utility.BeanUtils;
 public class ValidInvoiceNumberConstraintValidator implements ConstraintValidator<ValidInvoiceNumber, String> {
 
     @Override
-    public void initialize(ValidInvoiceNumber constraintAnnotation) {
+    public void initialize(final ValidInvoiceNumber constraintAnnotation) {
     }
 
     @Override
-    public boolean isValid(String value, ConstraintValidatorContext context) {
+    public boolean isValid(final String value, final ConstraintValidatorContext context) {
 	if (value == null)
 	    return true;
 	try {
@@ -29,9 +29,9 @@ public class ValidInvoiceNumberConstraintValidator implements ConstraintValidato
 			.forNumber(value);
 	    });
 	    return true;
-	} catch (IllegalArgumentException e) {
+	} catch (final IllegalArgumentException e) {
 	    return false;
-	} catch (InvoiceNotFound e) {
+	} catch (final InvoiceNotFound e) {
 	    return false;
 	}
     }

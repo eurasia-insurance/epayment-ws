@@ -35,7 +35,7 @@ public class XmlHttpFormParam implements Serializable {
     public XmlHttpFormParam() {
     }
 
-    public XmlHttpFormParam(String name, String value) {
+    public XmlHttpFormParam(final String name, final String value) {
 	this.name = name;
 	this.value = value;
     }
@@ -44,7 +44,7 @@ public class XmlHttpFormParam implements Serializable {
 	return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
 	this.name = name;
     }
 
@@ -52,7 +52,7 @@ public class XmlHttpFormParam implements Serializable {
 	return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(final String value) {
 	this.value = value;
     }
 }

@@ -30,13 +30,13 @@ public class QazkomWS extends ABaseWS {
 
     @POST
     @Path("/" + WSPathNames.WS_QAZKOM_OK)
-    public Response postBackPaymentOK(@FormParam("response") String response) {
+    public Response postBackPaymentOK(@FormParam("response") final String response) {
 	return postbackPayment(response);
     }
 
     @GET
     @Path("/" + WSPathNames.WS_QAZKOM_OK)
-    public Response getBackPaymentOK(@QueryParam("response") String response) {
+    public Response getBackPaymentOK(@QueryParam("response") final String response) {
 	return postbackPayment(response);
     }
 
@@ -46,10 +46,10 @@ public class QazkomWS extends ABaseWS {
 	try {
 	    _postbackPayment(rawXml);
 	    return responseOk(0);
-	} catch (WrongArgumentException e) {
+	} catch (final WrongArgumentException e) {
 	    mailApplicationErrorAdmin(e, rawXml);
 	    return responseWrongArgument(e, getLocaleOrDefault());
-	} catch (InternalServerErrorException e) {
+	} catch (final InternalServerErrorException e) {
 	    mailServerErrorAdmin(e, rawXml);
 	    return responseInternalServerError(e, getLocaleOrDefault());
 	}
@@ -61,9 +61,9 @@ public class QazkomWS extends ABaseWS {
     private Invoice _postbackPayment(final String rawXml) throws WrongArgumentException, InternalServerErrorException {
 	try {
 	    return reThrowAsUnchecked(() -> qazkoms.handleResponse(rawXml));
-	} catch (IllegalArgumentException e) {
+	} catch (final IllegalArgumentException e) {
 	    throw new WrongArgumentException(e);
-	} catch (RuntimeException e) {
+	} catch (final RuntimeException e) {
 	    throw new InternalServerErrorException(e);
 	}
     }

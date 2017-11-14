@@ -39,8 +39,8 @@ import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillResult;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpForm;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpFormParam;
 import tech.lapsa.java.commons.function.MyObjects;
-import tech.lapsa.javax.rs.utility.WrongArgumentException;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
+import tech.lapsa.javax.rs.utility.WrongArgumentException;
 import tech.lapsa.javax.validation.NotNullValue;
 
 @Path("/" + WSPathNames.WS_EBILL)
@@ -55,18 +55,18 @@ public class EbillWS extends ABaseWS {
 
     @POST
     @Path("/" + WSPathNames.WS_EBILL_FETCH)
-    public Response fetchEbillPOST(@NotNullValue @Valid XmlEbillRequest request) {
+    public Response fetchEbillPOST(@NotNullValue @Valid final XmlEbillRequest request) {
 	return fetchEbill(request);
     }
 
-    private Response fetchEbill(XmlEbillRequest request) {
+    private Response fetchEbill(final XmlEbillRequest request) {
 	try {
-	    XmlEbillInfo reply = _fetchEbill(request);
+	    final XmlEbillInfo reply = _fetchEbill(request);
 	    return responseOk(reply, getLocaleOrDefault());
-	} catch (WrongArgumentException e) {
+	} catch (final WrongArgumentException e) {
 	    mailApplicationErrorAdmin(e, null);
 	    return responseWrongArgument(e, getLocaleOrDefault());
-	} catch (InternalServerErrorException e) {
+	} catch (final InternalServerErrorException e) {
 	    mailServerErrorAdmin(e, null);
 	    return responseInternalServerError(e, getLocaleOrDefault());
 	}
@@ -78,32 +78,31 @@ public class EbillWS extends ABaseWS {
     @Inject
     private QazkomFacade qazkoms;
 
-    private XmlEbillInfo _fetchEbill(XmlEbillRequest request)
+    private XmlEbillInfo _fetchEbill(final XmlEbillRequest request)
 	    throws WrongArgumentException, InternalServerErrorException {
 	try {
 
-	    
 	    Invoice i;
 	    try {
 		i = reThrowAsUnchecked(() -> epayments.forNumber(request.getId()));
-	    } catch (InvoiceNotFound e) {
+	    } catch (final InvoiceNotFound e) {
 		// this is because invoice number must be validated and checked
 		// at this point
 		throw new InternalServerErrorException(e);
-	    } catch (IllegalArgumentException e) {
+	    } catch (final IllegalArgumentException e) {
 		// this is because invoice number must be validated and checked
 		// at this point
 		throw new InternalServerErrorException(e);
 	    }
 
-	    XmlEbillInfo response = new XmlEbillInfo();
+	    final XmlEbillInfo response = new XmlEbillInfo();
 	    response.setId(i.getNumber());
 	    response.setCreated(i.getCreated());
 
-	    XmlEbillPayer payer = new XmlEbillPayer(i.getConsumerName(), i.getConsumerEmail());
+	    final XmlEbillPayer payer = new XmlEbillPayer(i.getConsumerName(), i.getConsumerEmail());
 	    response.setPayer(payer);
 
-	    XmlEbillPayment payment = new XmlEbillPayment( //
+	    final XmlEbillPayment payment = new XmlEbillPayment( //
 		    i.getAmount(), //
 		    i.getItems().stream()
 			    .map(item -> new XmlEbillPurposeItem(item.getName(), item.getPrice(), item.getQuantity(),
@@ -116,23 +115,23 @@ public class EbillWS extends ABaseWS {
 	    case READY:
 		response.setStatus(EbillStatus.READY);
 
-		Builder<XmlEbillMethod> builder = Stream.builder(); //
+		final Builder<XmlEbillMethod> builder = Stream.builder(); //
 	    {
 		Http http;
 
-		URI uri = uriInfo.getBaseUriBuilder() //
+		final URI uri = uriInfo.getBaseUriBuilder() //
 			.path(WSPathNames.WS_QAZKOM) //
 			.path(WSPathNames.WS_QAZKOM_OK) //
 			.build();
 		try {
 		    http = reThrowAsUnchecked(() -> qazkoms.httpMethod(uri, request.getReturnUri(), i) //
 			    .getHttp());
-		} catch (IllegalArgumentException e) {
+		} catch (final IllegalArgumentException e) {
 		    // this is because something goes wrong
 		    throw new InternalServerErrorException(e);
 		}
 
-		XmlHttpForm form = new XmlHttpForm();
+		final XmlHttpForm form = new XmlHttpForm();
 		form.setUri(http.getHttpAddress());
 		form.setMethod(http.getHttpMethod());
 		form.setParams(http.getHttpParams() //
@@ -140,7 +139,7 @@ public class EbillWS extends ABaseWS {
 			.stream() //
 			.map(x -> new XmlHttpFormParam(x.getKey(), x.getValue())) //
 			.toArray(XmlHttpFormParam[]::new));
-		XmlEbillMethod qazkomMethod = new XmlEbillMethod(PaymentMethod.QAZKOM, form);
+		final XmlEbillMethod qazkomMethod = new XmlEbillMethod(PaymentMethod.QAZKOM, form);
 		builder.accept(qazkomMethod);
 	    }
 
@@ -155,7 +154,7 @@ public class EbillWS extends ABaseWS {
 		response.setPaid(i.getPayment().getCreated());
 		switch (i.getPayment().getMethod()) {
 		case QAZKOM:
-		    QazkomPayment qp = MyObjects.requireA(i.getPayment(), QazkomPayment.class);
+		    final QazkomPayment qp = MyObjects.requireA(i.getPayment(), QazkomPayment.class);
 		    response.setResult(new XmlEbillResult(PaymentMethod.QAZKOM, qp.getReference(), i.getCreated()));
 		}
 		break;
@@ -165,9 +164,9 @@ public class EbillWS extends ABaseWS {
 
 	    return response;
 
-	} catch (IllegalArgumentException e) {
+	} catch (final IllegalArgumentException e) {
 	    throw new WrongArgumentException(e);
-	} catch (RuntimeException e) {
+	} catch (final RuntimeException e) {
 	    throw new InternalServerErrorException(e);
 	}
     }
