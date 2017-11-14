@@ -103,7 +103,6 @@ public class EbillWS extends ALanguageDetectorWS {
 	    response.setStatus(EbillStatus.READY);
 
 	    Builder<XmlEbillMethod> builder = Stream.builder(); //
-	// TODO qazkom method
 	{
 	    Http http = qazkom.httpMethod(uriInfo.getBaseUriBuilder() //
 		    .path(WSPathNames.WS_QAZKOM) //

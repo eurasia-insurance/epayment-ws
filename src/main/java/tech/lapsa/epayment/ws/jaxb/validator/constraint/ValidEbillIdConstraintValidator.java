@@ -9,7 +9,7 @@ import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.ws.jaxb.validator.ValidEbillId;
 import tech.lapsa.javax.cdi.utility.BeanUtils;
 
-//TODO have to rename to ValidInvoiceNumberConstraintValidator
+//TODO REFACTOR : Need to rename to ValidInvoiceNumberConstraintValidator
 public class ValidEbillIdConstraintValidator implements ConstraintValidator<ValidEbillId, String> {
 
     @Override
