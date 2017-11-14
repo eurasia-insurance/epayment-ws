@@ -30,7 +30,7 @@ public class XmlEbillPayer implements Serializable {
     public XmlEbillPayer() {
     }
 
-    public XmlEbillPayer(String name, String email) {
+    public XmlEbillPayer(final String name, final String email) {
 	this.name = name;
 	this.email = email;
     }
@@ -44,7 +44,7 @@ public class XmlEbillPayer implements Serializable {
 	return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
 	this.name = name;
     }
 
@@ -52,7 +52,7 @@ public class XmlEbillPayer implements Serializable {
 	return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(final String email) {
 	this.email = email;
     }
 }

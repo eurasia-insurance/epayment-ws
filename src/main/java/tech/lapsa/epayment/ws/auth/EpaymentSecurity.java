@@ -22,11 +22,11 @@ public final class EpaymentSecurity {
 
 	private final String roleName;
 
-	private Role(String roleName) {
+	private Role(final String roleName) {
 	    this.roleName = roleName;
 	}
 
-	public static Role forName(String roleName) {
+	public static Role forName(final String roleName) {
 	    return Stream.of(values()) //
 		    .filter(x -> x.roleName().equals(roleName)) //
 		    .findAny().orElse(null);

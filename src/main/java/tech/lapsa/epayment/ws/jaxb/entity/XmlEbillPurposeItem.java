@@ -41,14 +41,14 @@ public class XmlEbillPurposeItem implements Serializable {
     public XmlEbillPurposeItem() {
     }
 
-    public XmlEbillPurposeItem(String title, Double price, Integer quantity, Double amount) {
+    public XmlEbillPurposeItem(final String title, final Double price, final Integer quantity, final Double amount) {
 	this.title = title;
 	this.price = price;
 	this.quantity = quantity;
 	this.amount = amount;
     }
 
-    public XmlEbillPurposeItem(String title, Double price, Integer quantity) {
+    public XmlEbillPurposeItem(final String title, final Double price, final Integer quantity) {
 	this(title, price, quantity, price * quantity);
     }
 
@@ -61,7 +61,7 @@ public class XmlEbillPurposeItem implements Serializable {
 	return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
 	this.title = title;
     }
 
@@ -69,7 +69,7 @@ public class XmlEbillPurposeItem implements Serializable {
 	return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(final Integer quantity) {
 	this.quantity = quantity;
     }
 
@@ -77,15 +77,15 @@ public class XmlEbillPurposeItem implements Serializable {
 	return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(final Double price) {
 	this.price = price;
     }
 
     public Double getAmount() {
-        return amount;
+	return amount;
     }
 
-    public void setAmount(Double amount) {
-        this.amount = amount;
+    public void setAmount(final Double amount) {
+	this.amount = amount;
     }
 }

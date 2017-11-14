@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import tech.lapsa.epayment.ws.jaxb.validator.ValidEbillId;
+import tech.lapsa.epayment.ws.jaxb.validator.ValidInvoiceNumber;
 import tech.lapsa.javax.validation.NotEmptyString;
 import tech.lapsa.javax.validation.NotNullValue;
 
@@ -21,13 +21,13 @@ public class XmlEbillShort implements Serializable {
     @XmlAttribute
     @NotNullValue
     @NotEmptyString
-    @ValidEbillId
+    @ValidInvoiceNumber
     protected String id;
 
     public XmlEbillShort() {
     }
 
-    public XmlEbillShort(String id) {
+    public XmlEbillShort(final String id) {
 	this.id = id;
     }
 
@@ -40,7 +40,7 @@ public class XmlEbillShort implements Serializable {
 	return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
 	this.id = id;
     }
 

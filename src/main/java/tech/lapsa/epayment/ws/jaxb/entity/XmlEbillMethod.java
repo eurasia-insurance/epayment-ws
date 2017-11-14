@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import tech.lapsa.epayment.domain.PaymentMethod;
 import tech.lapsa.javax.validation.NotNullValue;
 
 @XmlRootElement(name = "ebillMethod")
@@ -19,7 +20,7 @@ public class XmlEbillMethod implements Serializable {
 
     @XmlAttribute
     @NotNullValue
-    protected EbillMethodType type;
+    protected PaymentMethod type;
 
     @Valid
     protected XmlHttpForm httpForm;
@@ -27,7 +28,7 @@ public class XmlEbillMethod implements Serializable {
     public XmlEbillMethod() {
     }
 
-    public XmlEbillMethod(EbillMethodType type, XmlHttpForm httpForm) {
+    public XmlEbillMethod(final PaymentMethod type, final XmlHttpForm httpForm) {
 	this.type = type;
 	this.httpForm = httpForm;
     }
@@ -37,11 +38,11 @@ public class XmlEbillMethod implements Serializable {
 	return ToStringBuilder.reflectionToString(this, Constants.DEFAULT_TO_STRING_STYLE);
     }
 
-    public EbillMethodType getType() {
+    public PaymentMethod getType() {
 	return type;
     }
 
-    public void setType(EbillMethodType type) {
+    public void setType(final PaymentMethod type) {
 	this.type = type;
     }
 
@@ -49,7 +50,7 @@ public class XmlEbillMethod implements Serializable {
 	return httpForm;
     }
 
-    public void setHttpForm(XmlHttpForm httpForm) {
+    public void setHttpForm(final XmlHttpForm httpForm) {
 	this.httpForm = httpForm;
     }
 }

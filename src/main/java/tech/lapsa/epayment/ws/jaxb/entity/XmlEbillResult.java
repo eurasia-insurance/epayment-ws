@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import tech.lapsa.epayment.domain.PaymentMethod;
 import tech.lapsa.java.jaxb.adapter.XmlInstantAdapter;
 import tech.lapsa.javax.validation.NotNullValue;
 
@@ -21,7 +22,7 @@ public class XmlEbillResult implements Serializable {
 
     @XmlAttribute
     @NotNullValue
-    protected EbillMethodType type;
+    protected PaymentMethod type;
 
     @XmlAttribute
     @NotNullValue
@@ -35,7 +36,7 @@ public class XmlEbillResult implements Serializable {
     public XmlEbillResult() {
     }
 
-    public XmlEbillResult(EbillMethodType type, String paymentReference, Instant paymentTimestamp) {
+    public XmlEbillResult(final PaymentMethod type, final String paymentReference, final Instant paymentTimestamp) {
 	this.type = type;
 	this.paymentReference = paymentReference;
 	this.paymentTimestamp = paymentTimestamp;
@@ -46,11 +47,11 @@ public class XmlEbillResult implements Serializable {
 	return ToStringBuilder.reflectionToString(this, Constants.DEFAULT_TO_STRING_STYLE);
     }
 
-    public EbillMethodType getType() {
+    public PaymentMethod getType() {
 	return type;
     }
 
-    public void setType(EbillMethodType type) {
+    public void setType(final PaymentMethod type) {
 	this.type = type;
     }
 
@@ -58,7 +59,7 @@ public class XmlEbillResult implements Serializable {
 	return paymentReference;
     }
 
-    public void setPaymentReference(String paymentReference) {
+    public void setPaymentReference(final String paymentReference) {
 	this.paymentReference = paymentReference;
     }
 
@@ -66,7 +67,7 @@ public class XmlEbillResult implements Serializable {
 	return paymentTimestamp;
     }
 
-    public void setPaymentTimestamp(Instant paymentTimestamp) {
+    public void setPaymentTimestamp(final Instant paymentTimestamp) {
 	this.paymentTimestamp = paymentTimestamp;
     }
 }
