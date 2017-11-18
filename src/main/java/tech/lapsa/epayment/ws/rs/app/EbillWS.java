@@ -112,7 +112,7 @@ public class EbillWS extends ABaseWS {
 	    response.setPayment(payment);
 
 	    switch (i.getStatus()) {
-	    case READY:
+	    case PENDING:
 		response.setStatus(EbillStatus.READY);
 
 		final Builder<XmlEbillMethod> builder = Stream.builder(); //
