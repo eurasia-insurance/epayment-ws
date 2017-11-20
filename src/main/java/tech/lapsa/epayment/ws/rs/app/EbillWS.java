@@ -84,7 +84,7 @@ public class EbillWS extends ABaseWS {
 
 	    Invoice i;
 	    try {
-		i = reThrowAsUnchecked(() -> epayments.forNumber(request.getId()));
+		i = reThrowAsUnchecked(() -> epayments.invoiceByNumber(request.getId()));
 	    } catch (final InvoiceNotFound e) {
 		// this is because invoice number must be validated and checked
 		// at this point
@@ -112,7 +112,7 @@ public class EbillWS extends ABaseWS {
 	    response.setPayment(payment);
 
 	    switch (i.getStatus()) {
-	    case READY:
+	    case PENDING:
 		response.setStatus(EbillStatus.READY);
 
 		final Builder<XmlEbillMethod> builder = Stream.builder(); //
