@@ -26,7 +26,7 @@ public class ValidInvoiceNumberConstraintValidator implements ConstraintValidato
 		BeanUtils.lookup(EpaymentFacade.class) //
 			.orElseThrow(
 				() -> new ValidationException("Cannot find an instance of " + EpaymentFacade.class)) //
-			.forNumber(value);
+			.invoiceByNumber(value);
 	    });
 	    return true;
 	} catch (final IllegalArgumentException e) {
