@@ -115,7 +115,7 @@ public class EbillWS extends ABaseWS {
 		final Builder<XmlEbillMethod> builder = Stream.builder();
 
 		// only one method supported at this time
-		builder.accept(qazkomPaymentMethod(request, i));
+		builder.accept(qazkomPaymentMethod(request.getReturnUri(), i));
 
 		response.setAvailableMethods(builder.build().toArray(XmlEbillMethod[]::new));
 		break;
@@ -140,7 +140,7 @@ public class EbillWS extends ABaseWS {
 	}
     }
 
-    private XmlEbillMethod qazkomPaymentMethod(final XmlEbillRequest request, final Invoice invoice)
+    private XmlEbillMethod qazkomPaymentMethod(final URI returnURI, final Invoice invoice)
 	    throws InternalServerErrorException {
 
 	final URI uri = uriInfo.getBaseUriBuilder() //
@@ -150,7 +150,7 @@ public class EbillWS extends ABaseWS {
 
 	final Http http;
 	try {
-	    http = reThrowAsUnchecked(() -> qazkoms.httpMethod(uri, request.getReturnUri(), invoice) //
+	    http = reThrowAsUnchecked(() -> qazkoms.httpMethod(uri, returnURI, invoice) //
 		    .getHttp());
 	} catch (final IllegalArgumentException e) {
 	    // this is because something goes wrong
