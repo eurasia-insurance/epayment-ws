@@ -22,7 +22,6 @@ import javax.ws.rs.core.UriInfo;
 
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.PaymentMethod;
-import tech.lapsa.epayment.domain.QazkomPayment;
 import tech.lapsa.epayment.facade.EpaymentFacade;
 import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.facade.PaymentMethod.Http;
@@ -38,7 +37,6 @@ import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillRequest;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillResult;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpForm;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpFormParam;
-import tech.lapsa.java.commons.function.MyObjects;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
 import tech.lapsa.javax.rs.utility.WrongArgumentException;
 import tech.lapsa.javax.validation.NotNullValue;
@@ -114,37 +112,12 @@ public class EbillWS extends ABaseWS {
 	    switch (i.getStatus()) {
 	    case PENDING:
 		response.setStatus(EbillStatus.READY);
+		final Builder<XmlEbillMethod> builder = Stream.builder();
 
-		final Builder<XmlEbillMethod> builder = Stream.builder(); //
-	    {
-		Http http;
-
-		final URI uri = uriInfo.getBaseUriBuilder() //
-			.path(WSPathNames.WS_QAZKOM) //
-			.path(WSPathNames.WS_QAZKOM_OK) //
-			.build();
-		try {
-		    http = reThrowAsUnchecked(() -> qazkoms.httpMethod(uri, request.getReturnUri(), i) //
-			    .getHttp());
-		} catch (final IllegalArgumentException e) {
-		    // this is because something goes wrong
-		    throw new InternalServerErrorException(e);
-		}
-
-		final XmlHttpForm form = new XmlHttpForm();
-		form.setUri(http.getHttpAddress());
-		form.setMethod(http.getHttpMethod());
-		form.setParams(http.getHttpParams() //
-			.entrySet() //
-			.stream() //
-			.map(x -> new XmlHttpFormParam(x.getKey(), x.getValue())) //
-			.toArray(XmlHttpFormParam[]::new));
-		final XmlEbillMethod qazkomMethod = new XmlEbillMethod(PaymentMethod.QAZKOM, form);
-		builder.accept(qazkomMethod);
-	    }
+		// only one method supported at this time
+		builder.accept(qazkomPaymentMethod(request, i));
 
 		response.setAvailableMethods(builder.build().toArray(XmlEbillMethod[]::new));
-
 		break;
 	    case EXPIRED:
 		response.setStatus(EbillStatus.CANCELED);
@@ -152,22 +125,46 @@ public class EbillWS extends ABaseWS {
 	    case PAID:
 		response.setStatus(EbillStatus.PAID);
 		response.setPaid(i.getPayment().getCreated());
-		switch (i.getPayment().getMethod()) {
-		case QAZKOM:
-		    final QazkomPayment qp = MyObjects.requireA(i.getPayment(), QazkomPayment.class);
-		    response.setResult(new XmlEbillResult(PaymentMethod.QAZKOM, qp.getReference(), i.getCreated()));
-		}
+		final XmlEbillResult result = new XmlEbillResult(i.getPayment().getMethod(),
+			i.getPayment().getReferenceNumber(), i.getCreated());
+		response.setResult(result);
 		break;
 	    default:
 		throw new InternalServerErrorException(String.format("Invalid payment status '%1$s'", i.getStatus()));
 	    }
-
 	    return response;
-
 	} catch (final IllegalArgumentException e) {
 	    throw new WrongArgumentException(e);
 	} catch (final RuntimeException e) {
 	    throw new InternalServerErrorException(e);
 	}
+    }
+
+    private XmlEbillMethod qazkomPaymentMethod(final XmlEbillRequest request, final Invoice invoice)
+	    throws InternalServerErrorException {
+
+	final URI uri = uriInfo.getBaseUriBuilder() //
+		.path(WSPathNames.WS_QAZKOM) //
+		.path(WSPathNames.WS_QAZKOM_OK) //
+		.build();
+
+	final Http http;
+	try {
+	    http = reThrowAsUnchecked(() -> qazkoms.httpMethod(uri, request.getReturnUri(), invoice) //
+		    .getHttp());
+	} catch (final IllegalArgumentException e) {
+	    // this is because something goes wrong
+	    throw new InternalServerErrorException(e);
+	}
+
+	final XmlHttpForm form = new XmlHttpForm();
+	form.setUri(http.getHttpAddress());
+	form.setMethod(http.getHttpMethod());
+	form.setParams(http.getHttpParams() //
+		.entrySet() //
+		.stream() //
+		.map(x -> new XmlHttpFormParam(x.getKey(), x.getValue())) //
+		.toArray(XmlHttpFormParam[]::new));
+	return new XmlEbillMethod(PaymentMethod.QAZKOM, form);
     }
 }
