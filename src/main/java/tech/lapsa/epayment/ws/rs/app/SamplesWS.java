@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlInvoiceInfo;
 
 @Path("/" + WSPathNames.WS_SAMPLES)
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
@@ -22,7 +22,7 @@ public class SamplesWS extends ABaseWS {
     @GET
     @Path("/ebill")
     public Response ebillSampleGET() {
-	final XmlEbillInfo sample = ebillInfoSample();
+	final XmlInvoiceInfo sample = invoiceInfoSample();
 	return responseOk(sample, getLocaleOrDefault());
     }
 

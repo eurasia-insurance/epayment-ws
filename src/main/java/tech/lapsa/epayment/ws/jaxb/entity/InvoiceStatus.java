@@ -1,5 +1,5 @@
 package tech.lapsa.epayment.ws.jaxb.entity;
 
-public enum EbillStatus {
+public enum InvoiceStatus {
     READY, PAID, CANCELED, FAILED;
 }

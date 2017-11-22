@@ -36,7 +36,7 @@ public class ApplicationConfig extends Application {
 		.add(SamplesWS.class) //
 
 		// secured
-		.add(EbillWS.class) //
+		.add(InvoiceWS.class) //
 
 		// qazkom
 		.add(QazkomWS.class) // ;

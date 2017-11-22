@@ -19,7 +19,7 @@ import tech.lapsa.javax.validation.NotZeroAmount;
 
 @XmlRootElement(name = "ebillPayment")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillPayment implements Serializable {
+public class XmlPayment implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
@@ -32,21 +32,21 @@ public class XmlEbillPayment implements Serializable {
     @NotNullValue
     @Valid
     @Size(min = 1)
-    protected XmlEbillPurposeItem[] items;
+    protected XmlInvoicePurposeItem[] items;
 
     @XmlAttribute
     protected String externalId;
 
-    public XmlEbillPayment() {
+    public XmlPayment() {
     }
 
-    public XmlEbillPayment(final Double totalAmount, final XmlEbillPurposeItem[] items, final String externalId) {
+    public XmlPayment(final Double totalAmount, final XmlInvoicePurposeItem[] items, final String externalId) {
 	this.totalAmount = totalAmount;
 	this.items = items;
 	this.externalId = externalId;
     }
 
-    public XmlEbillPayment(final XmlEbillPurposeItem[] items, final String externalId) {
+    public XmlPayment(final XmlInvoicePurposeItem[] items, final String externalId) {
 	this(Arrays.stream(items).mapToDouble(x -> x.getAmount()).sum(), items, externalId);
     }
 
@@ -63,11 +63,11 @@ public class XmlEbillPayment implements Serializable {
 	this.totalAmount = totalAmount;
     }
 
-    public XmlEbillPurposeItem[] getItems() {
+    public XmlInvoicePurposeItem[] getItems() {
 	return items;
     }
 
-    public void setItems(final XmlEbillPurposeItem[] items) {
+    public void setItems(final XmlInvoicePurposeItem[] items) {
 	this.items = items;
     }
 

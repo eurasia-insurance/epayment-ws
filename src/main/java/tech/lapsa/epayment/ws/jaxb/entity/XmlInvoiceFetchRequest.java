@@ -16,7 +16,7 @@ import tech.lapsa.javax.validation.ValidURI;
 
 @XmlRootElement(name = "ebillRequest")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillRequest extends XmlEbillShort {
+public class XmlInvoiceFetchRequest extends XmlInvoiceShort {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
@@ -25,14 +25,14 @@ public class XmlEbillRequest extends XmlEbillShort {
     @XmlJavaTypeAdapter(XmlURIAdapter.class)
     protected URI returnUri;
 
-    public XmlEbillRequest() {
+    public XmlInvoiceFetchRequest() {
     }
 
-    public XmlEbillRequest(final String id) {
+    public XmlInvoiceFetchRequest(final String id) {
 	super(id);
     }
 
-    public XmlEbillRequest(final String id, final URI returnUri) {
+    public XmlInvoiceFetchRequest(final String id, final URI returnUri) {
 	super(id);
 	this.returnUri = returnUri;
     }

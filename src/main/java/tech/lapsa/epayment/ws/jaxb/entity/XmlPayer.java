@@ -14,7 +14,7 @@ import tech.lapsa.javax.validation.NotNullValue;
 
 @XmlRootElement(name = "ebillPayer")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillPayer implements Serializable {
+public class XmlPayer implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
@@ -27,10 +27,10 @@ public class XmlEbillPayer implements Serializable {
     @NotEmptyString
     protected String email;
 
-    public XmlEbillPayer() {
+    public XmlPayer() {
     }
 
-    public XmlEbillPayer(final String name, final String email) {
+    public XmlPayer(final String name, final String email) {
 	this.name = name;
 	this.email = email;
     }

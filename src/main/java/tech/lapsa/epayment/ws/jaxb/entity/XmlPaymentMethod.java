@@ -15,7 +15,7 @@ import tech.lapsa.javax.validation.NotNullValue;
 
 @XmlRootElement(name = "ebillMethod")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillMethod implements Serializable {
+public class XmlPaymentMethod implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
@@ -25,10 +25,10 @@ public class XmlEbillMethod implements Serializable {
     @Valid
     protected XmlHttpForm httpForm;
 
-    public XmlEbillMethod() {
+    public XmlPaymentMethod() {
     }
 
-    public XmlEbillMethod(final PaymentMethod type, final XmlHttpForm httpForm) {
+    public XmlPaymentMethod(final PaymentMethod type, final XmlHttpForm httpForm) {
 	this.type = type;
 	this.httpForm = httpForm;
     }

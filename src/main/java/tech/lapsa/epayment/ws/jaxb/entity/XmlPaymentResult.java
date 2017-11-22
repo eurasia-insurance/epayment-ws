@@ -17,7 +17,7 @@ import tech.lapsa.javax.validation.NotNullValue;
 
 @XmlRootElement(name = "ebillResult")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillResult implements Serializable {
+public class XmlPaymentResult implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
@@ -33,10 +33,10 @@ public class XmlEbillResult implements Serializable {
     @XmlJavaTypeAdapter(XmlInstantAdapter.class)
     protected Instant paymentTimestamp;
 
-    public XmlEbillResult() {
+    public XmlPaymentResult() {
     }
 
-    public XmlEbillResult(final PaymentMethod type, final String paymentReference, final Instant paymentTimestamp) {
+    public XmlPaymentResult(final PaymentMethod type, final String paymentReference, final Instant paymentTimestamp) {
 	this.type = type;
 	this.paymentReference = paymentReference;
 	this.paymentTimestamp = paymentTimestamp;
