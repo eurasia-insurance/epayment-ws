@@ -6,35 +6,35 @@ import java.time.Instant;
 import java.util.Arrays;
 
 import tech.lapsa.epayment.domain.PaymentMethod;
-import tech.lapsa.epayment.ws.jaxb.entity.EbillStatus;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillMethod;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPayer;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPayment;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPurposeItem;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillResult;
+import tech.lapsa.epayment.ws.jaxb.entity.InvoiceStatus;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlInvoiceInfo;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlPaymentMethod;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlPayer;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlPayment;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlInvoicePurposeItem;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlPaymentResult;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpForm;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpFormParam;
 
 public class SamplesUtil {
-    public static XmlEbillInfo ebillInfoSample() {
-	final XmlEbillInfo sample = new XmlEbillInfo("833835829896744", //
-		EbillStatus.READY, //
+    public static XmlInvoiceInfo invoiceInfoSample() {
+	final XmlInvoiceInfo sample = new XmlInvoiceInfo("833835829896744", //
+		InvoiceStatus.READY, //
 		Instant.parse("2016-08-01T19:24:11Z"), //
 		Instant.parse("2016-08-01T19:24:11Z"), //
-		ebillPayerSample(), //
-		ebillPaymentSample(), //
-		new XmlEbillMethod[] { ebillMethodSample() }, ebillResultSample());
+		payerSample(), //
+		paymentSample(), //
+		new XmlPaymentMethod[] { paymentMethodSample() }, paymentResultSample());
 	return sample;
     }
 
-    public static XmlEbillResult ebillResultSample() {
-	final XmlEbillResult sample = new XmlEbillResult(PaymentMethod.QAZKOM, "4444444444", Instant.now());
+    public static XmlPaymentResult paymentResultSample() {
+	final XmlPaymentResult sample = new XmlPaymentResult(PaymentMethod.QAZKOM, "4444444444", Instant.now());
 	return sample;
     }
 
-    public static XmlEbillMethod ebillMethodSample() {
-	final XmlEbillMethod sample = new XmlEbillMethod(PaymentMethod.QAZKOM, httpFormSample());
+    public static XmlPaymentMethod paymentMethodSample() {
+	final XmlPaymentMethod sample = new XmlPaymentMethod(PaymentMethod.QAZKOM, httpFormSample());
 	return sample;
     }
 
@@ -59,20 +59,20 @@ public class SamplesUtil {
 	}
     }
 
-    public static XmlEbillPayer ebillPayerSample() {
-	final XmlEbillPayer sample = new XmlEbillPayer("ДЖОНН БУЛЛ", "jonn@gmail.com");
+    public static XmlPayer payerSample() {
+	final XmlPayer sample = new XmlPayer("ДЖОНН БУЛЛ", "jonn@gmail.com");
 	return sample;
     }
 
-    public static XmlEbillPayment ebillPaymentSample() {
-	final XmlEbillPayment sample = new XmlEbillPayment(13711.82d,
-		new XmlEbillPurposeItem[] { ebillPurposeItemSample() },
+    public static XmlPayment paymentSample() {
+	final XmlPayment sample = new XmlPayment(13711.82d,
+		new XmlInvoicePurposeItem[] { invoicePurposeItemSample() },
 		"1231");
 	return sample;
     }
 
-    public static XmlEbillPurposeItem ebillPurposeItemSample() {
-	final XmlEbillPurposeItem sample = new XmlEbillPurposeItem("Policy of OI CLVO", 15000d, 1);
+    public static XmlInvoicePurposeItem invoicePurposeItemSample() {
+	final XmlInvoicePurposeItem sample = new XmlInvoicePurposeItem("Policy of OI CLVO", 15000d, 1);
 	return sample;
     }
 

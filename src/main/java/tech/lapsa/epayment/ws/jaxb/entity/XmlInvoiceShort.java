@@ -15,7 +15,7 @@ import tech.lapsa.javax.validation.NotNullValue;
 
 @XmlRootElement(name = "ebillShort")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillShort implements Serializable {
+public class XmlInvoiceShort implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
@@ -24,10 +24,10 @@ public class XmlEbillShort implements Serializable {
     @ValidInvoiceNumber
     protected String id;
 
-    public XmlEbillShort() {
+    public XmlInvoiceShort() {
     }
 
-    public XmlEbillShort(final String id) {
+    public XmlInvoiceShort(final String id) {
 	this.id = id;
     }
 

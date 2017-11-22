@@ -2,7 +2,6 @@ package tech.lapsa.epayment.ws.jaxb.entity;
 
 import java.io.Serializable;
 
-import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -10,27 +9,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import tech.lapsa.epayment.domain.PaymentMethod;
+import tech.lapsa.javax.validation.NotEmptyString;
 import tech.lapsa.javax.validation.NotNullValue;
 
-@XmlRootElement(name = "ebillMethod")
+@XmlRootElement(name = "ebillPayer")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillMethod implements Serializable {
+public class XmlPayer implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
     @NotNullValue
-    protected PaymentMethod type;
+    @NotEmptyString
+    protected String name;
 
-    @Valid
-    protected XmlHttpForm httpForm;
+    @XmlAttribute
+    @NotNullValue
+    @NotEmptyString
+    protected String email;
 
-    public XmlEbillMethod() {
+    public XmlPayer() {
     }
 
-    public XmlEbillMethod(final PaymentMethod type, final XmlHttpForm httpForm) {
-	this.type = type;
-	this.httpForm = httpForm;
+    public XmlPayer(final String name, final String email) {
+	this.name = name;
+	this.email = email;
     }
 
     @Override
@@ -38,19 +40,19 @@ public class XmlEbillMethod implements Serializable {
 	return ToStringBuilder.reflectionToString(this, Constants.DEFAULT_TO_STRING_STYLE);
     }
 
-    public PaymentMethod getType() {
-	return type;
+    public String getName() {
+	return name;
     }
 
-    public void setType(final PaymentMethod type) {
-	this.type = type;
+    public void setName(final String name) {
+	this.name = name;
     }
 
-    public XmlHttpForm getHttpForm() {
-	return httpForm;
+    public String getEmail() {
+	return email;
     }
 
-    public void setHttpForm(final XmlHttpForm httpForm) {
-	this.httpForm = httpForm;
+    public void setEmail(final String email) {
+	this.email = email;
     }
 }

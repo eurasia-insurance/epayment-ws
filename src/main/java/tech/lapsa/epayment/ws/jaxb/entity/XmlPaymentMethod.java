@@ -2,6 +2,7 @@ package tech.lapsa.epayment.ws.jaxb.entity;
 
 import java.io.Serializable;
 
+import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -9,30 +10,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import tech.lapsa.javax.validation.NotEmptyString;
+import tech.lapsa.epayment.domain.PaymentMethod;
 import tech.lapsa.javax.validation.NotNullValue;
 
-@XmlRootElement(name = "ebillPayer")
+@XmlRootElement(name = "ebillMethod")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillPayer implements Serializable {
+public class XmlPaymentMethod implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
     @NotNullValue
-    @NotEmptyString
-    protected String name;
+    protected PaymentMethod type;
 
-    @XmlAttribute
-    @NotNullValue
-    @NotEmptyString
-    protected String email;
+    @Valid
+    protected XmlHttpForm httpForm;
 
-    public XmlEbillPayer() {
+    public XmlPaymentMethod() {
     }
 
-    public XmlEbillPayer(final String name, final String email) {
-	this.name = name;
-	this.email = email;
+    public XmlPaymentMethod(final PaymentMethod type, final XmlHttpForm httpForm) {
+	this.type = type;
+	this.httpForm = httpForm;
     }
 
     @Override
@@ -40,19 +38,19 @@ public class XmlEbillPayer implements Serializable {
 	return ToStringBuilder.reflectionToString(this, Constants.DEFAULT_TO_STRING_STYLE);
     }
 
-    public String getName() {
-	return name;
+    public PaymentMethod getType() {
+	return type;
     }
 
-    public void setName(final String name) {
-	this.name = name;
+    public void setType(final PaymentMethod type) {
+	this.type = type;
     }
 
-    public String getEmail() {
-	return email;
+    public XmlHttpForm getHttpForm() {
+	return httpForm;
     }
 
-    public void setEmail(final String email) {
-	this.email = email;
+    public void setHttpForm(final XmlHttpForm httpForm) {
+	this.httpForm = httpForm;
     }
 }

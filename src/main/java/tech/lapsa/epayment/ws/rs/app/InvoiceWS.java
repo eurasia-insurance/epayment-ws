@@ -27,39 +27,39 @@ import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.facade.PaymentMethod.Http;
 import tech.lapsa.epayment.facade.QazkomFacade;
 import tech.lapsa.epayment.ws.auth.EpaymentSecurity;
-import tech.lapsa.epayment.ws.jaxb.entity.EbillStatus;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillInfo;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillMethod;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPayer;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPayment;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillPurposeItem;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillRequest;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlEbillResult;
+import tech.lapsa.epayment.ws.jaxb.entity.InvoiceStatus;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlInvoiceInfo;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlPaymentMethod;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlPayer;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlPayment;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlInvoicePurposeItem;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlInvoiceFetchRequest;
+import tech.lapsa.epayment.ws.jaxb.entity.XmlPaymentResult;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpForm;
 import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpFormParam;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
 import tech.lapsa.javax.rs.utility.WrongArgumentException;
 import tech.lapsa.javax.validation.NotNullValue;
 
-@Path("/" + WSPathNames.WS_EBILL)
+@Path("/" + WSPathNames.WS_INVOICE)
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @RolesAllowed({ EpaymentSecurity.ROLE_ADMIN, EpaymentSecurity.ROLE_ROBOT })
 @Singleton
-public class EbillWS extends ABaseWS {
+public class InvoiceWS extends ABaseWS {
 
     @Context
     private UriInfo uriInfo;
 
     @POST
-    @Path("/" + WSPathNames.WS_EBILL_FETCH)
-    public Response fetchEbillPOST(@NotNullValue @Valid final XmlEbillRequest request) {
-	return fetchEbill(request);
+    @Path("/" + WSPathNames.WS_INVOICE_FETCH)
+    public Response fetchInvoicePOST(@NotNullValue @Valid final XmlInvoiceFetchRequest request) {
+	return fetchInvoice(request);
     }
 
-    private Response fetchEbill(final XmlEbillRequest request) {
+    private Response fetchInvoice(final XmlInvoiceFetchRequest request) {
 	try {
-	    final XmlEbillInfo reply = _fetchEbill(request);
+	    final XmlInvoiceInfo reply = _fetchInvoice(request);
 	    return responseOk(reply, getLocaleOrDefault());
 	} catch (final WrongArgumentException e) {
 	    mailApplicationErrorAdmin(e, null);
@@ -76,7 +76,7 @@ public class EbillWS extends ABaseWS {
     @Inject
     private QazkomFacade qazkoms;
 
-    private XmlEbillInfo _fetchEbill(final XmlEbillRequest request)
+    private XmlInvoiceInfo _fetchInvoice(final XmlInvoiceFetchRequest request)
 	    throws WrongArgumentException, InternalServerErrorException {
 	try {
 
@@ -93,39 +93,39 @@ public class EbillWS extends ABaseWS {
 		throw new InternalServerErrorException(e);
 	    }
 
-	    final XmlEbillInfo response = new XmlEbillInfo();
+	    final XmlInvoiceInfo response = new XmlInvoiceInfo();
 	    response.setId(i.getNumber());
 	    response.setCreated(i.getCreated());
 
-	    final XmlEbillPayer payer = new XmlEbillPayer(i.getConsumerName(), i.getConsumerEmail());
+	    final XmlPayer payer = new XmlPayer(i.getConsumerName(), i.getConsumerEmail());
 	    response.setPayer(payer);
 
-	    final XmlEbillPayment payment = new XmlEbillPayment( //
+	    final XmlPayment payment = new XmlPayment( //
 		    i.getAmount(), //
 		    i.getItems().stream()
-			    .map(item -> new XmlEbillPurposeItem(item.getName(), item.getPrice(), item.getQuantity(),
+			    .map(item -> new XmlInvoicePurposeItem(item.getName(), item.getPrice(), item.getQuantity(),
 				    item.getTotal()))
-			    .toArray(XmlEbillPurposeItem[]::new),
+			    .toArray(XmlInvoicePurposeItem[]::new),
 		    i.getExternalId());
 	    response.setPayment(payment);
 
 	    switch (i.getStatus()) {
 	    case PENDING:
-		response.setStatus(EbillStatus.READY);
-		final Builder<XmlEbillMethod> builder = Stream.builder();
+		response.setStatus(InvoiceStatus.READY);
+		final Builder<XmlPaymentMethod> builder = Stream.builder();
 
 		// only one method supported at this time
 		builder.accept(qazkomPaymentMethod(request.getReturnUri(), i));
 
-		response.setAvailableMethods(builder.build().toArray(XmlEbillMethod[]::new));
+		response.setAvailableMethods(builder.build().toArray(XmlPaymentMethod[]::new));
 		break;
 	    case EXPIRED:
-		response.setStatus(EbillStatus.CANCELED);
+		response.setStatus(InvoiceStatus.CANCELED);
 		break;
 	    case PAID:
-		response.setStatus(EbillStatus.PAID);
+		response.setStatus(InvoiceStatus.PAID);
 		response.setPaid(i.getPayment().getCreated());
-		final XmlEbillResult result = new XmlEbillResult(i.getPayment().getMethod(),
+		final XmlPaymentResult result = new XmlPaymentResult(i.getPayment().getMethod(),
 			i.getPayment().getReferenceNumber(), i.getCreated());
 		response.setResult(result);
 		break;
@@ -140,7 +140,7 @@ public class EbillWS extends ABaseWS {
 	}
     }
 
-    private XmlEbillMethod qazkomPaymentMethod(final URI returnURI, final Invoice invoice)
+    private XmlPaymentMethod qazkomPaymentMethod(final URI returnURI, final Invoice invoice)
 	    throws InternalServerErrorException {
 
 	final URI uri = uriInfo.getBaseUriBuilder() //
@@ -165,6 +165,6 @@ public class EbillWS extends ABaseWS {
 		.stream() //
 		.map(x -> new XmlHttpFormParam(x.getKey(), x.getValue())) //
 		.toArray(XmlHttpFormParam[]::new));
-	return new XmlEbillMethod(PaymentMethod.QAZKOM, form);
+	return new XmlPaymentMethod(PaymentMethod.QAZKOM, form);
     }
 }

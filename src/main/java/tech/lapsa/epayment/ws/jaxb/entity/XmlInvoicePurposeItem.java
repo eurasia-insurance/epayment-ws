@@ -15,7 +15,7 @@ import tech.lapsa.javax.validation.NotNullValue;
 
 @XmlRootElement(name = "ebillPurposeItem")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillPurposeItem implements Serializable {
+public class XmlInvoicePurposeItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
@@ -38,17 +38,17 @@ public class XmlEbillPurposeItem implements Serializable {
     @Min(0)
     private Double amount;
 
-    public XmlEbillPurposeItem() {
+    public XmlInvoicePurposeItem() {
     }
 
-    public XmlEbillPurposeItem(final String title, final Double price, final Integer quantity, final Double amount) {
+    public XmlInvoicePurposeItem(final String title, final Double price, final Integer quantity, final Double amount) {
 	this.title = title;
 	this.price = price;
 	this.quantity = quantity;
 	this.amount = amount;
     }
 
-    public XmlEbillPurposeItem(final String title, final Double price, final Integer quantity) {
+    public XmlInvoicePurposeItem(final String title, final Double price, final Integer quantity) {
 	this(title, price, quantity, price * quantity);
     }
 

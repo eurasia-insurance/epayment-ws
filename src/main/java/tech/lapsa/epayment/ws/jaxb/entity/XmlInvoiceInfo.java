@@ -19,12 +19,12 @@ import tech.lapsa.javax.validation.NotNullValue;
 
 @XmlRootElement(name = "ebill")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class XmlEbillInfo extends XmlEbillShort {
+public class XmlInvoiceInfo extends XmlInvoiceShort {
     private static final long serialVersionUID = 1L;
 
     @XmlAttribute
     @NotNullValue
-    protected EbillStatus status;
+    protected InvoiceStatus status;
 
     @XmlAttribute
     @XmlJavaTypeAdapter(XmlInstantAdapter.class)
@@ -37,31 +37,31 @@ public class XmlEbillInfo extends XmlEbillShort {
     protected Instant paid;
 
     @Valid
-    protected XmlEbillPayer payer;
+    protected XmlPayer payer;
 
     @Valid
-    protected XmlEbillPayment payment;
+    protected XmlPayment payment;
 
     @XmlElementWrapper
     @XmlElementRef
     @Valid
     @Size(min = 0)
-    protected XmlEbillMethod[] availableMethods;
+    protected XmlPaymentMethod[] availableMethods;
 
     @Valid
-    protected XmlEbillResult result;
+    protected XmlPaymentResult result;
 
-    public XmlEbillInfo() {
+    public XmlInvoiceInfo() {
     }
 
-    public XmlEbillInfo(final String id) {
+    public XmlInvoiceInfo(final String id) {
 	super(id);
     }
 
-    public XmlEbillInfo(final String id, final EbillStatus status, final Instant created, final Instant paid,
-	    final XmlEbillPayer payer,
-	    final XmlEbillPayment payment,
-	    final XmlEbillMethod[] availableMethods, final XmlEbillResult result) {
+    public XmlInvoiceInfo(final String id, final InvoiceStatus status, final Instant created, final Instant paid,
+	    final XmlPayer payer,
+	    final XmlPayment payment,
+	    final XmlPaymentMethod[] availableMethods, final XmlPaymentResult result) {
 	super(id);
 	this.status = status;
 	this.created = created;
@@ -77,19 +77,19 @@ public class XmlEbillInfo extends XmlEbillShort {
 	return ToStringBuilder.reflectionToString(this, Constants.DEFAULT_TO_STRING_STYLE);
     }
 
-    public EbillStatus getStatus() {
+    public InvoiceStatus getStatus() {
 	return status;
     }
 
-    public void setStatus(final EbillStatus status) {
+    public void setStatus(final InvoiceStatus status) {
 	this.status = status;
     }
 
-    public XmlEbillMethod[] getAvailableMethods() {
+    public XmlPaymentMethod[] getAvailableMethods() {
 	return availableMethods;
     }
 
-    public void setAvailableMethods(final XmlEbillMethod[] availableMethods) {
+    public void setAvailableMethods(final XmlPaymentMethod[] availableMethods) {
 	this.availableMethods = availableMethods;
     }
 
@@ -101,19 +101,19 @@ public class XmlEbillInfo extends XmlEbillShort {
 	return created;
     }
 
-    public XmlEbillResult getResult() {
+    public XmlPaymentResult getResult() {
 	return result;
     }
 
-    public void setResult(final XmlEbillResult result) {
+    public void setResult(final XmlPaymentResult result) {
 	this.result = result;
     }
 
-    public XmlEbillPayment getPayment() {
+    public XmlPayment getPayment() {
 	return payment;
     }
 
-    public void setPayment(final XmlEbillPayment purpose) {
+    public void setPayment(final XmlPayment purpose) {
 	payment = purpose;
     }
 
@@ -125,11 +125,11 @@ public class XmlEbillInfo extends XmlEbillShort {
 	this.paid = paid;
     }
 
-    public XmlEbillPayer getPayer() {
+    public XmlPayer getPayer() {
 	return payer;
     }
 
-    public void setPayer(final XmlEbillPayer payer) {
+    public void setPayer(final XmlPayer payer) {
 	this.payer = payer;
     }
 }
