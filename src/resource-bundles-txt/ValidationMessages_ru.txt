@@ -1,1 +1,0 @@
-tech.lapsa.epayment.ws.jaxb.validator.ValidInvoiceNumber.message = Неверный номер электронного счета или электронный счет не найден
