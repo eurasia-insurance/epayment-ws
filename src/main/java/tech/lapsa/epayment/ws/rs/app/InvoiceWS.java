@@ -21,12 +21,16 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import tech.lapsa.epayment.domain.Invoice;
+import tech.lapsa.epayment.domain.Invoice.InvoiceBuilder;
 import tech.lapsa.epayment.domain.PaymentMethod;
 import tech.lapsa.epayment.facade.EpaymentFacade;
 import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.facade.PaymentMethod.Http;
+import tech.lapsa.epayment.facade.QazkomFacade;
 import tech.lapsa.epayment.shared.entity.XmlHttpForm;
 import tech.lapsa.epayment.shared.entity.XmlHttpFormParam;
+import tech.lapsa.epayment.shared.entity.XmlInvoiceAcceptRequest;
+import tech.lapsa.epayment.shared.entity.XmlInvoiceAcceptResponce;
 import tech.lapsa.epayment.shared.entity.XmlInvoiceFetchRequest;
 import tech.lapsa.epayment.shared.entity.XmlInvoiceInfo;
 import tech.lapsa.epayment.shared.entity.XmlInvoicePurposeItem;
@@ -36,9 +40,9 @@ import tech.lapsa.epayment.shared.entity.XmlPayment;
 import tech.lapsa.epayment.shared.entity.XmlPaymentMethod;
 import tech.lapsa.epayment.shared.entity.XmlPaymentMethodType;
 import tech.lapsa.epayment.shared.entity.XmlPaymentResult;
-import tech.lapsa.epayment.facade.QazkomFacade;
 import tech.lapsa.epayment.ws.auth.EpaymentSecurity;
 import tech.lapsa.java.commons.function.MyExceptions;
+import tech.lapsa.java.commons.function.MyStreams;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
 import tech.lapsa.javax.rs.utility.WrongArgumentException;
 import tech.lapsa.javax.validation.NotNullValue;
@@ -62,6 +66,25 @@ public class InvoiceWS extends ABaseWS {
     private Response fetchInvoice(final XmlInvoiceFetchRequest request) {
 	try {
 	    final XmlInvoiceInfo reply = _fetchInvoice(request);
+	    return responseOk(reply, getLocaleOrDefault());
+	} catch (final WrongArgumentException e) {
+	    mailApplicationErrorAdmin(e, null);
+	    return responseWrongArgument(e, getLocaleOrDefault());
+	} catch (final InternalServerErrorException e) {
+	    mailServerErrorAdmin(e, null);
+	    return responseInternalServerError(e, getLocaleOrDefault());
+	}
+    }
+
+    @POST
+    @Path("/" + WSPathNames.WS_INVOICE_ACCEPT)
+    public Response acceptInvoicePOST(@NotNullValue @Valid final XmlInvoiceAcceptRequest request) {
+	return acceptInvoice(request);
+    }
+
+    private Response acceptInvoice(final XmlInvoiceAcceptRequest request) {
+	try {
+	    final XmlInvoiceAcceptResponce reply = _acceptInvoice(request);
 	    return responseOk(reply, getLocaleOrDefault());
 	} catch (final WrongArgumentException e) {
 	    mailApplicationErrorAdmin(e, null);
@@ -183,4 +206,34 @@ public class InvoiceWS extends ABaseWS {
 		.toArray(XmlHttpFormParam[]::new));
 	return new XmlPaymentMethod(XmlPaymentMethodType.QAZKOM, form);
     }
+
+    private XmlInvoiceAcceptResponce _acceptInvoice(final XmlInvoiceAcceptRequest request)
+	    throws WrongArgumentException, InternalServerErrorException {
+	try {
+
+	    final InvoiceBuilder builder = Invoice.builder() //
+		    .withGeneratedNumber() //
+		    .withConsumerName(request.getName()) //
+		    .withCurrency(request.getCurrency()) //
+		    .withConsumerPreferLanguage(request.getLanguage())
+		    //
+		    .withExternalId(request.optExternalId()) //
+		    .withConsumerEmail(request.optEmail()) //
+		    .withConsumerPhone(request.optPhoneNumber()) //
+		    .withConsumerTaxpayerNumber(request.optTaxpayerNumber());
+
+	    MyStreams.orEmptyOf(request.getItems()) //
+		    .forEach(x -> builder.withItem(x.getTitle(), x.getQuantity(), x.getPrice()));
+
+	    final String invoiceNumber = reThrowAsUnchecked(() -> epayments.completeAndAccept(builder) //
+		    .getNumber());
+
+	    return new XmlInvoiceAcceptResponce(invoiceNumber);
+	} catch (final IllegalArgumentException e) {
+	    throw new WrongArgumentException(e);
+	} catch (final RuntimeException e) {
+	    throw new InternalServerErrorException(e);
+	}
+    }
+
 }
