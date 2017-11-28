@@ -5,21 +5,21 @@ import java.net.URISyntaxException;
 import java.time.Instant;
 import java.util.Arrays;
 
-import tech.lapsa.epayment.domain.PaymentMethod;
-import tech.lapsa.epayment.ws.jaxb.entity.InvoiceStatus;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlInvoiceInfo;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlPaymentMethod;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlPayer;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlPayment;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlInvoicePurposeItem;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlPaymentResult;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpForm;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpFormParam;
+import tech.lapsa.epayment.shared.entity.XmlHttpForm;
+import tech.lapsa.epayment.shared.entity.XmlHttpFormParam;
+import tech.lapsa.epayment.shared.entity.XmlInvoiceInfo;
+import tech.lapsa.epayment.shared.entity.XmlInvoicePurposeItem;
+import tech.lapsa.epayment.shared.entity.XmlInvoiceStatus;
+import tech.lapsa.epayment.shared.entity.XmlPayer;
+import tech.lapsa.epayment.shared.entity.XmlPayment;
+import tech.lapsa.epayment.shared.entity.XmlPaymentMethod;
+import tech.lapsa.epayment.shared.entity.XmlPaymentMethodType;
+import tech.lapsa.epayment.shared.entity.XmlPaymentResult;
 
 public class SamplesUtil {
     public static XmlInvoiceInfo invoiceInfoSample() {
 	final XmlInvoiceInfo sample = new XmlInvoiceInfo("833835829896744", //
-		InvoiceStatus.READY, //
+		XmlInvoiceStatus.READY, //
 		Instant.parse("2016-08-01T19:24:11Z"), //
 		Instant.parse("2016-08-01T19:24:11Z"), //
 		payerSample(), //
@@ -29,12 +29,12 @@ public class SamplesUtil {
     }
 
     public static XmlPaymentResult paymentResultSample() {
-	final XmlPaymentResult sample = new XmlPaymentResult(PaymentMethod.QAZKOM, "4444444444", Instant.now());
+	final XmlPaymentResult sample = new XmlPaymentResult(XmlPaymentMethodType.QAZKOM, "4444444444", Instant.now());
 	return sample;
     }
 
     public static XmlPaymentMethod paymentMethodSample() {
-	final XmlPaymentMethod sample = new XmlPaymentMethod(PaymentMethod.QAZKOM, httpFormSample());
+	final XmlPaymentMethod sample = new XmlPaymentMethod(XmlPaymentMethodType.QAZKOM, httpFormSample());
 	return sample;
     }
 

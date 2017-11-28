@@ -25,18 +25,20 @@ import tech.lapsa.epayment.domain.PaymentMethod;
 import tech.lapsa.epayment.facade.EpaymentFacade;
 import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.facade.PaymentMethod.Http;
+import tech.lapsa.epayment.shared.entity.XmlHttpForm;
+import tech.lapsa.epayment.shared.entity.XmlHttpFormParam;
+import tech.lapsa.epayment.shared.entity.XmlInvoiceFetchRequest;
+import tech.lapsa.epayment.shared.entity.XmlInvoiceInfo;
+import tech.lapsa.epayment.shared.entity.XmlInvoicePurposeItem;
+import tech.lapsa.epayment.shared.entity.XmlInvoiceStatus;
+import tech.lapsa.epayment.shared.entity.XmlPayer;
+import tech.lapsa.epayment.shared.entity.XmlPayment;
+import tech.lapsa.epayment.shared.entity.XmlPaymentMethod;
+import tech.lapsa.epayment.shared.entity.XmlPaymentMethodType;
+import tech.lapsa.epayment.shared.entity.XmlPaymentResult;
 import tech.lapsa.epayment.facade.QazkomFacade;
 import tech.lapsa.epayment.ws.auth.EpaymentSecurity;
-import tech.lapsa.epayment.ws.jaxb.entity.InvoiceStatus;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlInvoiceInfo;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlPaymentMethod;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlPayer;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlPayment;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlInvoicePurposeItem;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlInvoiceFetchRequest;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlPaymentResult;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpForm;
-import tech.lapsa.epayment.ws.jaxb.entity.XmlHttpFormParam;
+import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
 import tech.lapsa.javax.rs.utility.WrongArgumentException;
 import tech.lapsa.javax.validation.NotNullValue;
@@ -111,7 +113,7 @@ public class InvoiceWS extends ABaseWS {
 
 	    switch (i.getStatus()) {
 	    case PENDING:
-		response.setStatus(InvoiceStatus.READY);
+		response.setStatus(XmlInvoiceStatus.READY);
 		final Builder<XmlPaymentMethod> builder = Stream.builder();
 
 		// only one method supported at this time
@@ -120,13 +122,14 @@ public class InvoiceWS extends ABaseWS {
 		response.setAvailableMethods(builder.build().toArray(XmlPaymentMethod[]::new));
 		break;
 	    case EXPIRED:
-		response.setStatus(InvoiceStatus.CANCELED);
+		response.setStatus(XmlInvoiceStatus.CANCELED);
 		break;
 	    case PAID:
-		response.setStatus(InvoiceStatus.PAID);
+		response.setStatus(XmlInvoiceStatus.PAID);
 		response.setPaid(i.getPayment().getCreated());
-		final XmlPaymentResult result = new XmlPaymentResult(i.getPayment().getMethod(),
-			i.getPayment().getReferenceNumber(), i.getCreated());
+		final XmlPaymentMethodType type = mapPaymentMethod(i.getPayment().getMethod());
+		final XmlPaymentResult result = new XmlPaymentResult(type, i.getPayment().getReferenceNumber(),
+			i.getCreated());
 		response.setResult(result);
 		break;
 	    default:
@@ -138,6 +141,19 @@ public class InvoiceWS extends ABaseWS {
 	} catch (final RuntimeException e) {
 	    throw new InternalServerErrorException(e);
 	}
+    }
+
+    private XmlPaymentMethodType mapPaymentMethod(PaymentMethod method) {
+	if (method == null)
+	    return null;
+	switch (method) {
+	case QAZKOM:
+	    return XmlPaymentMethodType.QAZKOM;
+	case UNKNOWN:
+	    return XmlPaymentMethodType.UNKNOWN;
+	}
+	throw MyExceptions.illegalArgumentFormat("Can't map from %1$s.%2$s to %3$s", PaymentMethod.class.getName(),
+		method, XmlPaymentMethodType.class.getName());
     }
 
     private XmlPaymentMethod qazkomPaymentMethod(final URI returnURI, final Invoice invoice)
@@ -165,6 +181,6 @@ public class InvoiceWS extends ABaseWS {
 		.stream() //
 		.map(x -> new XmlHttpFormParam(x.getKey(), x.getValue())) //
 		.toArray(XmlHttpFormParam[]::new));
-	return new XmlPaymentMethod(PaymentMethod.QAZKOM, form);
+	return new XmlPaymentMethod(XmlPaymentMethodType.QAZKOM, form);
     }
 }
