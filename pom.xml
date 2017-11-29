@@ -216,6 +216,11 @@
 			<artifactId>javax.mail</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>javax.jms</groupId>
+			<artifactId>javax.jms-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<!-- Glassfish -->
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
