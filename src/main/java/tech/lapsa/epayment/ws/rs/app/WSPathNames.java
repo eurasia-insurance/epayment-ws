@@ -8,7 +8,6 @@ public class WSPathNames {
     // TODO REFACT : ebill to invoice
     public static final String WS_INVOICE = "ebill";
     public static final String WS_INVOICE_FETCH = "fetch";
-    public static final String WS_INVOICE_ACCEPT = "accept";
 
     public static final String WS_SAMPLES = "samples";
 }
