@@ -22,7 +22,6 @@
 		<javax-mail-root.version>2.0</javax-mail-root.version>
 		<!-- tech -->
 		<java-jaxb-commons.version>1.1-SNAPSHOT</java-jaxb-commons.version>
-		<javax-jms-commons.version>2.0-SNAPSHOT</javax-jms-commons.version>
 		<javax-rs-commons.version>1.1-SNAPSHOT</javax-rs-commons.version>
 		<javax-cdi-commons.version>1.1-SNAPSHOT</javax-cdi-commons.version>
 		<javax-validation-commons.version>1.1-SNAPSHOT</javax-validation-commons.version>
@@ -74,11 +73,6 @@
 			</dependency>
 			<!-- tech -->
 			<dependency>
-				<groupId>tech.lapsa.javax</groupId>
-				<artifactId>javax-jms-commons</artifactId>
-				<version>${javax-jms-commons.version}</version>
-			</dependency>
-			<dependency>
 				<groupId>tech.lapsa.java</groupId>
 				<artifactId>java-jaxb-commons</artifactId>
 				<version>${java-jaxb-commons.version}</version>
@@ -121,12 +115,6 @@
 		<dependency>
 			<groupId>tech.lapsa.java</groupId>
 			<artifactId>java-commons</artifactId>
-			<scope>compile</scope>
-			<optional>false</optional>
-		</dependency>
-		<dependency>
-			<groupId>tech.lapsa.javax</groupId>
-			<artifactId>javax-jms-commons</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
@@ -214,11 +202,6 @@
 		<dependency>
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.jms</groupId>
-			<artifactId>javax.jms-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<!-- Glassfish -->
