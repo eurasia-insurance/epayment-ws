@@ -183,5 +183,4 @@ public class InvoiceWS extends ABaseWS {
 		.toArray(XmlHttpFormParam[]::new));
 	return new XmlPaymentMethod(XmlPaymentMethodType.QAZKOM, form);
     }
-
 }
