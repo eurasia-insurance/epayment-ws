@@ -23,8 +23,8 @@
 		<!-- tech -->
 		<java-jaxb-commons.version>1.1-SNAPSHOT</java-jaxb-commons.version>
 		<javax-rs-commons.version>1.1-SNAPSHOT</javax-rs-commons.version>
-		<javax-cdi-commons.version>1.0</javax-cdi-commons.version>
-		<javax-validation-commons.version>1.0</javax-validation-commons.version>
+		<javax-cdi-commons.version>1.1-SNAPSHOT</javax-cdi-commons.version>
+		<javax-validation-commons.version>1.1-SNAPSHOT</javax-validation-commons.version>
 		<epayment-shared.version>1.0-SNAPSHOT</epayment-shared.version>
 		<payara-jersey-extensions.version>1.0</payara-jersey-extensions.version>
 		<payara-hibernate-validation.version>1.0</payara-hibernate-validation.version>
