@@ -136,7 +136,7 @@ public class InvoiceWS extends ABaseWS {
 		throw new InternalServerErrorException(String.format("Invalid payment status '%1$s'", i.getStatus()));
 	    }
 	    return response;
-	} catch (final IllegalArgumentException e) {
+	} catch (final IllegalArgumentException | IllegalStateException e) {
 	    throw new WrongArgumentException(e);
 	} catch (final RuntimeException e) {
 	    throw new InternalServerErrorException(e);
