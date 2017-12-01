@@ -61,7 +61,7 @@ public class QazkomWS extends ABaseWS {
     private Invoice _postbackPayment(final String rawXml) throws WrongArgumentException, InternalServerErrorException {
 	try {
 	    return reThrowAsUnchecked(() -> qazkoms.processPayment(rawXml).getForInvoice());
-	} catch (final IllegalArgumentException e) {
+	} catch (final IllegalArgumentException | IllegalStateException e) {
 	    throw new WrongArgumentException(e);
 	} catch (final RuntimeException e) {
 	    throw new InternalServerErrorException(e);
