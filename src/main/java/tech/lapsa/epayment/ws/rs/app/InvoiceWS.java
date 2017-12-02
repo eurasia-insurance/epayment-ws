@@ -159,14 +159,19 @@ public class InvoiceWS extends ABaseWS {
     private XmlPaymentMethod qazkomPaymentMethod(final URI returnURI, final Invoice invoice)
 	    throws InternalServerErrorException {
 
-	final URI uri = uriInfo.getBaseUriBuilder() //
+	final URI postbackURI = uriInfo.getBaseUriBuilder() //
 		.path(WSPathNames.WS_QAZKOM) //
 		.path(WSPathNames.WS_QAZKOM_OK) //
 		.build();
 
+	final URI failureURI = uriInfo.getBaseUriBuilder() //
+		.path(WSPathNames.WS_QAZKOM) //
+		.path(WSPathNames.WS_QAZKOM_FAILURE) //
+		.build();
+
 	final Http http;
 	try {
-	    http = reThrowAsUnchecked(() -> qazkoms.httpMethod(uri, returnURI, invoice) //
+	    http = reThrowAsUnchecked(() -> qazkoms.httpMethod(postbackURI, failureURI, returnURI, invoice) //
 		    .getHttp());
 	} catch (final IllegalArgumentException e) {
 	    // this is because something goes wrong
