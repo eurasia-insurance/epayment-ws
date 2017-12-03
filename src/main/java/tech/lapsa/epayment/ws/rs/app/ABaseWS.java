@@ -64,7 +64,11 @@ public abstract class ABaseWS {
     @QAdmin
     private MailFactory mailFactory;
 
-    private void mailAdmin(final String subject, final Exception e, final String textAttachement) {
+    void mailAdmin(final String subject, final String textAttachement) {
+	mailAdmin(subject, null, textAttachement);
+    }
+
+    void mailAdmin(final String subject, final Exception e, final String textAttachement) {
 	try {
 	    final MailMessageBuilder messageBuilder = mailFactory.newMailBuilder()
 		    .withDefaultSender()

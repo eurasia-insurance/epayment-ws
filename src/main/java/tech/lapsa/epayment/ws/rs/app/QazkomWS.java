@@ -29,6 +29,9 @@ import tech.lapsa.javax.rs.utility.WrongArgumentException;
 @Singleton
 public class QazkomWS extends ABaseWS {
 
+    @Inject
+    private QazkomFacade qazkoms;
+
     @POST
     @Path("/" + WSPathNames.WS_QAZKOM_OK)
     public Response postbackPOST(@FormParam("response") final String postbackXml) {
@@ -40,20 +43,6 @@ public class QazkomWS extends ABaseWS {
     public Response postbackGET(@QueryParam("response") final String postbackXml) {
 	return postback(postbackXml);
     }
-
-    @POST
-    @Path("/" + WSPathNames.WS_QAZKOM_FAILURE)
-    public Response failurePOST(@FormParam("response") final String failureXml) {
-	return failure(failureXml);
-    }
-
-    @GET
-    @Path("/" + WSPathNames.WS_QAZKOM_FAILURE)
-    public Response failureGET(@QueryParam("response") final String failureXml) {
-	return failure(failureXml);
-    }
-
-    // PRIVATE
 
     private Response postback(final String postbackXml) {
 	try {
@@ -68,22 +57,6 @@ public class QazkomWS extends ABaseWS {
 	}
     }
 
-    private Response failure(final String failureXml) {
-	try {
-	    _failure(failureXml);
-	    return responseOk(0);
-	} catch (final WrongArgumentException e) {
-	    mailApplicationErrorAdmin(e, failureXml);
-	    return responseWrongArgument(e, getLocaleOrDefault());
-	} catch (final InternalServerErrorException e) {
-	    mailServerErrorAdmin(e, failureXml);
-	    return responseInternalServerError(e, getLocaleOrDefault());
-	}
-    }
-
-    @Inject
-    private QazkomFacade qazkoms;
-
     private QazkomPayment _postback(final String postbackXml)
 	    throws WrongArgumentException, InternalServerErrorException {
 	try {
@@ -92,6 +65,33 @@ public class QazkomWS extends ABaseWS {
 	    throw new WrongArgumentException(e);
 	} catch (final RuntimeException e) {
 	    throw new InternalServerErrorException(e);
+	}
+    }
+
+    @POST
+    @Path("/" + WSPathNames.WS_QAZKOM_FAILURE)
+    public Response failurePOST(@FormParam("response") final String failureXml) {
+	return failure(failureXml);
+    }
+
+    @GET
+    @Path("/" + WSPathNames.WS_QAZKOM_FAILURE)
+    public Response failureGET(@QueryParam("response") final String failureXml) {
+	return failure(failureXml);
+    }
+
+    private Response failure(final String failureXml) {
+	try {
+	    final QazkomError error = _failure(failureXml);
+	    final String message = error.getMessage();
+	    mailAdmin("QAZKOM EPAY FAILURE RESPONSE: " + message, failureXml);
+	    return responseOk(0);
+	} catch (final WrongArgumentException e) {
+	    mailApplicationErrorAdmin(e, failureXml);
+	    return responseWrongArgument(e, getLocaleOrDefault());
+	} catch (final InternalServerErrorException e) {
+	    mailServerErrorAdmin(e, failureXml);
+	    return responseInternalServerError(e, getLocaleOrDefault());
 	}
     }
 
