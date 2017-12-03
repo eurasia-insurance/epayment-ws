@@ -16,7 +16,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import tech.lapsa.epayment.domain.Invoice;
+import tech.lapsa.epayment.domain.QazkomError;
+import tech.lapsa.epayment.domain.QazkomPayment;
 import tech.lapsa.epayment.facade.QazkomFacade;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
 import tech.lapsa.javax.rs.utility.WrongArgumentException;
@@ -30,27 +31,52 @@ public class QazkomWS extends ABaseWS {
 
     @POST
     @Path("/" + WSPathNames.WS_QAZKOM_OK)
-    public Response postBackPaymentOK(@FormParam("response") final String response) {
-	return postbackPayment(response);
+    public Response postbackPOST(@FormParam("response") final String postbackXml) {
+	return postback(postbackXml);
     }
 
     @GET
     @Path("/" + WSPathNames.WS_QAZKOM_OK)
-    public Response getBackPaymentOK(@QueryParam("response") final String response) {
-	return postbackPayment(response);
+    public Response postbackGET(@QueryParam("response") final String postbackXml) {
+	return postback(postbackXml);
+    }
+
+    @POST
+    @Path("/" + WSPathNames.WS_QAZKOM_FAILURE)
+    public Response failurePOST(@FormParam("response") final String failureXml) {
+	return failure(failureXml);
+    }
+
+    @GET
+    @Path("/" + WSPathNames.WS_QAZKOM_FAILURE)
+    public Response failureGET(@QueryParam("response") final String failureXml) {
+	return failure(failureXml);
     }
 
     // PRIVATE
 
-    private Response postbackPayment(final String rawXml) {
+    private Response postback(final String postbackXml) {
 	try {
-	    _postbackPayment(rawXml);
+	    _postback(postbackXml);
 	    return responseOk(0);
 	} catch (final WrongArgumentException e) {
-	    mailApplicationErrorAdmin(e, rawXml);
+	    mailApplicationErrorAdmin(e, postbackXml);
 	    return responseWrongArgument(e, getLocaleOrDefault());
 	} catch (final InternalServerErrorException e) {
-	    mailServerErrorAdmin(e, rawXml);
+	    mailServerErrorAdmin(e, postbackXml);
+	    return responseInternalServerError(e, getLocaleOrDefault());
+	}
+    }
+
+    private Response failure(final String failureXml) {
+	try {
+	    _failure(failureXml);
+	    return responseOk(0);
+	} catch (final WrongArgumentException e) {
+	    mailApplicationErrorAdmin(e, failureXml);
+	    return responseWrongArgument(e, getLocaleOrDefault());
+	} catch (final InternalServerErrorException e) {
+	    mailServerErrorAdmin(e, failureXml);
 	    return responseInternalServerError(e, getLocaleOrDefault());
 	}
     }
@@ -58,9 +84,20 @@ public class QazkomWS extends ABaseWS {
     @Inject
     private QazkomFacade qazkoms;
 
-    private Invoice _postbackPayment(final String rawXml) throws WrongArgumentException, InternalServerErrorException {
+    private QazkomPayment _postback(final String postbackXml)
+	    throws WrongArgumentException, InternalServerErrorException {
 	try {
-	    return reThrowAsUnchecked(() -> qazkoms.processPayment(rawXml).getForInvoice());
+	    return reThrowAsUnchecked(() -> qazkoms.processPostback(postbackXml));
+	} catch (final IllegalArgumentException | IllegalStateException e) {
+	    throw new WrongArgumentException(e);
+	} catch (final RuntimeException e) {
+	    throw new InternalServerErrorException(e);
+	}
+    }
+
+    private QazkomError _failure(final String failureXml) throws WrongArgumentException, InternalServerErrorException {
+	try {
+	    return reThrowAsUnchecked(() -> qazkoms.processFailure(failureXml));
 	} catch (final IllegalArgumentException | IllegalStateException e) {
 	    throw new WrongArgumentException(e);
 	} catch (final RuntimeException e) {
