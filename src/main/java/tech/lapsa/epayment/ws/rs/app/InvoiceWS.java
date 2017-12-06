@@ -23,9 +23,7 @@ import javax.ws.rs.core.UriInfo;
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.PaymentMethod;
 import tech.lapsa.epayment.facade.EpaymentFacade;
-import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.facade.PaymentMethod.Http;
-import tech.lapsa.epayment.facade.QazkomFacade;
 import tech.lapsa.epayment.shared.entity.XmlHttpForm;
 import tech.lapsa.epayment.shared.entity.XmlHttpFormParam;
 import tech.lapsa.epayment.shared.entity.XmlInvoiceFetchRequest;
@@ -75,20 +73,13 @@ public class InvoiceWS extends ABaseWS {
     @Inject
     private EpaymentFacade epayments;
 
-    @Inject
-    private QazkomFacade qazkoms;
-
     private XmlInvoiceInfo _fetchInvoice(final XmlInvoiceFetchRequest request)
 	    throws WrongArgumentException, InternalServerErrorException {
 	try {
 
 	    Invoice i;
 	    try {
-		i = reThrowAsUnchecked(() -> epayments.invoiceByNumber(request.getId()));
-	    } catch (final InvoiceNotFound e) {
-		// this is because invoice number must be validated and checked
-		// at this point
-		throw new InternalServerErrorException(e);
+		i = reThrowAsUnchecked(() -> epayments.getInvoiceByNumber(request.getId()));
 	    } catch (final IllegalArgumentException e) {
 		// this is because invoice number must be validated and checked
 		// at this point
@@ -171,7 +162,7 @@ public class InvoiceWS extends ABaseWS {
 
 	final Http http;
 	try {
-	    http = reThrowAsUnchecked(() -> qazkoms.httpMethod(postbackURI, failureURI, returnURI, invoice) //
+	    http = reThrowAsUnchecked(() -> epayments.qazkomHttpMethod(postbackURI, failureURI, returnURI, invoice) //
 		    .getHttp());
 	} catch (final IllegalArgumentException e) {
 	    // this is because something goes wrong

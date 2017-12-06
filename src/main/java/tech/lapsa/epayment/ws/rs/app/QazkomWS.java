@@ -16,9 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import tech.lapsa.epayment.domain.QazkomError;
-import tech.lapsa.epayment.domain.QazkomPayment;
-import tech.lapsa.epayment.facade.QazkomFacade;
+import tech.lapsa.epayment.facade.EpaymentFacade;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
 import tech.lapsa.javax.rs.utility.WrongArgumentException;
 
@@ -30,7 +28,7 @@ import tech.lapsa.javax.rs.utility.WrongArgumentException;
 public class QazkomWS extends ABaseWS {
 
     @Inject
-    private QazkomFacade qazkoms;
+    private EpaymentFacade epayments;
 
     @POST
     @Path("/" + WSPathNames.WS_QAZKOM_OK)
@@ -57,10 +55,10 @@ public class QazkomWS extends ABaseWS {
 	}
     }
 
-    private QazkomPayment _postback(final String postbackXml)
+    private void _postback(final String postbackXml)
 	    throws WrongArgumentException, InternalServerErrorException {
 	try {
-	    return reThrowAsUnchecked(() -> qazkoms.processPostback(postbackXml));
+	    reThrowAsUnchecked(() -> epayments.completeWithQazkomPayment(postbackXml));
 	} catch (final IllegalArgumentException | IllegalStateException e) {
 	    throw new WrongArgumentException(e);
 	} catch (final RuntimeException e) {
@@ -82,8 +80,7 @@ public class QazkomWS extends ABaseWS {
 
     private Response failure(final String failureXml) {
 	try {
-	    final QazkomError error = _failure(failureXml);
-	    final String message = error.getMessage();
+	    final String message = _failure(failureXml);
 	    mailAdmin("QAZKOM EPAY FAILURE RESPONSE: " + message, failureXml);
 	    return responseOk(0);
 	} catch (final WrongArgumentException e) {
@@ -95,9 +92,9 @@ public class QazkomWS extends ABaseWS {
 	}
     }
 
-    private QazkomError _failure(final String failureXml) throws WrongArgumentException, InternalServerErrorException {
+    private String _failure(final String failureXml) throws WrongArgumentException, InternalServerErrorException {
 	try {
-	    return reThrowAsUnchecked(() -> qazkoms.processFailure(failureXml));
+	    return reThrowAsUnchecked(() -> epayments.processQazkomFailure(failureXml));
 	} catch (final IllegalArgumentException | IllegalStateException e) {
 	    throw new WrongArgumentException(e);
 	} catch (final RuntimeException e) {
