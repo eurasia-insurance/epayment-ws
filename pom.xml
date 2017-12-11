@@ -199,7 +199,7 @@
 			<artifactId>javax.mail</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<!-- Glassfish -->
+		<!-- Payara -->
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
@@ -218,6 +218,11 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-validator</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.persistence</groupId>
+			<artifactId>org.eclipse.persistence.core</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<!-- test -->
