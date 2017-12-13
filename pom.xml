@@ -174,7 +174,7 @@
 		</dependency>
 		<dependency>
 			<groupId>tech.lapsa.epayment</groupId>
-			<artifactId>epayment-facade-client</artifactId>
+			<artifactId>epayment-facade-producer-remote</artifactId>
 			<scope>compile</scope>
 			<optional>false</optional>
 		</dependency>
