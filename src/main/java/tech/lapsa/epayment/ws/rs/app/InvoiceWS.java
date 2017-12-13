@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
 import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.inject.Singleton;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -21,8 +21,8 @@ import javax.ws.rs.core.UriInfo;
 
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.PaymentMethod;
-import tech.lapsa.epayment.facade.EJBViaCDI;
 import tech.lapsa.epayment.facade.EpaymentFacade;
+import tech.lapsa.epayment.facade.EpaymentFacade.EpaymentFacadeRemote;
 import tech.lapsa.epayment.facade.PaymentMethod.Http;
 import tech.lapsa.epayment.shared.entity.XmlHttpForm;
 import tech.lapsa.epayment.shared.entity.XmlHttpFormParam;
@@ -70,9 +70,8 @@ public class InvoiceWS extends ABaseWS {
 	}
     }
 
-    @Inject
-    @EJBViaCDI
-    private EpaymentFacade epayments;
+    @EJB
+    private EpaymentFacadeRemote epayments;
 
     private XmlInvoiceInfo _fetchInvoice(final XmlInvoiceFetchRequest request)
 	    throws WrongArgumentException, InternalServerErrorException {

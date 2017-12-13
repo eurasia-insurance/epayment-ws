@@ -3,7 +3,7 @@ package tech.lapsa.epayment.ws.rs.app;
 import static tech.lapsa.javax.rs.utility.RESTUtils.*;
 
 import javax.annotation.security.PermitAll;
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -15,8 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import tech.lapsa.epayment.facade.EJBViaCDI;
-import tech.lapsa.epayment.facade.EpaymentFacade;
+import tech.lapsa.epayment.facade.EpaymentFacade.EpaymentFacadeRemote;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
 import tech.lapsa.javax.rs.utility.WrongArgumentException;
 
@@ -27,9 +26,8 @@ import tech.lapsa.javax.rs.utility.WrongArgumentException;
 @Singleton
 public class QazkomWS extends ABaseWS {
 
-    @Inject
-    @EJBViaCDI
-    private EpaymentFacade epayments;
+    @EJB
+    private EpaymentFacadeRemote epayments;
 
     @POST
     @Path("/" + WSPathNames.WS_QAZKOM_OK)
