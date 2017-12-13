@@ -1,6 +1,5 @@
 package tech.lapsa.epayment.ws.rs.app;
 
-import static tech.lapsa.java.commons.function.MyExceptions.*;
 import static tech.lapsa.javax.rs.utility.RESTUtils.*;
 
 import javax.annotation.security.PermitAll;
@@ -16,6 +15,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import tech.lapsa.epayment.facade.EJBViaCDI;
 import tech.lapsa.epayment.facade.EpaymentFacade;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
 import tech.lapsa.javax.rs.utility.WrongArgumentException;
@@ -28,6 +28,7 @@ import tech.lapsa.javax.rs.utility.WrongArgumentException;
 public class QazkomWS extends ABaseWS {
 
     @Inject
+    @EJBViaCDI
     private EpaymentFacade epayments;
 
     @POST
@@ -58,7 +59,7 @@ public class QazkomWS extends ABaseWS {
     private void _postback(final String postbackXml)
 	    throws WrongArgumentException, InternalServerErrorException {
 	try {
-	    reThrowAsUnchecked(() -> epayments.completeWithQazkomPayment(postbackXml));
+	    epayments.completeWithQazkomPayment(postbackXml);
 	} catch (final IllegalArgumentException | IllegalStateException e) {
 	    throw new WrongArgumentException(e);
 	} catch (final RuntimeException e) {
@@ -94,7 +95,7 @@ public class QazkomWS extends ABaseWS {
 
     private String _failure(final String failureXml) throws WrongArgumentException, InternalServerErrorException {
 	try {
-	    return reThrowAsUnchecked(() -> epayments.processQazkomFailure(failureXml));
+	    return epayments.processQazkomFailure(failureXml);
 	} catch (final IllegalArgumentException | IllegalStateException e) {
 	    throw new WrongArgumentException(e);
 	} catch (final RuntimeException e) {
