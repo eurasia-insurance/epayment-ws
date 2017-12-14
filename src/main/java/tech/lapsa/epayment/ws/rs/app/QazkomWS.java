@@ -16,6 +16,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import tech.lapsa.epayment.facade.EpaymentFacade.EpaymentFacadeRemote;
+import tech.lapsa.java.commons.exceptions.IllegalArgument;
+import tech.lapsa.java.commons.exceptions.IllegalState;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
 import tech.lapsa.javax.rs.utility.WrongArgumentException;
 
@@ -58,7 +60,7 @@ public class QazkomWS extends ABaseWS {
 	    throws WrongArgumentException, InternalServerErrorException {
 	try {
 	    epayments.completeWithQazkomPayment(postbackXml);
-	} catch (final IllegalArgumentException | IllegalStateException e) {
+	} catch (final IllegalArgument | IllegalState e) {
 	    throw new WrongArgumentException(e);
 	} catch (final RuntimeException e) {
 	    throw new InternalServerErrorException(e);
@@ -94,7 +96,7 @@ public class QazkomWS extends ABaseWS {
     private String _failure(final String failureXml) throws WrongArgumentException, InternalServerErrorException {
 	try {
 	    return epayments.processQazkomFailure(failureXml);
-	} catch (final IllegalArgumentException | IllegalStateException e) {
+	} catch (final IllegalArgument e) {
 	    throw new WrongArgumentException(e);
 	} catch (final RuntimeException e) {
 	    throw new InternalServerErrorException(e);
