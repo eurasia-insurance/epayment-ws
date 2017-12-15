@@ -21,8 +21,8 @@ import javax.ws.rs.core.UriInfo;
 
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.PaymentMethod;
-import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.facade.EpaymentFacade.EpaymentFacadeRemote;
+import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.facade.PaymentMethod.Http;
 import tech.lapsa.epayment.shared.entity.XmlHttpForm;
 import tech.lapsa.epayment.shared.entity.XmlHttpFormParam;
@@ -135,7 +135,7 @@ public class InvoiceWS extends ABaseWS {
 	}
     }
 
-    private XmlPaymentMethodType mapPaymentMethod(PaymentMethod method) {
+    private XmlPaymentMethodType mapPaymentMethod(final PaymentMethod method) {
 	if (method == null)
 	    return null;
 	switch (method) {
