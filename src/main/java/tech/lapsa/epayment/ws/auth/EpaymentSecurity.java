@@ -11,7 +11,7 @@ public final class EpaymentSecurity {
     }
 
     public static final String ROLE_ADMIN = "role-admin";
-    //TODO REFACT : Rename role to role-user
+    // TODO REFACT : Rename role to role-user
     public static final String ROLE_ROBOT = "role-robot";
 
     public static final Set<String> ALL = MySets.of(ROLE_ADMIN, ROLE_ROBOT);

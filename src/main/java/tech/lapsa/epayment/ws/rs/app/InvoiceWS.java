@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
 import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
+import javax.ejb.EJB;
 import javax.inject.Singleton;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
@@ -21,8 +21,8 @@ import javax.ws.rs.core.UriInfo;
 
 import tech.lapsa.epayment.domain.Invoice;
 import tech.lapsa.epayment.domain.PaymentMethod;
-import tech.lapsa.epayment.facade.EJBViaCDI;
-import tech.lapsa.epayment.facade.EpaymentFacade;
+import tech.lapsa.epayment.facade.EpaymentFacade.EpaymentFacadeRemote;
+import tech.lapsa.epayment.facade.InvoiceNotFound;
 import tech.lapsa.epayment.facade.PaymentMethod.Http;
 import tech.lapsa.epayment.shared.entity.XmlHttpForm;
 import tech.lapsa.epayment.shared.entity.XmlHttpFormParam;
@@ -36,6 +36,7 @@ import tech.lapsa.epayment.shared.entity.XmlPaymentMethod;
 import tech.lapsa.epayment.shared.entity.XmlPaymentMethodType;
 import tech.lapsa.epayment.shared.entity.XmlPaymentResult;
 import tech.lapsa.epayment.ws.auth.EpaymentSecurity;
+import tech.lapsa.java.commons.exceptions.IllegalArgument;
 import tech.lapsa.java.commons.function.MyExceptions;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
 import tech.lapsa.javax.rs.utility.WrongArgumentException;
@@ -70,9 +71,8 @@ public class InvoiceWS extends ABaseWS {
 	}
     }
 
-    @Inject
-    @EJBViaCDI
-    private EpaymentFacade epayments;
+    @EJB
+    private EpaymentFacadeRemote epayments;
 
     private XmlInvoiceInfo _fetchInvoice(final XmlInvoiceFetchRequest request)
 	    throws WrongArgumentException, InternalServerErrorException {
@@ -81,7 +81,7 @@ public class InvoiceWS extends ABaseWS {
 	    Invoice i;
 	    try {
 		i = epayments.getInvoiceByNumber(request.getId());
-	    } catch (final IllegalArgumentException e) {
+	    } catch (final IllegalArgument | InvoiceNotFound e) {
 		// this is because invoice number must be validated and checked
 		// at this point
 		throw new InternalServerErrorException(e);
@@ -135,7 +135,7 @@ public class InvoiceWS extends ABaseWS {
 	}
     }
 
-    private XmlPaymentMethodType mapPaymentMethod(PaymentMethod method) {
+    private XmlPaymentMethodType mapPaymentMethod(final PaymentMethod method) {
 	if (method == null)
 	    return null;
 	switch (method) {
@@ -164,7 +164,7 @@ public class InvoiceWS extends ABaseWS {
 	final Http http;
 	try {
 	    http = epayments.qazkomHttpMethod(postbackURI, failureURI, returnURI, invoice).getHttp();
-	} catch (final IllegalArgumentException e) {
+	} catch (final IllegalArgument e) {
 	    // this is because something goes wrong
 	    throw new InternalServerErrorException(e);
 	}
