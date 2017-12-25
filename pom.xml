@@ -36,7 +36,7 @@
 		<payara-hibernate-validation.version>1.0</payara-hibernate-validation.version>
 		<epayment-facade.version>1.1-SNAPSHOT</epayment-facade.version>
 		<!-- oldies -->
-		<lapsa-lib.version>2.2</lapsa-lib.version>
+		<lapsa-lib.version>2.3-SNAPSHOT</lapsa-lib.version>
 	</properties>
 
 	<dependencyManagement>
