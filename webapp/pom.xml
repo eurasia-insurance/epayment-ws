@@ -18,8 +18,7 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>epayment-ws-dependencies</artifactId>
 			<type>pom</type>
-			<scope>compile</scope>
-			<optional>false</optional>
+			<scope>provided</scope>
 		</dependency>
 		<!-- JavaEE -->
 		<dependency>
