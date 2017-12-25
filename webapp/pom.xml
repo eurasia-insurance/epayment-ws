@@ -10,7 +10,7 @@
 	<artifactId>epayment-ws</artifactId>
 	<packaging>war</packaging>
 
-	<name>Epayment Lib : Web-services : Web Application</name>
+	<name>Epayment Lib : Web-services : WAR</name>
 
 	<dependencies>
 		<!-- own -->

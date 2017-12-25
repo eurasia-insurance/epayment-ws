@@ -10,7 +10,7 @@
 	<artifactId>epayment-ws-app</artifactId>
 	<packaging>ear</packaging>
 
-	<name>Epayment Lib : Web-services : EE Application</name>
+	<name>Epayment Lib : Web-services : EAR</name>
 
 	<dependencies>
 		<dependency>
