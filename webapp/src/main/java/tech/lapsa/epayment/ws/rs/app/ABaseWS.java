@@ -14,11 +14,11 @@ import tech.lapsa.epayment.ws.mail.QAdmin;
 import tech.lapsa.java.commons.function.MyOptionals;
 import tech.lapsa.java.commons.function.MyStrings;
 import tech.lapsa.java.commons.logging.MyLogger;
-import tech.lapsa.javax.mail.MailException;
-import tech.lapsa.javax.mail.MailFactory;
-import tech.lapsa.javax.mail.MailMessageBuilder;
 import tech.lapsa.javax.rs.utility.InternalServerErrorException;
 import tech.lapsa.javax.rs.utility.WrongArgumentException;
+import tech.lapsa.lapsa.mail.MailException;
+import tech.lapsa.lapsa.mail.MailFactory;
+import tech.lapsa.lapsa.mail.MailMessageBuilder;
 
 public abstract class ABaseWS {
 
