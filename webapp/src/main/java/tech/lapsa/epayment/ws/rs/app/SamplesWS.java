@@ -11,7 +11,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import tech.lapsa.epayment.shared.entity.XmlInvoiceInfo;
+import tech.lapsa.epayment.ws.entity.XmlInvoiceInfo;
 
 @Path("/" + WSPathNames.WS_SAMPLES)
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
