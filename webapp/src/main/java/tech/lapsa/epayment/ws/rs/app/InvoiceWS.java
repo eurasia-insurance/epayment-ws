@@ -120,7 +120,7 @@ public class InvoiceWS extends ABaseWS {
 		response.setStatus(XmlInvoiceStatus.PAID);
 		response.setPaid(i.getPayment().getCreated());
 		final XmlPaymentMethodType type = mapPaymentMethod(i.getPayment().getMethod());
-		final XmlPaymentResult result = new XmlPaymentResult(type, i.getPayment().getReferenceNumber(),
+		final XmlPaymentResult result = new XmlPaymentResult(type, i.getPayment().getReference(),
 			i.getCreated());
 		response.setResult(result);
 		break;
