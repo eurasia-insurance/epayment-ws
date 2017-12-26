@@ -5,16 +5,16 @@ import java.net.URISyntaxException;
 import java.time.Instant;
 import java.util.Arrays;
 
-import tech.lapsa.epayment.shared.entity.XmlHttpForm;
-import tech.lapsa.epayment.shared.entity.XmlHttpFormParam;
-import tech.lapsa.epayment.shared.entity.XmlInvoiceInfo;
-import tech.lapsa.epayment.shared.entity.XmlInvoicePurposeItem;
-import tech.lapsa.epayment.shared.entity.XmlInvoiceStatus;
-import tech.lapsa.epayment.shared.entity.XmlPayer;
-import tech.lapsa.epayment.shared.entity.XmlPayment;
-import tech.lapsa.epayment.shared.entity.XmlPaymentMethod;
-import tech.lapsa.epayment.shared.entity.XmlPaymentMethodType;
-import tech.lapsa.epayment.shared.entity.XmlPaymentResult;
+import tech.lapsa.epayment.ws.entity.XmlHttpForm;
+import tech.lapsa.epayment.ws.entity.XmlHttpFormParam;
+import tech.lapsa.epayment.ws.entity.XmlInvoiceInfo;
+import tech.lapsa.epayment.ws.entity.XmlInvoicePurposeItem;
+import tech.lapsa.epayment.ws.entity.XmlInvoiceStatus;
+import tech.lapsa.epayment.ws.entity.XmlPayer;
+import tech.lapsa.epayment.ws.entity.XmlPayment;
+import tech.lapsa.epayment.ws.entity.XmlPaymentMethod;
+import tech.lapsa.epayment.ws.entity.XmlPaymentMethodType;
+import tech.lapsa.epayment.ws.entity.XmlPaymentResult;
 
 public class SamplesUtil {
     public static XmlInvoiceInfo invoiceInfoSample() {
