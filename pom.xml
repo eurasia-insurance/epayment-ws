@@ -22,21 +22,21 @@
 
 	<properties>
 		<!-- BOMS -->
-		<java-commons.version>1.1-SNAPSHOT</java-commons.version>
-		<javax-javaee-bom.version>7.0a-SNAPSHOT</javax-javaee-bom.version>
-		<payara-bom.version>4.1.2-2-SNAPSHOT</payara-bom.version>
+		<java-commons.version>1.1</java-commons.version>
+		<javax-javaee-bom.version>7.0a</javax-javaee-bom.version>
+		<payara-bom.version>4.1.2-2</payara-bom.version>
 		<!-- tech -->
-		<java-jaxb-commons.version>1.1-SNAPSHOT</java-jaxb-commons.version>
-		<javax-rs-commons.version>1.1-SNAPSHOT</javax-rs-commons.version>
-		<javax-cdi-commons.version>1.1-SNAPSHOT</javax-cdi-commons.version>
-		<javax-validation-commons.version>1.1-SNAPSHOT</javax-validation-commons.version>
-		<lapsa-mail-root.version>2.1-SNAPSHOT</lapsa-mail-root.version>
-		<epayment-shared.version>1.0-SNAPSHOT</epayment-shared.version>
-		<payara-jersey-extensions.version>1.0</payara-jersey-extensions.version>
-		<payara-hibernate-validation.version>1.0</payara-hibernate-validation.version>
-		<epayment-facade.version>1.1-SNAPSHOT</epayment-facade.version>
+		<java-jaxb-commons.version>1.1</java-jaxb-commons.version>
+		<javax-rs-commons.version>1.1</javax-rs-commons.version>
+		<javax-cdi-commons.version>1.1</javax-cdi-commons.version>
+		<javax-validation-commons.version>1.1</javax-validation-commons.version>
+		<lapsa-mail.version>2.1</lapsa-mail.version>
+		<epayment-shared.version>1.0</epayment-shared.version>
+		<payara-jersey-extensions.version>1.1</payara-jersey-extensions.version>
+		<payara-hibernate-validation.version>1.1</payara-hibernate-validation.version>
+		<epayment-facade.version>1.1</epayment-facade.version>
 		<!-- oldies -->
-		<lapsa-lib.version>2.3-SNAPSHOT</lapsa-lib.version>
+		<lapsa-lib.version>2.3</lapsa-lib.version>
 	</properties>
 
 	<dependencyManagement>
@@ -66,7 +66,7 @@
 			<dependency>
 				<groupId>tech.lapsa.lapsa</groupId>
 				<artifactId>lapsa-mail-root</artifactId>
-				<version>${lapsa-mail-root.version}</version>
+				<version>${lapsa-mail.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
