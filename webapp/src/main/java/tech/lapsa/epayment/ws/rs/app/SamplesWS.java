@@ -4,7 +4,6 @@ import static tech.lapsa.epayment.ws.rs.app.SamplesUtil.*;
 import static tech.lapsa.javax.rs.utility.RESTUtils.*;
 
 import javax.annotation.security.PermitAll;
-import javax.inject.Singleton;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,7 +15,6 @@ import tech.lapsa.epayment.ws.entity.XmlInvoiceInfo;
 @Path("/" + WSPathNames.WS_SAMPLES)
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 @PermitAll
-@Singleton
 public class SamplesWS extends ABaseWS {
 
     @GET
