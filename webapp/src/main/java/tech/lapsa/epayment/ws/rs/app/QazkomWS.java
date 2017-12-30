@@ -4,7 +4,6 @@ import static tech.lapsa.javax.rs.utility.RESTUtils.*;
 
 import javax.annotation.security.PermitAll;
 import javax.ejb.EJB;
-import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -25,7 +24,6 @@ import tech.lapsa.javax.rs.utility.WrongArgumentException;
 @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 @Produces(MediaType.TEXT_PLAIN)
 @PermitAll
-@Singleton
 public class QazkomWS extends ABaseWS {
 
     @EJB
