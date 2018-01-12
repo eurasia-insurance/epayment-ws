@@ -22,7 +22,7 @@
 
 	<properties>
 		<!-- BOMS -->
-		<java-commons.version>1.1</java-commons.version>
+		<java-commons.version>1.2-SNAPSHOT</java-commons.version>
 		<javax-javaee-bom.version>7.0a</javax-javaee-bom.version>
 		<payara-bom.version>4.1.2-2</payara-bom.version>
 		<!-- tech -->
@@ -34,7 +34,8 @@
 		<epayment-shared.version>1.0</epayment-shared.version>
 		<payara-jersey-extensions.version>1.1</payara-jersey-extensions.version>
 		<payara-hibernate-validation.version>1.1.1</payara-hibernate-validation.version>
-		<epayment-facade.version>1.1</epayment-facade.version>
+		<!-- EJB clients -->
+		<epayment-facade-client.version>1.2-SNAPSHOT</epayment-facade-client.version>
 		<!-- oldies -->
 		<lapsa-lib.version>2.3</lapsa-lib.version>
 	</properties>
@@ -70,13 +71,6 @@
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
-			<dependency>
-				<groupId>tech.lapsa.epayment</groupId>
-				<artifactId>epayment-facade-root</artifactId>
-				<version>${epayment-facade.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
 			<!-- own -->
 			<dependency>
 				<groupId>${project.groupId}</groupId>
@@ -97,6 +91,11 @@
 				<type>ear</type>
 			</dependency>
 			<!-- tech -->
+			<dependency>
+				<groupId>tech.lapsa.epayment</groupId>
+				<artifactId>epayment-facade-client</artifactId>
+				<version>${epayment-facade-client.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>tech.lapsa.java</groupId>
 				<artifactId>java-jaxb-commons</artifactId>
