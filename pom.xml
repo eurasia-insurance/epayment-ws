@@ -35,7 +35,7 @@
 		<payara-jersey-extensions.version>1.1</payara-jersey-extensions.version>
 		<payara-hibernate-validation.version>1.1.1</payara-hibernate-validation.version>
 		<!-- EJB clients -->
-		<epayment-facade-client.version>1.2.1-SNAPSHOT</epayment-facade-client.version>
+		<epayment-facade-client.version>1.2.1</epayment-facade-client.version>
 		<!-- oldies -->
 		<lapsa-lib.version>2.3</lapsa-lib.version>
 	</properties>
