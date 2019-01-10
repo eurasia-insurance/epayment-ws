@@ -9,7 +9,7 @@
 
 	<groupId>tech.lapsa.epayment</groupId>
 	<artifactId>epayment-ws-root</artifactId>
-	<version>CURRENT-SNAPSHOT</version>
+	<version>20190110</version>
 	<packaging>pom</packaging>
 
 	<name>Epayment Lib : Web-services</name>
@@ -137,7 +137,7 @@
 	<scm>
 		<connection>scm:git:https://github.com/eurasia-insurance/epayment-ws.git</connection>
 		<developerConnection>scm:git:https://github.com/eurasia-insurance/epayment-ws.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>v20190110</tag>
 	</scm>
 
 </project>
