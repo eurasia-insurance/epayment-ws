@@ -112,6 +112,7 @@ public class InvoiceWS extends ABaseWS {
 		response.setAvailableMethods(builder.build().toArray(XmlPaymentMethod[]::new));
 		break;
 	    case EXPIRED:
+	    case PAYMENT_CANCELED:
 		response.setStatus(XmlInvoiceStatus.CANCELED);
 		break;
 	    case PAID:
