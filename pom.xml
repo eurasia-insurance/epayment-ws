@@ -22,22 +22,22 @@
 
 	<properties>
 		<!-- BOMS -->
-		<java-commons.version>CURRENT-SNAPSHOT</java-commons.version>
-		<javax-javaee-bom.version>CURRENT-SNAPSHOT</javax-javaee-bom.version>
-		<payara-bom.version>CURRENT-SNAPSHOT</payara-bom.version>
+		<java-commons.version>20190127r1</java-commons.version>
+		<javax-javaee-bom.version>20190127r1</javax-javaee-bom.version>
+		<payara-bom.version>20190127r1</payara-bom.version>
 		<!-- tech -->
-		<java-jaxb-commons.version>CURRENT-SNAPSHOT</java-jaxb-commons.version>
-		<javax-rs-commons.version>CURRENT-SNAPSHOT</javax-rs-commons.version>
-		<javax-cdi-commons.version>CURRENT-SNAPSHOT</javax-cdi-commons.version>
-		<javax-validation-commons.version>CURRENT-SNAPSHOT</javax-validation-commons.version>
-		<lapsa-mail.version>CURRENT-SNAPSHOT</lapsa-mail.version>
-		<epayment-shared.version>CURRENT-SNAPSHOT</epayment-shared.version>
-		<payara-jersey-extensions.version>CURRENT-SNAPSHOT</payara-jersey-extensions.version>
-		<payara-hibernate-validation.version>CURRENT-SNAPSHOT</payara-hibernate-validation.version>
+		<java-jaxb-commons.version>20190127r1</java-jaxb-commons.version>
+		<javax-rs-commons.version>20190127r1</javax-rs-commons.version>
+		<javax-cdi-commons.version>20190127r1</javax-cdi-commons.version>
+		<javax-validation-commons.version>20190127r1</javax-validation-commons.version>
+		<lapsa-mail.version>20190127r1</lapsa-mail.version>
+		<epayment-shared.version>20190127r1</epayment-shared.version>
+		<payara-jersey-extensions.version>20190127r1</payara-jersey-extensions.version>
+		<payara-hibernate-validation.version>20190127r1</payara-hibernate-validation.version>
 		<!-- EJB clients -->
-		<epayment-facade-client.version>CURRENT-SNAPSHOT</epayment-facade-client.version>
+		<epayment-facade-client.version>20190127r1</epayment-facade-client.version>
 		<!-- oldies -->
-		<lapsa-lib.version>CURRENT-SNAPSHOT</lapsa-lib.version>
+		<lapsa-lib.version>20190127r1</lapsa-lib.version>
 	</properties>
 
 	<dependencyManagement>
