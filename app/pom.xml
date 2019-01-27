@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>tech.lapsa.epayment</groupId>
 		<artifactId>epayment-ws-root</artifactId>
-		<version>CURRENT-SNAPSHOT</version>
+		<version>20190127r1</version>
 	</parent>
 
 	<artifactId>epayment-ws-app</artifactId>
